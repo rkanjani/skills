@@ -25,14 +25,14 @@ Prepare an iOS app for App Store Connect without losing track of release details
 Clone the collection:
 
 ```bash
-git clone https://github.com/rkanjani/Skills.git
+git clone https://github.com/rkanjani/skills.git
 ```
 
 Copy a skill into your Codex skills directory:
 
 ```bash
 mkdir -p ~/.codex/skills
-cp -R Skills/app-store-submit ~/.codex/skills/
+cp -R skills/app-store-submit ~/.codex/skills/
 ```
 
 Restart Codex after installing, then invoke it directly:
