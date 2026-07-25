@@ -1,4 +1,4 @@
 interface:
   display_name: "App Store Submit"
-  short_description: "Prepare and verify an iOS App Store release"
-  default_prompt: "Use $app-store-submit to prepare this iOS app for App Store Connect and report anything still blocking review."
+  short_description: "Prepare iOS releases and simulator screenshots"
+  default_prompt: "Use $app-store-submit to prepare this iOS app, capture and upload simulator screenshots, and report anything blocking review."

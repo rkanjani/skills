@@ -82,7 +82,7 @@ const reservationBody = {
   data: {
     type: "appScreenshots",
     attributes: {
-      fileName: "<validated-file-name>.png",
+      fileName: "<validated-file-name>.<validated-extension>",
       fileSize: <validated-byte-count>
     },
     relationships: {

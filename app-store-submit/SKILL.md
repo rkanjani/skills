@@ -1,6 +1,6 @@
 ---
 name: app-store-submit
-description: Prepare iOS apps for App Store Connect. Use when Codex needs to inspect release readiness, validate App Store icons or screenshots, plan and capture listing media, upload media, complete listing metadata, diagnose submission blockers, submit an app for review, or verify App Store Connect state.
+description: Prepare iOS apps for App Store Connect. Use when Codex needs to inspect release readiness, build and drive an app in iOS Simulator to capture App Store screenshots, validate icons or screenshots, upload listing media, complete metadata, diagnose submission blockers, submit an app for review, or verify App Store Connect state.
 ---
 
 # App Store Submit
@@ -24,23 +24,25 @@ Drive an iOS App Store release from repository inspection to a verified App Stor
 3. Verify the release build and icon.
    - Use the repository's existing build and archive workflow.
    - Run `scripts/validate_app_store_assets.py --project-root <repo>` for a PNG asset-catalog icon, or pass `--icon <path-to-1024-png>`.
-   - For Icon Composer or layered icons, verify the archived build with Xcode's validation tooling; the PNG validator does not model layered icon output.
+   - For Icon Composer or layered icons, verify the archived build with Xcode's validation tooling; the asset validator does not model layered icon output.
    - Finish when the release build is valid or every build blocker is reported with its evidence.
 
 4. Plan and capture listing screenshots.
+   - Read `references/simulator-screenshot-capture.md` when screenshots must be produced from an iOS Simulator.
    - Choose real product states that communicate the app's primary jobs and differentiators.
    - Prefer in-flow screens over launch, sign-in, permission, placeholder, or empty states unless one of those is itself a product capability.
    - Keep device family, orientation, language, appearance, and status-bar treatment consistent within each screenshot set.
    - Check Apple's current screenshot specification before capture; do not assume dimensions from an older release.
-   - Save ordered assets in a stable directory using descriptive names such as `01-primary-feature.png`.
-   - Finish when each screenshot has a message, source state, target device family, and order.
+   - Save ordered assets in a stable directory using descriptive names such as `01-primary-feature.jpg`.
+   - Finish when each screenshot has a message, source state, target device family, order, and validated local file.
 
 5. Validate listing assets.
    - Run `scripts/validate_app_store_assets.py --screenshots <dir>`.
-   - Resolve invalid dimensions, transparency, corrupt PNG data, missing files, duplicate frames, and accidental sensitive data before upload.
+   - Resolve invalid dimensions, transparency, corrupt image data, missing files, duplicate frames, and accidental sensitive data before upload.
    - Finish when every intended asset passes deterministic validation and a visual inspection.
 
 6. Upload media.
+   - When the requested scope includes App Store listing media or submission, continue from simulator capture to upload. Do not stop after creating local files.
    - Prefer the App Store Connect UI when it is reliable.
    - Prefer Apple's documented App Store Connect API for repeatable automation when API credentials and an existing workflow are available.
    - Use the authenticated browser-session fallback in `references/app-store-connect-media-api.md` only when the UI is blocked and the user is already signed in.
@@ -62,12 +64,13 @@ Drive an iOS App Store release from repository inspection to a verified App Stor
 
 ## References
 
+- Read `references/simulator-screenshot-capture.md` when building, installing, driving, and capturing the app in iOS Simulator.
 - Read `references/app-store-connect-media-api.md` for screenshot-set discovery, upload reservation, storage upload, commit, ordering, and verification.
 - Read `references/app-store-connect-submission-api.md` for listing metadata, categories, age rating, privacy, pricing, review details, and review submission.
 
 ## Script
 
-- `scripts/validate_app_store_assets.py` validates PNG integrity, transparency, current iPhone screenshot dimensions, and a 1024×1024 App Store icon. It emits MD5 and SHA-256 values for upload commits and audit trails.
+- `scripts/validate_app_store_assets.py` validates PNG or JPEG screenshot integrity, transparency, current iPhone screenshot dimensions, and a 1024×1024 PNG App Store icon. It emits MD5 and SHA-256 values for upload commits and audit trails.
 
 ## Current Apple references
 

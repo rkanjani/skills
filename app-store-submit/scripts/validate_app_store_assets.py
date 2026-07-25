@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate PNG assets intended for an iPhone App Store listing."""
+"""Validate image assets intended for an iPhone App Store listing."""
 
 from __future__ import annotations
 
@@ -14,6 +14,23 @@ from typing import BinaryIO
 
 
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+JPEG_SIGNATURE = b"\xff\xd8"
+JPEG_SOF_MARKERS = {
+    0xC0,
+    0xC1,
+    0xC2,
+    0xC3,
+    0xC5,
+    0xC6,
+    0xC7,
+    0xC9,
+    0xCA,
+    0xCB,
+    0xCD,
+    0xCE,
+    0xCF,
+}
+SCREENSHOT_SUFFIXES = {".png", ".jpg", ".jpeg"}
 
 # Keep aligned with Apple's current iPhone screenshot specifications:
 # https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/
@@ -92,6 +109,61 @@ def png_metadata(path: Path) -> tuple[int, int, bool]:
     return width, height, has_alpha
 
 
+def jpeg_metadata(path: Path) -> tuple[int, int, bool]:
+    with path.open("rb") as handle:
+        if handle.read(2) != JPEG_SIGNATURE:
+            raise ValueError("not a JPEG")
+
+        while True:
+            prefix = handle.read(1)
+            while prefix != b"\xff":
+                if not prefix:
+                    raise ValueError("JPEG has no start-of-frame marker")
+                prefix = handle.read(1)
+
+            marker_byte = handle.read(1)
+            while marker_byte == b"\xff":
+                marker_byte = handle.read(1)
+            if not marker_byte:
+                raise ValueError("truncated JPEG marker")
+
+            marker = marker_byte[0]
+            if marker == 0xD9:
+                raise ValueError("JPEG ended before dimensions were found")
+            if marker in {0x01, 0xD8} or 0xD0 <= marker <= 0xD7:
+                continue
+
+            length_bytes = handle.read(2)
+            if len(length_bytes) != 2:
+                raise ValueError("truncated JPEG segment length")
+            segment_length = struct.unpack(">H", length_bytes)[0]
+            if segment_length < 2:
+                raise ValueError("invalid JPEG segment length")
+
+            if marker in JPEG_SOF_MARKERS:
+                frame = handle.read(segment_length - 2)
+                if len(frame) < 5:
+                    raise ValueError("truncated JPEG start-of-frame segment")
+                height, width = struct.unpack(">HH", frame[1:5])
+                if width == 0 or height == 0:
+                    raise ValueError("invalid JPEG dimensions")
+                return width, height, False
+
+            handle.seek(segment_length - 2, 1)
+
+
+def image_metadata(path: Path) -> tuple[int, int, bool, str]:
+    with path.open("rb") as handle:
+        signature = handle.read(8)
+    if signature == PNG_SIGNATURE:
+        width, height, has_alpha = png_metadata(path)
+        return width, height, has_alpha, "png"
+    if signature.startswith(JPEG_SIGNATURE):
+        width, height, has_alpha = jpeg_metadata(path)
+        return width, height, has_alpha, "jpeg"
+    raise ValueError("unsupported image format")
+
+
 def file_hashes(path: Path) -> dict[str, str]:
     md5 = hashlib.md5()
     sha256 = hashlib.sha256()
@@ -103,21 +175,24 @@ def file_hashes(path: Path) -> dict[str, str]:
 
 
 def result_for(path: Path, kind: str) -> dict[str, object]:
-    width, height, has_alpha = png_metadata(path)
+    width, height, has_alpha, image_format = image_metadata(path)
     valid_dimensions = (
         width == 1024 and height == 1024
         if kind == "icon"
         else (width, height) in IPHONE_SCREENSHOT_SIZES
     )
+    valid_format = image_format == "png" if kind == "icon" else True
     return {
         "path": str(path),
         "kind": kind,
+        "format": image_format,
         "width": width,
         "height": height,
         "bytes": path.stat().st_size,
         "has_alpha": has_alpha,
+        "valid_format": valid_format,
         "valid_dimensions": valid_dimensions,
-        "valid": valid_dimensions and not has_alpha,
+        "valid": valid_format and valid_dimensions and not has_alpha,
         **file_hashes(path),
     }
 
@@ -153,9 +228,13 @@ def collect_results(
         if not screenshots.is_dir():
             errors.append(f"{screenshots}: screenshot directory does not exist")
         else:
-            paths = sorted(screenshots.glob("*.png"))
+            paths = sorted(
+                path
+                for path in screenshots.iterdir()
+                if path.is_file() and path.suffix.lower() in SCREENSHOT_SUFFIXES
+            )
             if not paths:
-                errors.append(f"{screenshots}: no PNG screenshots found")
+                errors.append(f"{screenshots}: no PNG or JPEG screenshots found")
             for path in paths:
                 try:
                     results.append(result_for(path, "screenshot"))
@@ -168,8 +247,9 @@ def collect_results(
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Validate a 1024x1024 App Store icon and PNG screenshots against "
-            "current iPhone listing dimensions and transparency rules."
+            "Validate a 1024x1024 PNG App Store icon and PNG or JPEG "
+            "screenshots against current iPhone listing dimensions and "
+            "transparency rules."
         )
     )
     parser.add_argument("--project-root", type=Path, default=Path.cwd())
@@ -190,13 +270,16 @@ def main() -> int:
         for item in results:
             status = "OK" if item["valid"] else "INVALID"
             details = []
+            if not item["valid_format"]:
+                details.append("unsupported format")
             if not item["valid_dimensions"]:
                 details.append("unsupported dimensions")
             if item["has_alpha"]:
                 details.append("contains transparency")
             suffix = f" ({', '.join(details)})" if details else ""
             print(
-                f"{status} {item['kind']} {item['width']}x{item['height']} "
+                f"{status} {item['format']} {item['kind']} "
+                f"{item['width']}x{item['height']} "
                 f"{item['bytes']} bytes {item['path']}{suffix}"
             )
             print(f"  md5={item['md5']} sha256={item['sha256']}")

@@ -12,7 +12,7 @@ Prepare an iOS app for App Store Connect without losing track of release details
 
 - Inspect the Xcode release setup.
 - Validate the App Store icon and iPhone screenshots.
-- Plan screenshots around the product's real value.
+- Build and drive the app in iOS Simulator to capture real product screenshots.
 - Upload media through App Store Connect.
 - Complete listing and review prerequisites from verified app facts.
 - Submit for App Review only after an explicit approval.
