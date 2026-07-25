@@ -1,8 +1,8 @@
 # Skills
 
-Practical agent skills for shipping real software.
+Practical agent skills that I love.
 
-Each skill is a self-contained workflow: focused instructions, reusable references, and deterministic scripts where reliability matters.
+Each skill is a self-contained workflow, which means focused instructions, reusable references, and deterministic scripts where reliability matters.
 
 ## Available skills
 
@@ -44,10 +44,10 @@ Use $app-store-submit to prepare this iOS app for App Store Connect.
 ## Design principles
 
 - **Operational:** Each skill drives work to a verifiable outcome.
-- **Safe:** Irreversible actions require explicit authorization.
-- **Portable:** Examples use discovery and placeholders instead of project assumptions.
-- **Lean:** Detailed material is loaded only when its workflow branch needs it.
+- **Human in the loop:** Irreversible actions require explicit authorization.
+- **Lean:** As concise as possible, to keep your tokens for building :)
 
+  
 ## Acknowledgements
 
 Some of the thinking behind this collection, including treating agent instructions as reusable, focused workflows, was inspired by [Matt Pocock's skills repository](https://github.com/mattpocock/skills). The skills published here are my own implementations; when a skill directly adapts third-party material, it will include specific attribution.
