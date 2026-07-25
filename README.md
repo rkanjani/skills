@@ -50,7 +50,7 @@ Use $app-store-submit to prepare this iOS app for App Store Connect.
 
 ## Acknowledgements
 
-Some of the thinking behind this collection—including treating agent instructions as reusable, focused workflows—was inspired by [Matt Pocock's skills repository](https://github.com/mattpocock/skills). The skills published here are my own implementations; when a skill directly adapts third-party material, it will include specific attribution.
+Some of the thinking behind this collection, including treating agent instructions as reusable, focused workflows, was inspired by [Matt Pocock's skills repository](https://github.com/mattpocock/skills). The skills published here are my own implementations; when a skill directly adapts third-party material, it will include specific attribution.
 
 ## License
 
