@@ -1,4 +1,4 @@
-# Skills
+# skillz
 
 Practical agent skills that I love.
 
