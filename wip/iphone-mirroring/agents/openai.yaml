@@ -1,0 +1,4 @@
+interface:
+  display_name: "iPhone Mirroring"
+  short_description: "Safely operate authorized mirrored iPhone tasks"
+  default_prompt: "Use $iphone-mirroring to orient to Apple iPhone Mirroring and perform my explicitly authorized bounded task safely."
