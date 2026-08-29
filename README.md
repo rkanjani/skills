@@ -1,8 +1,8 @@
 # skills
 
-Practical agent skills that I love.
+Practical agent skills that end up driving how I work.
 
-Each skill is a self-contained workflow, which means focused instructions, reusable references, and deterministic scripts where reliability matters.
+Each skill is meant to be installed by an agent. Make your life easier and just point your agent to the repo.
 
 ## Available skills
 
