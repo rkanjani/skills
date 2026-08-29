@@ -20,6 +20,22 @@ Prepare an iOS app for App Store Connect without losing track of release details
 
 [Explore `app-store-submit`](./app-store-submit/SKILL.md)
 
+### `grok-bot-team`
+
+Set up a Grok Bot product team without duplicating roles that already match the model.
+
+- Confirm the Lead / Builder / Growth / Team operating model and get authorization before creating anything.
+- Inspect existing teammates, group chats, and GitHub; reuse matches.
+- Create missing Lead, Builder, and Growth agents only.
+- Create a Team channel seating those roles.
+- Connect GitHub if it is missing.
+- Record standing spawn rules; extra Builders and temporary specialists are created later only when work needs them.
+- Verify the end state.
+
+This skill runs in Grok Bot chat with `/` or `@`. Publishing it on GitHub does not execute it.
+
+[Explore `grok-bot-team`](./grok-bot-team/SKILL.md)
+
 ## Install
 
 Clone the collection:
@@ -28,17 +44,22 @@ Clone the collection:
 git clone https://github.com/rkanjani/skills.git
 ```
 
-Copy a skill into your Codex skills directory:
+Copy a skill into your Codex skills directory (Grok Bot uses the same copy pattern into its skills library):
 
 ```bash
 mkdir -p ~/.codex/skills
 cp -R skills/app-store-submit ~/.codex/skills/
+cp -R skills/grok-bot-team ~/.codex/skills/
 ```
 
 Restart Codex after installing, then invoke it directly:
 
 ```text
 Use $app-store-submit to prepare this iOS app for App Store Connect.
+```
+
+```text
+Use $grok-bot-team to set up this Grok Bot product team.
 ```
 
 ## Design principles

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Grok Bot Team"
+  short_description: "Set up Lead, Builder, Growth, and Team"
+  default_prompt: "Use $grok-bot-team to set up this Grok Bot product team: Lead, Builder, Growth, a Team channel, and GitHub if it is missing."
