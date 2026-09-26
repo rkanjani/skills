@@ -1,0 +1,3 @@
+/* Per-video styles. Blocks register their own styles; put only this video's one-off styling here,
+   using brand variables from lib/kit.css. Keep critical copy inside the TikTok safe area:
+   x 60 to 960, y 220 to 1480 (top bar above, captions and the right rail below). */

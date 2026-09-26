@@ -1,0 +1,9 @@
+{
+  "name": "make-a-tiktok",
+  "private": true,
+  "type": "module",
+  "description": "Motion-graphics TikTok content engine: renderer and studio tooling.",
+  "dependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}

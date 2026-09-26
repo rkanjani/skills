@@ -1,0 +1,45 @@
+{
+  "app": "sample",
+  "name": "Sample App",
+  "url": "sample.app",
+  "category": "Neutral test brand",
+  "one_liner": "Build blocks once, reuse forever.",
+  "audience": "Used only by selftest and block demos.",
+  "personas": [
+    { "id": "builder", "desc": "Tests the engine." },
+    { "id": "reviewer", "desc": "Checks the output." }
+  ],
+  "voice": { "tone": "plain", "do": [], "dont": [], "banned": [] },
+  "features": [
+    { "id": "fast-answers", "name": "Fast answers", "proof": "Answers in one tap.", "icon": "zap", "ui": "A chat card." },
+    { "id": "live-data", "name": "Live data", "proof": "Numbers update as they change.", "icon": "activity", "ui": "Stat rows." },
+    { "id": "smart-plans", "name": "Smart plans", "proof": "Plans the week around your goals.", "icon": "calendar", "ui": "A planner." }
+  ],
+  "proof_points": [],
+  "cta": { "url": "sample.app", "primary": "Try it", "fineprint": "Sample brand for tests" },
+  "tokens": {
+    "bg": "#0a0d14",
+    "panel": "#121826",
+    "panel2": "#1a2233",
+    "ink": "#eef2ff",
+    "muted": "#94a3b8",
+    "line": "rgba(148, 163, 184, 0.16)",
+    "accent": "#38bdf8",
+    "brand": "#7c3aed",
+    "brandInk": "#ffffff",
+    "positive": "#34d399",
+    "warning": "#fbbf24",
+    "negative": "#f87171"
+  },
+  "fonts": {
+    "display": { "family": "Archivo", "weights": [800], "fallback": "sans-serif" },
+    "body": { "family": "Inter", "weights": [400, 500, 600, 700], "fallback": "system-ui, sans-serif" },
+    "css": "https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter:wght@400;500;600;700&display=block",
+    "files": []
+  },
+  "type": { "displayWeight": 800, "displayTracking": "-0.02em", "displayCase": "uppercase", "radius": "28px" },
+  "logo": null,
+  "world": { "preset": "dataGrid", "options": {}, "motif": "Abstract data floor." },
+  "disclaimers": [],
+  "sources": []
+}

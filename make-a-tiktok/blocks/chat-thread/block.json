@@ -1,0 +1,28 @@
+{
+  "id": "chat-thread",
+  "name": "AI chat thread",
+  "kind": "component",
+  "scope": "generic",
+  "signature": false,
+  "summary": "AI assistant chat card: branded header, empty state with suggestion chips, question typed into the composer with a caret, send press, message lifts into the thread, thinking row with the dotted orb and shimmer text.",
+  "params": {
+    "title": "header title (default '<brand> AI')",
+    "subtitle": "header subtitle",
+    "headerIcon": "Lucide icon name",
+    "empty": "{ title, text, suggestions[] } or null to skip the empty state",
+    "question": "text typed and sent",
+    "placeholder": "composer placeholder before typing",
+    "followup": "composer placeholder after sending",
+    "thinking": "shimmer text in the thinking row",
+    "layout": "{ left, top, width, bodyHeight }",
+    "cues": "{ in, typeStart, typeEnd, send, thinking, out }",
+    "pace": "{ enter, exit, stagger, accent } overrides for the PACE timings (seconds)"
+  },
+  "usage": "import * as chat from '../blocks/chat-thread/index.mjs';\nconst thread = chat.create(ctx, { subtitle: 'Week 18', question: copy.question, thinking: 'Reading your league', cues: { in: CUE.ask, typeStart: CUE.typeStart, typeEnd: CUE.typeEnd, send: CUE.send, thinking: CUE.thinking, out: CUE.scan } });",
+  "version": 2,
+  "origin": "draftkit #001",
+  "changelog": [
+    "v1 2026-09-26: extracted from the DraftKit showreel ask scene",
+    "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
+  ]
+}

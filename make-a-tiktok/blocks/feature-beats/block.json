@@ -1,0 +1,22 @@
+{
+  "id": "feature-beats",
+  "name": "Feature beats",
+  "kind": "component",
+  "scope": "generic",
+  "signature": false,
+  "summary": "One feature per beat: big index number, brand icon chip, fitted title, one proof line. Slams in from alternating directions and clears before the next beat. Give each beat about 4 s.",
+  "params": {
+    "items": "[{ index?, title, proof, icon (Lucide name), mode?: 'right'|'left'|'up'|'down'|'zoom', maxSize? }]",
+    "cues": "{ at: [time per item], end: time the last beat clears }",
+    "layout": "{ top }",
+    "modes": "entrance modes cycled when an item has none",
+    "pace": "{ enter, exit, stagger, accent } overrides for the PACE timings (seconds)"
+  },
+  "usage": "import * as feats from '../blocks/feature-beats/index.mjs';\nconst beats = feats.create(ctx, { items, cues: { at: CUE.features, end: CUE.payoff } });",
+  "version": 2,
+  "origin": "template",
+  "changelog": [
+    "v1 2026-09-26: extracted from the starter template",
+    "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
+  ]
+}

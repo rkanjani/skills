@@ -1,0 +1,25 @@
+{
+  "id": "arrangement-build-drop",
+  "name": "Build and drop arrangement",
+  "kind": "sound",
+  "scope": "generic",
+  "signature": false,
+  "summary": "Music bed for soundtrack.mjs: pads opening through a build, tuned 808 per bar, light drums before the drop and any genre pattern after it (per-bar 'four' for montage bars), snare roll and riser into a near-silent gap, the drop, and a ringing final chord. Places kicks from the shared KICKS list.",
+  "params": {
+    "progression": "array of chords (MIDI), e.g. PROGRESSIONS.darkPhonk",
+    "roots": "808 root per bar (MIDI 36-43 reads on phones)",
+    "style": "drum pattern after the drop: trap | phonk | house | drill | lofi | boombap | dnb | hyperpop | four",
+    "dropBar": "bar index of the drop",
+    "endBar": "bar index of the final chord (null to skip)",
+    "finalChord": "MIDI notes",
+    "kicks": "KICKS times from src/cues.mjs",
+    "montageBars": "bar indexes that use four-on-the-floor",
+    "gap": "seconds of near-silence before the drop",
+    "padGain": "number",
+    "bassGain": "number"
+  },
+  "usage": "import { arrange } from './blocks/arrangement-build-drop/index.mjs';\nconst { dropAt } = arrange(mix, grid, { style: 'phonk', progression: PROGRESSIONS.darkPhonk, dropBar: 4, kicks: KICKS });",
+  "version": 1,
+  "origin": "draftkit #001",
+  "changelog": ["v1 2026-09-26: generalized from the DraftKit showreel score"]
+}

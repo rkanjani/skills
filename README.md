@@ -36,6 +36,22 @@ This skill runs in Grok Bot chat with `/` or `@`. Publishing it on GitHub does n
 
 [Explore `grok-bot-team`](./grok-bot-team/SKILL.md)
 
+### `make-a-tiktok`
+
+Run a short-form content engine for any app: every run ships one new motion-graphics TikTok, Reel, or Short that varies from everything posted before.
+
+- Build a brand profile from the app's code or website: tokens, fonts, logo, features, personas, voice.
+- Read every previous script and vary the hook, format, feature, world, camera, music, and ending.
+- Keep every video readable: under 45 seconds, one idea per scene, a checked reading budget.
+- Animate in code, render frames in headless Chrome with motion blur, and score it with a synthesized soundtrack.
+- Export 9:16 and 4:5 at 60 fps and -14 LUFS, with covers and an SFX-only cut for trending sounds.
+- Grow a library of reusable building blocks so each video is faster to make than the last.
+- Prepare the caption and post notes; publishing stays with you.
+
+Needs Node 18+, ffmpeg, and Google Chrome. Run `npm install` inside the installed skill folder once.
+
+[Explore `make-a-tiktok`](./make-a-tiktok/SKILL.md)
+
 ## Install
 
 Clone the collection:
@@ -50,6 +66,7 @@ Copy a skill into your Codex skills directory (Grok Bot uses the same copy patte
 mkdir -p ~/.codex/skills
 cp -R skills/app-store-submit ~/.codex/skills/
 cp -R skills/grok-bot-team ~/.codex/skills/
+cp -R skills/make-a-tiktok ~/.codex/skills/
 ```
 
 Restart Codex after installing, then invoke it directly:

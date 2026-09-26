@@ -1,0 +1,22 @@
+{
+  "id": "payoff-words",
+  "name": "Payoff words",
+  "kind": "component",
+  "scope": "generic",
+  "signature": false,
+  "summary": "A centered display line that lands one word per beat (rise, scale, blur-in), optional accent words, clean exit. Give it a beat per word plus a 1.2 s hold.",
+  "params": {
+    "words": "string[] (keep punctuation on the word)",
+    "accent": "indexes of words colored with --accent",
+    "cues": "{ at (first word), step (seconds per word, usually grid.beat), out }",
+    "layout": "{ top, fontSize }",
+    "pace": "{ enter, exit, stagger, accent } overrides for the PACE timings (seconds)"
+  },
+  "usage": "import * as payoff from '../blocks/payoff-words/index.mjs';\nconst line = payoff.create(ctx, { words: copy.payoff, cues: { at: CUE.payoff, step: grid.beat, out: CUE.payoffOut } });",
+  "version": 2,
+  "origin": "template",
+  "changelog": [
+    "v1 2026-09-26: extracted from the starter template",
+    "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "hud-chip",
+  "name": "HUD chip",
+  "kind": "component",
+  "scope": "generic",
+  "signature": false,
+  "summary": "A persistent pill (live dot, a value like a score, separator, uppercase meta) that wipes open from the left and keeps context on screen across scenes. Exposes `value` as a shared-element flight target (see scoreboard-flip flyTo).",
+  "params": {
+    "live": "boolean live dot",
+    "value": "string, e.g. '4-5'",
+    "meta": "string",
+    "layout": "{ left, top }",
+    "cues": "{ in, out }",
+    "pace": "{ enter, exit, stagger, accent } overrides for the PACE timings (seconds)"
+  },
+  "usage": "import * as hudChip from '../blocks/hud-chip/index.mjs';\nconst hud = hudChip.create(ctx, { value: '4-5', meta: 'Week 18 \u00b7 2 nights left', cues: { in: CUE.ask, out: CUE.drop } });\n// hud.value is a flight target; hud.setValue('5-4') updates it",
+  "version": 2,
+  "origin": "draftkit #001",
+  "changelog": [
+    "v1 2026-09-26: extracted from the DraftKit showreel matchup HUD",
+    "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
+  ]
+}

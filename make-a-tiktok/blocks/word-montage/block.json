@@ -1,0 +1,22 @@
+{
+  "id": "word-montage",
+  "name": "Word montage",
+  "kind": "component",
+  "scope": "generic",
+  "signature": false,
+  "summary": "Rapid-fire display words, one per beat, with outlined echoes above and below and an optional mini card per word (built by a caller function). Entrances alternate zoom, right, left, up; each word exits toward the next entrance; the last word pushes into a hard cut. Give each word about 0.9 s or more.",
+  "params": {
+    "items": "[{ word, at, mode?: 'zoom'|'right'|'left'|'up', card?: (cardEl, ctx) => void, maxSize? }]",
+    "end": "time of the hard cut after the last word",
+    "echoes": "boolean outlined echo stack",
+    "layout": "{ wordTop, cardTop, maxSize, maxWidth }",
+    "pace": "{ enter, exit, stagger, accent } overrides for the PACE timings (seconds)"
+  },
+  "usage": "import * as montage from '../blocks/word-montage/index.mjs';\nconst words = montage.create(ctx, { items: [{ word: 'Stream.', at: CUE.w1, card: (el) => buildWaiverRow(el) }], end: CUE.next });",
+  "version": 2,
+  "origin": "draftkit #001",
+  "changelog": [
+    "v1 2026-09-26: extracted from the DraftKit showreel stream/sit/trade montage",
+    "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
+  ]
+}

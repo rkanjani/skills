@@ -1,0 +1,76 @@
+{
+  "id": "000",
+  "slug": "",
+  "app": "",
+  "title": "",
+  "created": "",
+  "status": "scripting",
+  "series": null,
+  "length": 24,
+  "bpm": 120,
+  "bars": 12,
+  "axes": {
+    "hook": "",
+    "format": "",
+    "feature": "",
+    "world": "",
+    "music": "",
+    "persona": "",
+    "camera": "",
+    "cta": "",
+    "length": "16-25",
+    "ending": "",
+    "palette": ""
+  },
+  "hook_line": "",
+  "scenes": [
+    {
+      "id": "hook",
+      "at": 0,
+      "out": 4,
+      "copy": []
+    },
+    {
+      "id": "feature-1",
+      "at": 4,
+      "out": 8,
+      "copy": []
+    },
+    {
+      "id": "feature-2",
+      "at": 8,
+      "out": 12,
+      "copy": []
+    },
+    {
+      "id": "feature-3",
+      "at": 12,
+      "out": 16,
+      "copy": []
+    },
+    {
+      "id": "payoff",
+      "at": 16,
+      "out": 20,
+      "copy": []
+    },
+    {
+      "id": "endcard",
+      "at": 20,
+      "out": 24,
+      "copy": []
+    }
+  ],
+  "features": [],
+  "claims": [],
+  "covers": [],
+  "crop45": 185,
+  "outputs": {},
+  "post": {
+    "caption": "",
+    "hashtags": [],
+    "sound": "original"
+  },
+  "performance": null,
+  "notes": ""
+}

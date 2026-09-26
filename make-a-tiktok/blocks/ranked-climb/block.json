@@ -1,0 +1,26 @@
+{
+  "id": "ranked-climb",
+  "name": "Leaderboard climb",
+  "kind": "component",
+  "scope": "generic",
+  "signature": false,
+  "summary": "Optional two-line title over a ranked table. Your highlighted row jumps up slot by slot on beats while passed rows slide down; ranks and your record update; at the top the title's last word rolls to a new word and a trophy pops in.",
+  "params": {
+    "title": "{ lines: [line1, line2], swap: 'word' } or null",
+    "header": "{ left, right } eyebrow labels",
+    "rows": "[{ name, rec }] the other entries in order",
+    "me": "{ name, badge, recs: [record at each rank state] }",
+    "jumps": "[{ at, from, to }] slot indexes (0 = first)",
+    "trophy": "boolean",
+    "layout": "{ left, width, titleTop, titleSize, cardTop, rowH }",
+    "cues": "{ in, swap (defaults to the last jump), out }",
+    "pace": "{ enter, exit, stagger, accent } overrides for the PACE timings (seconds)"
+  },
+  "usage": "import * as climb from '../blocks/ranked-climb/index.mjs';\nconst table = climb.create(ctx, { title: { lines: ['Win your', 'week.'], swap: 'league.' }, rows, me, jumps, cues: { in: CUE.climb, out: CUE.logo - 0.2 } });",
+  "version": 2,
+  "origin": "draftkit #001",
+  "changelog": [
+    "v1 2026-09-26: extracted from the DraftKit showreel standings climb",
+    "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
+  ]
+}

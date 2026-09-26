@@ -1,0 +1,396 @@
+{
+  "version": 1,
+  "about": "Variation catalog. Every video picks one value per axis. `feature` and `persona` values come from the studio brand profile. Weights set how much each axis counts toward novelty. Length follows the content: comprehension comes before brevity, and every video stays under 45 seconds.",
+  "weights": {
+    "hook": 1.3,
+    "format": 1.3,
+    "feature": 1.2,
+    "world": 1.0,
+    "music": 0.8,
+    "persona": 0.7,
+    "camera": 0.6,
+    "cta": 0.5,
+    "length": 0.5,
+    "ending": 0.5,
+    "palette": 0.4
+  },
+  "rules": {
+    "window": 5,
+    "minAxisDistance": 3,
+    "noRepeatTriple": [
+      "hook",
+      "format",
+      "feature"
+    ],
+    "noRepeatConsecutive": [
+      "hook",
+      "format"
+    ],
+    "hookSimilarityMax": 0.35,
+    "copySimilarityMax": 0.25,
+    "featureCooldown": 2,
+    "exploreShare": 0.3,
+    "maxLength": 45,
+    "sceneBaseSeconds": 1.5,
+    "secondsPerWord": 0.3,
+    "minSceneSeconds": 2.0,
+    "maxWordsPerSecond": 2.6,
+    "warnWordsPerSecond": 2.0
+  },
+  "axes": {
+    "hook": [
+      {
+        "id": "stakes-stat",
+        "how": "Open on a number that hurts or thrills: a score, a rank, a price, a streak."
+      },
+      {
+        "id": "pov",
+        "how": "\"POV: ...\" puts the viewer inside a specific, relatable moment."
+      },
+      {
+        "id": "question",
+        "how": "Ask the question the audience argues about. Answer it by the end."
+      },
+      {
+        "id": "bold-claim",
+        "how": "A confident, defensible claim that makes the viewer want to disagree."
+      },
+      {
+        "id": "myth-bust",
+        "how": "\"Stop doing X.\" Name a common habit and show why it costs them."
+      },
+      {
+        "id": "before-after",
+        "how": "Show the painful before and the clean after within the first two seconds."
+      },
+      {
+        "id": "countdown",
+        "how": "A visible clock or deadline creates urgency from frame one."
+      },
+      {
+        "id": "list-promise",
+        "how": "\"3 moves that ...\" promises a payoff the viewer stays for."
+      },
+      {
+        "id": "challenge",
+        "how": "\"Can the AI ...?\" A bet or test with a reveal."
+      },
+      {
+        "id": "confession",
+        "how": "A first-person admission: \"I finished last. Then ...\""
+      },
+      {
+        "id": "versus",
+        "how": "Two ways to do the job, side by side. The old way loses."
+      },
+      {
+        "id": "secret",
+        "how": "\"The trick nobody uses\": a specific, non-obvious tactic."
+      },
+      {
+        "id": "reaction",
+        "how": "Open on a reaction: a group chat, a notification storm, a rival's message."
+      },
+      {
+        "id": "quiz",
+        "how": "\"Pick one.\" Pause for a beat, then reveal what the product picked and why."
+      }
+    ],
+    "format": [
+      {
+        "id": "problem-ask-answer-payoff",
+        "how": "Stakes, the ask, the product thinking, the answer, the win."
+      },
+      {
+        "id": "listicle",
+        "how": "Numbered tips or moves, one per bar, each with a UI proof."
+      },
+      {
+        "id": "pov-story",
+        "how": "A first-person scenario told in on-screen text and UI moments."
+      },
+      {
+        "id": "feature-spotlight",
+        "how": "One feature, shown deeply: input, what it considers, output, result."
+      },
+      {
+        "id": "data-story",
+        "how": "One number or chart that tells the whole story, animated as data viz."
+      },
+      {
+        "id": "versus",
+        "how": "Split-screen or alternating beats: the old way against the product."
+      },
+      {
+        "id": "countdown",
+        "how": "A race against a visible timer; the product beats the clock."
+      },
+      {
+        "id": "quiz-reveal",
+        "how": "Present options, hold a beat for the guess, reveal with reasoning."
+      },
+      {
+        "id": "tutorial",
+        "how": "How to do one job in three steps, fast, with the real UI."
+      },
+      {
+        "id": "meme-remix",
+        "how": "A familiar meme structure rebuilt in the brand's motion language."
+      },
+      {
+        "id": "myth-vs-fact",
+        "how": "Alternate myth and fact cards, each landing on a beat."
+      },
+      {
+        "id": "teaser",
+        "how": "Tease a feature or update with partial reveals and a clear CTA."
+      }
+    ],
+    "world": [
+      {
+        "id": "domain-world",
+        "how": "A 3D line-art world from the app's domain (a court, a pitch, a track, a kitchen grid)."
+      },
+      {
+        "id": "data-floor",
+        "how": "An abstract glowing grid floor with rings; data as landscape."
+      },
+      {
+        "id": "phone-ui",
+        "how": "The product UI on a floating phone or cards, camera moving across screens."
+      },
+      {
+        "id": "kinetic-type",
+        "how": "Typography carries everything; minimal UI, maximal type motion."
+      },
+      {
+        "id": "data-viz",
+        "how": "Bars, lines, and numbers building and morphing as the main visual."
+      },
+      {
+        "id": "split-screen",
+        "how": "Two panes in contrast, wiping and trading focus on beats."
+      },
+      {
+        "id": "notification-storm",
+        "how": "Notifications, messages, and alerts stacking and resolving."
+      },
+      {
+        "id": "cards-3d",
+        "how": "Product cards floating in depth with parallax and rack focus."
+      },
+      {
+        "id": "editorial",
+        "how": "Magazine-style layout: big numerals, rules, captions, generous space."
+      },
+      {
+        "id": "map-route",
+        "how": "A path or route drawing across a map-like plane to a destination."
+      },
+      {
+        "id": "blueprint",
+        "how": "Technical drawing style: dimension lines, callouts, measured reveals."
+      }
+    ],
+    "camera": [
+      {
+        "id": "one-take",
+        "how": "One continuous camera move through the world for the whole piece."
+      },
+      {
+        "id": "hard-cuts",
+        "how": "Cut on bar downbeats; each cut changes framing decisively and the new frame holds long enough to read."
+      },
+      {
+        "id": "whip-pans",
+        "how": "Whip pans with motion blur carry the big transitions (two or three per video, about 0.5 s each); calm holds in between."
+      },
+      {
+        "id": "zoom-punches",
+        "how": "Punch-in zooms on the key word or number of a scene, synced to hits, then hold."
+      },
+      {
+        "id": "locked-off",
+        "how": "A mostly static poster frame; motion lives in the elements."
+      },
+      {
+        "id": "parallax-drift",
+        "how": "Slow layered drift with depth, calm pacing, premium feel."
+      },
+      {
+        "id": "orbit",
+        "how": "The camera circles a subject or the world's center."
+      },
+      {
+        "id": "crane",
+        "how": "Vertical moves: rising reveals, top-down drops."
+      }
+    ],
+    "music": [
+      {
+        "id": "trap",
+        "bpm": [
+          126,
+          145
+        ],
+        "how": "Half-time trap: syncopated kicks, clap on 3, hat rolls, 808."
+      },
+      {
+        "id": "phonk",
+        "bpm": [
+          120,
+          140
+        ],
+        "how": "Cowbell melody, heavy 808, dark minor progression."
+      },
+      {
+        "id": "house",
+        "bpm": [
+          120,
+          128
+        ],
+        "how": "Four on the floor, offbeat open hats, bright chords."
+      },
+      {
+        "id": "drill",
+        "bpm": [
+          138,
+          145
+        ],
+        "how": "Sliding 808s, skippy hats, tense minor harmony."
+      },
+      {
+        "id": "lofi",
+        "bpm": [
+          78,
+          96
+        ],
+        "how": "Soft keys, vinyl, lazy swing; calm, clever, explanatory."
+      },
+      {
+        "id": "boombap",
+        "bpm": [
+          86,
+          96
+        ],
+        "how": "Punchy kick and snare, head-nod groove, confident."
+      },
+      {
+        "id": "dnb",
+        "bpm": [
+          168,
+          176
+        ],
+        "how": "Breakbeat energy at double time; keep scene changes on bar lines so the picture stays readable."
+      },
+      {
+        "id": "hyperpop",
+        "bpm": [
+          150,
+          170
+        ],
+        "how": "Bright, maximal, glitchy; playful and loud."
+      },
+      {
+        "id": "four-on-floor",
+        "bpm": [
+          124,
+          132
+        ],
+        "how": "Driving chant beat: a hit on every beat for rapid-fire lists."
+      },
+      {
+        "id": "ui-asmr",
+        "bpm": [
+          100,
+          130
+        ],
+        "how": "No music: crisp UI clicks, whooshes, and tones carry the rhythm."
+      }
+    ],
+    "cta": [
+      {
+        "id": "url-endcard",
+        "how": "Logo, one line, and the URL as a button."
+      },
+      {
+        "id": "link-in-bio",
+        "how": "Point to the link in bio with a clear reason to tap."
+      },
+      {
+        "id": "comment-keyword",
+        "how": "\"Comment X\" to get a resource or answer; drives comments."
+      },
+      {
+        "id": "follow-series",
+        "how": "\"Follow for part 2\" or a recurring series name."
+      },
+      {
+        "id": "question-prompt",
+        "how": "End on a question the audience will answer in comments."
+      },
+      {
+        "id": "save-this",
+        "how": "\"Save this for Sunday\": utility content worth bookmarking."
+      }
+    ],
+    "palette": [
+      {
+        "id": "dark-brand",
+        "how": "The brand's dark surfaces with accent highlights."
+      },
+      {
+        "id": "light-brand",
+        "how": "Light surfaces; switch the world to multiply blending."
+      },
+      {
+        "id": "accent-flood",
+        "how": "Full-bleed brand color moments for the biggest beats."
+      },
+      {
+        "id": "mono-accent",
+        "how": "Near-monochrome with one accent color doing all the work."
+      }
+    ],
+    "length": [
+      {
+        "id": "0-15",
+        "upTo": 15,
+        "how": "One idea: a single stat, one before and after, or one tip. Hook, the idea, the end card."
+      },
+      {
+        "id": "16-25",
+        "upTo": 25,
+        "how": "Hook, two or three proofs at about 4 s each, payoff, end card. The template is 24 s (12 bars at 120 BPM)."
+      },
+      {
+        "id": "26-35",
+        "upTo": 35,
+        "how": "A story or a list of three with room to breathe: 4 to 5 s per idea. 16 bars at 128 BPM is 30 s."
+      },
+      {
+        "id": "36-44",
+        "upTo": 45,
+        "how": "Walkthroughs and tutorials with several steps. The ceiling: every video stays under 45 s."
+      }
+    ],
+    "ending": [
+      {
+        "id": "endcard",
+        "how": "Resolve on the brand end card."
+      },
+      {
+        "id": "seamless-loop",
+        "how": "The last frame flows into the first so the video rewatches itself."
+      },
+      {
+        "id": "cliffhanger",
+        "how": "End mid-reveal to set up the next episode."
+      },
+      {
+        "id": "punchline",
+        "how": "Land a joke or a twist, then a quick logo sting."
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "logo-floor-drop",
+  "name": "Logo drops onto the floor",
+  "kind": "component",
+  "scope": "generic",
+  "signature": true,
+  "summary": "End card: the brand logo falls onto the world floor as a real 3D decal, lands with a flash and sparks, then eyebrow, tagline, and CTA button spring in. Falls back to a wordmark when the brand has no logo file.",
+  "params": {
+    "eyebrow": "string (defaults to brand.cta.fineprint)",
+    "tagline": "string (defaults to brand.one_liner)",
+    "cta": "button text (defaults to brand.cta.url)",
+    "cues": "{ logo (landing time), tagline, cta }",
+    "worldWidth": "logo width in world units (defaults to 62% of frame.floorSpan)",
+    "center": "[x, y] landing point on the floor",
+    "spin": "degrees of yaw during the fall",
+    "layout": "{ eyebrowTop, taglineTop, ctaTop }",
+    "pace": "{ enter, exit, stagger, accent } overrides for the PACE timings (seconds)"
+  },
+  "usage": "import * as endcard from '../blocks/logo-floor-drop/index.mjs';\nconst end = endcard.create(ctx, { cues: { logo: CUE.logo, tagline: CUE.tagline, cta: CUE.cta } });\n// needs frame.cam; have the world overlay return { floorSpan } or pass worldWidth",
+  "version": 2,
+  "origin": "draftkit #001",
+  "changelog": [
+    "v1 2026-09-26: extracted from the DraftKit showreel end card and the starter template",
+    "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
+  ]
+}
