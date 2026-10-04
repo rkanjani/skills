@@ -1,13 +1,15 @@
 # Script, metadata, and post package
 
-Each video folder carries three documents. `script.md` is the creative script a person (or the
+Each video folder carries four documents. `script.md` is the creative script a person (or the
 next run) reads. `meta.json` is the machine-readable ledger entry the variation checker uses.
-`post.md` is the posting package. Keep all three consistent with what was actually rendered.
+`review.md` is the critique log. `post.md` is the posting package. Keep all of them consistent
+with what was actually rendered.
 
 ## Contents
 
 - meta.json fields
 - script.md structure
+- review.md
 - post.md
 - Worked example: DraftKit #001
 
@@ -17,12 +19,20 @@ next run) reads. `meta.json` is the machine-readable ledger entry the variation 
 | --- | --- |
 | `id`, `slug`, `title`, `app`, `created` | Set by `studio.mjs new`. |
 | `status` | `scripting`, `building`, `rendered`, `posted`, `failed`, `archived`. Failed and archived videos do not count toward novelty. |
+| `engine` | `2` for videos scaffolded with sound kits and the newer axes. Older videos (no value) keep passing the rules they were made under. |
 | `series` | Series id from `studio.json.series`, or null. |
 | `length`, `bpm`, `bars` | Must satisfy `bars * 240 / bpm = length`, and length stays under 45 s (checked). |
-| `axes` | One value per axis: `hook format feature world music persona camera cta length ending palette`. `feature` and `persona` come from the brand profile; the rest from `assets/axes.json`. `length` is the bucket the duration falls in (`0-15`, `16-25`, `26-35`, `36-44`). |
-| `hook_line` | The exact line on screen at frame 0. |
+| `axes` | One value per axis: `hook opening format feature register world music persona camera cta length ending palette`. `feature` and `persona` come from the brand profile; the rest from `assets/axes.json` plus the brand's own (`axes.add`). `opening` is the first frame's device, `register` the feeling. `length` is the bucket the duration falls in (`0-15`, `16-25`, `26-35`, `36-44`). |
+| `hook_line` | The exact line on screen at frame 0 (or the caption-sized line of a wordless opening). |
+| `logline` | One sentence: a specific persona, a specific moment, a proof only this app can show. |
+| `look` | `{ name, reference, take, leave }`: the look by name, what it points at (a file in `brand/refs/`, a brand surface, a named style), what to take from it and what to leave. The name may not repeat the previous video's. |
+| `new_moves` | At least one move this page has not shown before, in a few words each. |
 | `scenes` | The pace plan, one entry per scene in order: `{ "id", "at", "out", "copy": [...] }` with times in seconds and the strings the viewer must read in that scene (the headline, key numbers, the line that carries the idea; not every UI label). The checker requires each scene to last at least 1.5 s plus 0.3 s per word (2 s minimum; symbols like "+" are free), flags gaps and overlaps, and expects the last scene to end at `length`. Be honest: if a label competes for attention, it counts. |
 | `copy` | Optional. Every on-screen string in order, UI labels included; derived from `scenes` when omitted. The checker compares it against all previous videos. |
+| `sound` | The sound kit, written by `studio sound <id>` (or `studio new --pick`): `seed family groove shape key mode path bass chord lead snare hat perc bassPattern impact whoosh tick confirm riser motif`, plus `turn` and `endBar` (the bars where the story turns and where the final chord lands). `soundtrack.mjs` builds the kit from it; edit a field by hand or with `--set`. |
+| `voice` | Null, or `{ tool, voice, lines: [{ at, text, file }] }` when a voiceover is used. |
+| `audio_fp` | Fingerprint of the rendered soundtrack, written by `studio log <id> --status rendered`. |
+| `review` | `{ rounds: [{ n, date, scores, problems }] }`, written by `studio review <id>`. |
 | `features` | Every product feature shown, by id. |
 | `claims` | Factual statements made on screen, for the honesty check. |
 | `covers` | Seconds to export as `cover-N.png`. Pick the hook frame, the peak, the end card. |
@@ -39,20 +49,31 @@ next run) reads. `meta.json` is the machine-readable ledger entry the variation 
 
 The template (`template/script.md`) has these sections; fill every one:
 
-1. Concept: one sentence (who, what moment, what proof).
-2. Why this one is different: cite previous video ids and the axes that changed, plus the new
-   signature move.
-3. Audience and persona.
-4. Hook: the frame-0 line and why it stops the scroll.
-5. Scenes and pace: a table with one row per scene: time window, bars, the one idea, on-screen
-   copy, picture, sound. Plan it before choosing BPM and bars: give each scene the time its copy
-   needs, then fit the music around the total. This is what gets built; keep it in sync with
-   `src/cues.mjs` and `meta.json` `scenes`.
-6. Camera and world: the motif, the camera language, and the signature move.
-7. Sound: genre, tempo, drop, sync points.
-8. Ending and CTA.
-9. Claims check: each claim and why it is true or clearly illustrative.
-10. Decisions: choices made without the user, one line each (essential for unattended loops).
+1. Logline: one sentence (who, what moment, what proof only this app has).
+2. Why this one is different: cite previous video ids (and other apps' recent videos) and the
+   axes that changed, what the gallery rows have in common that this one avoids, and the new move.
+3. Audience and persona, and the register: the one feeling at the end.
+4. Look: the look by name, its reference, what is taken and what is left, and which banned
+   defaults this script knowingly avoids.
+5. Opening: the first frame's device, the hook line, and why it stops the scroll.
+6. State list and pace: a table with one row per scene: time window, bars, the one idea, what is
+   on screen in that state, on-screen copy, what drives the change to the next state, sound. Plan
+   it before choosing BPM and bars: give each scene the time its copy needs, then fit the music
+   around the total. This is what gets built; keep it in sync with `src/cues.mjs` and `meta.json`
+   `scenes`.
+7. Camera and world: the stage, the camera language, and the signature move.
+8. Sound: the kit as `studio sound` printed it, the tempo and bars, the bar where the story
+   turns, and the sync points (every visual hit gets a sound).
+9. Ending and CTA.
+10. Claims check: each claim and why it is true or clearly illustrative.
+11. Decisions: choices made without the user, one line each (essential for unattended loops).
+
+## review.md
+
+Written by `studio review <id>`, one entry per critique round: the eight scores (hook, read,
+motion, variety, composition, brand, sync, distinct) and the problems found, with timestamps. A
+video needs at least two rounds and every score at 8 or more before `studio log <id> --status
+rendered` accepts it. See `references/motion-craft.md`, "Critique rounds".
 
 ## post.md
 

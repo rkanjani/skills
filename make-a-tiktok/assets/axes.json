@@ -1,22 +1,24 @@
 {
-  "version": 1,
-  "about": "Variation catalog. Every video picks one value per axis. `feature` and `persona` values come from the studio brand profile. Weights set how much each axis counts toward novelty. Length follows the content: comprehension comes before brevity, and every video stays under 45 seconds.",
+  "version": 2,
+  "about": "Variation catalog. Every video picks one value per axis. `feature` and `persona` values come from the studio brand profile, and a brand or studio may add app-specific values to any axis or remove ones that are wrong for it (`axes.add`, `axes.remove`). Weights set how much each axis counts toward novelty. Length follows the content: comprehension comes before brevity, and every video stays under 45 seconds.",
   "weights": {
     "hook": 1.3,
+    "opening": 1.0,
     "format": 1.3,
     "feature": 1.2,
+    "register": 0.9,
     "world": 1.0,
     "music": 0.8,
     "persona": 0.7,
     "camera": 0.6,
     "cta": 0.5,
     "length": 0.5,
-    "ending": 0.5,
+    "ending": 0.7,
     "palette": 0.4
   },
   "rules": {
     "window": 5,
-    "minAxisDistance": 3,
+    "minAxisDistance": 5,
     "noRepeatTriple": [
       "hook",
       "format",
@@ -24,7 +26,10 @@
     ],
     "noRepeatConsecutive": [
       "hook",
-      "format"
+      "opening",
+      "format",
+      "register",
+      "ending"
     ],
     "hookSimilarityMax": 0.35,
     "copySimilarityMax": 0.25,
@@ -35,7 +40,36 @@
     "secondsPerWord": 0.3,
     "minSceneSeconds": 2.0,
     "maxWordsPerSecond": 2.6,
-    "warnWordsPerSecond": 2.0
+    "warnWordsPerSecond": 2.0,
+    "soundWindow": 5,
+    "minSoundDistance": 6,
+    "noRepeatSoundConsecutive": [
+      "family",
+      "shape"
+    ],
+    "audioSimilarityFail": 0.78,
+    "audioSimilarityWarn": 0.62,
+    "blockOverlapFail": 0.7,
+    "blockOverlapWarn": 0.45,
+    "portfolioWindow": 4,
+    "minPortfolioDistance": 6,
+    "minPortfolioSoundDistance": 5,
+    "overuseWindow": 4,
+    "overuseCount": 3,
+    "overuseAxes": [
+      "hook",
+      "opening",
+      "format",
+      "register",
+      "world",
+      "music",
+      "camera",
+      "cta",
+      "ending"
+    ],
+    "reviewMinScore": 8,
+    "reviewMinRounds": 2,
+    "hookWordSimilarityMax": 0.6
   },
   "axes": {
     "hook": [
@@ -96,54 +130,834 @@
         "how": "\"Pick one.\" Pause for a beat, then reveal what the product picked and why."
       }
     ],
+    "opening": [
+      {
+        "id": "type-slam",
+        "how": "Huge kinetic type fills the frame; the line is the picture."
+      },
+      {
+        "id": "product-mid-action",
+        "how": "The real product UI, already mid-interaction, with no headline over it."
+      },
+      {
+        "id": "object-closeup",
+        "how": "One object or image fills the frame (a photo, a card, a chart) with a small caption."
+      },
+      {
+        "id": "big-number",
+        "how": "A single number at poster scale; its label arrives after."
+      },
+      {
+        "id": "message-bubble",
+        "how": "A message, comment, or notification is the first thing on screen."
+      },
+      {
+        "id": "cursor-on-blank",
+        "how": "An almost empty frame with a cursor or caret about to act."
+      },
+      {
+        "id": "result-first",
+        "how": "Open on the finished outcome and explain it later."
+      },
+      {
+        "id": "split-contrast",
+        "how": "Two halves in contrast from the first frame."
+      },
+      {
+        "id": "question-card",
+        "how": "A question set small like a label or a card, with a lot of space around it."
+      },
+      {
+        "id": "world-flythrough",
+        "how": "The world is the opening: the camera is already moving through it and the line rides along."
+      }
+    ],
     "format": [
       {
         "id": "problem-ask-answer-payoff",
-        "how": "Stakes, the ask, the product thinking, the answer, the win."
+        "how": "Stakes, the ask, the product thinking, the answer, the win.",
+        "beats": [
+          {
+            "id": "stakes",
+            "share": 0.14
+          },
+          {
+            "id": "ask",
+            "share": 0.14
+          },
+          {
+            "id": "thinking",
+            "share": 0.22
+          },
+          {
+            "id": "answer",
+            "share": 0.2
+          },
+          {
+            "id": "win",
+            "share": 0.16
+          },
+          {
+            "id": "close",
+            "share": 0.14
+          }
+        ]
       },
       {
         "id": "listicle",
-        "how": "Numbered tips or moves, one per bar, each with a UI proof."
+        "how": "Numbered tips or moves, one per bar, each with a UI proof.",
+        "beats": [
+          {
+            "id": "promise",
+            "share": 0.14
+          },
+          {
+            "id": "item-1",
+            "share": 0.2
+          },
+          {
+            "id": "item-2",
+            "share": 0.2
+          },
+          {
+            "id": "item-3",
+            "share": 0.2
+          },
+          {
+            "id": "recap",
+            "share": 0.12
+          },
+          {
+            "id": "close",
+            "share": 0.14
+          }
+        ]
       },
       {
         "id": "pov-story",
-        "how": "A first-person scenario told in on-screen text and UI moments."
+        "how": "A first-person scenario told in on-screen text and UI moments.",
+        "beats": [
+          {
+            "id": "moment",
+            "share": 0.16
+          },
+          {
+            "id": "trouble",
+            "share": 0.2
+          },
+          {
+            "id": "turn",
+            "share": 0.14
+          },
+          {
+            "id": "relief",
+            "share": 0.22
+          },
+          {
+            "id": "button",
+            "share": 0.14
+          },
+          {
+            "id": "close",
+            "share": 0.14
+          }
+        ]
       },
       {
         "id": "feature-spotlight",
-        "how": "One feature, shown deeply: input, what it considers, output, result."
+        "how": "One feature, shown deeply: input, what it considers, output, result.",
+        "beats": [
+          {
+            "id": "result-first",
+            "share": 0.16
+          },
+          {
+            "id": "input",
+            "share": 0.18
+          },
+          {
+            "id": "what-it-weighs",
+            "share": 0.26
+          },
+          {
+            "id": "output",
+            "share": 0.24
+          },
+          {
+            "id": "close",
+            "share": 0.16
+          }
+        ]
       },
       {
         "id": "data-story",
-        "how": "One number or chart that tells the whole story, animated as data viz."
+        "how": "One number or chart that tells the whole story, animated as data viz.",
+        "beats": [
+          {
+            "id": "number",
+            "share": 0.2
+          },
+          {
+            "id": "where-it-comes-from",
+            "share": 0.3
+          },
+          {
+            "id": "what-changes-it",
+            "share": 0.28
+          },
+          {
+            "id": "close",
+            "share": 0.22
+          }
+        ],
+        "fits": {
+          "world": [
+            "data-viz",
+            "editorial"
+          ],
+          "opening": [
+            "big-number"
+          ]
+        }
       },
       {
         "id": "versus",
-        "how": "Split-screen or alternating beats: the old way against the product."
+        "how": "Split-screen or alternating beats: the old way against the product.",
+        "beats": [
+          {
+            "id": "setup",
+            "share": 0.12
+          },
+          {
+            "id": "old-way",
+            "share": 0.28
+          },
+          {
+            "id": "new-way",
+            "share": 0.28
+          },
+          {
+            "id": "verdict",
+            "share": 0.16
+          },
+          {
+            "id": "close",
+            "share": 0.16
+          }
+        ],
+        "fits": {
+          "world": [
+            "split-screen"
+          ],
+          "opening": [
+            "split-contrast"
+          ]
+        }
       },
       {
         "id": "countdown",
-        "how": "A race against a visible timer; the product beats the clock."
+        "how": "A race against a visible timer; the product beats the clock.",
+        "beats": [
+          {
+            "id": "clock",
+            "share": 0.14
+          },
+          {
+            "id": "step-1",
+            "share": 0.18
+          },
+          {
+            "id": "step-2",
+            "share": 0.18
+          },
+          {
+            "id": "step-3",
+            "share": 0.18
+          },
+          {
+            "id": "buzzer",
+            "share": 0.12
+          },
+          {
+            "id": "result",
+            "share": 0.2
+          }
+        ],
+        "fits": {
+          "register": [
+            "tense",
+            "hype"
+          ],
+          "opening": [
+            "big-number"
+          ]
+        }
       },
       {
         "id": "quiz-reveal",
-        "how": "Present options, hold a beat for the guess, reveal with reasoning."
+        "how": "Present options, hold a beat for the guess, reveal with reasoning.",
+        "beats": [
+          {
+            "id": "question",
+            "share": 0.2
+          },
+          {
+            "id": "hold",
+            "share": 0.1
+          },
+          {
+            "id": "reveal",
+            "share": 0.28
+          },
+          {
+            "id": "why",
+            "share": 0.24
+          },
+          {
+            "id": "close",
+            "share": 0.18
+          }
+        ],
+        "fits": {
+          "opening": [
+            "question-card",
+            "object-closeup"
+          ]
+        }
       },
       {
         "id": "tutorial",
-        "how": "How to do one job in three steps, fast, with the real UI."
+        "how": "How to do one job in three steps, fast, with the real UI.",
+        "beats": [
+          {
+            "id": "goal",
+            "share": 0.14
+          },
+          {
+            "id": "step-1",
+            "share": 0.22
+          },
+          {
+            "id": "step-2",
+            "share": 0.22
+          },
+          {
+            "id": "step-3",
+            "share": 0.22
+          },
+          {
+            "id": "done",
+            "share": 0.2
+          }
+        ]
       },
       {
         "id": "meme-remix",
-        "how": "A familiar meme structure rebuilt in the brand's motion language."
+        "how": "A familiar meme structure rebuilt in the brand's motion language.",
+        "beats": [
+          {
+            "id": "template",
+            "share": 0.22
+          },
+          {
+            "id": "twist",
+            "share": 0.3
+          },
+          {
+            "id": "punchline",
+            "share": 0.28
+          },
+          {
+            "id": "sting",
+            "share": 0.2
+          }
+        ],
+        "fits": {
+          "register": [
+            "funny",
+            "deadpan"
+          ],
+          "ending": [
+            "punchline"
+          ]
+        }
       },
       {
         "id": "myth-vs-fact",
-        "how": "Alternate myth and fact cards, each landing on a beat."
+        "how": "Alternate myth and fact cards, each landing on a beat.",
+        "beats": [
+          {
+            "id": "myth-1",
+            "share": 0.18
+          },
+          {
+            "id": "fact-1",
+            "share": 0.2
+          },
+          {
+            "id": "myth-2",
+            "share": 0.18
+          },
+          {
+            "id": "fact-2",
+            "share": 0.2
+          },
+          {
+            "id": "takeaway",
+            "share": 0.24
+          }
+        ]
       },
       {
         "id": "teaser",
-        "how": "Tease a feature or update with partial reveals and a clear CTA."
+        "how": "Tease a feature or update with partial reveals and a clear CTA.",
+        "beats": [
+          {
+            "id": "glimpse",
+            "share": 0.24
+          },
+          {
+            "id": "partial",
+            "share": 0.26
+          },
+          {
+            "id": "question",
+            "share": 0.22
+          },
+          {
+            "id": "date",
+            "share": 0.28
+          }
+        ]
+      },
+      {
+        "id": "one-shape-morph",
+        "how": "One container never cuts: the same element changes size, radius, and fill through 6 to 10 product states while a cursor drives each change, and the last frame equals the first.",
+        "beats": [
+          {
+            "id": "logo",
+            "share": 0.1
+          },
+          {
+            "id": "state-1",
+            "share": 0.13
+          },
+          {
+            "id": "state-2",
+            "share": 0.13
+          },
+          {
+            "id": "state-3",
+            "share": 0.13
+          },
+          {
+            "id": "state-4",
+            "share": 0.13
+          },
+          {
+            "id": "state-5",
+            "share": 0.13
+          },
+          {
+            "id": "state-6",
+            "share": 0.13
+          },
+          {
+            "id": "back-to-logo",
+            "share": 0.12
+          }
+        ],
+        "fits": {
+          "world": [
+            "one-container",
+            "single-object"
+          ],
+          "camera": [
+            "no-cut-morph",
+            "locked-off"
+          ],
+          "ending": [
+            "seamless-loop"
+          ]
+        }
+      },
+      {
+        "id": "ui-film-set",
+        "how": "The product UI is the set: one screen stays on stage and the story is acted inside it with a cursor, real taps, and typed input.",
+        "beats": [
+          {
+            "id": "on-screen",
+            "share": 0.18
+          },
+          {
+            "id": "action-1",
+            "share": 0.22
+          },
+          {
+            "id": "action-2",
+            "share": 0.22
+          },
+          {
+            "id": "consequence",
+            "share": 0.22
+          },
+          {
+            "id": "last-look",
+            "share": 0.16
+          }
+        ],
+        "fits": {
+          "world": [
+            "real-screens",
+            "phone-ui",
+            "cursor-stage"
+          ],
+          "opening": [
+            "product-mid-action",
+            "cursor-on-blank"
+          ]
+        }
+      },
+      {
+        "id": "cold-open-result",
+        "how": "Open on the finished result with no explanation, rewind to how it got there, then return to the result.",
+        "beats": [
+          {
+            "id": "result",
+            "share": 0.2
+          },
+          {
+            "id": "rewind",
+            "share": 0.12
+          },
+          {
+            "id": "how-1",
+            "share": 0.2
+          },
+          {
+            "id": "how-2",
+            "share": 0.2
+          },
+          {
+            "id": "result-again",
+            "share": 0.28
+          }
+        ],
+        "fits": {
+          "opening": [
+            "result-first",
+            "object-closeup"
+          ],
+          "ending": [
+            "callback"
+          ]
+        }
+      },
+      {
+        "id": "origin-story",
+        "how": "The history of the problem in dated steps from then to now; the product is the last step.",
+        "beats": [
+          {
+            "id": "then",
+            "share": 0.2
+          },
+          {
+            "id": "step-1",
+            "share": 0.18
+          },
+          {
+            "id": "step-2",
+            "share": 0.18
+          },
+          {
+            "id": "now",
+            "share": 0.22
+          },
+          {
+            "id": "product",
+            "share": 0.22
+          }
+        ]
+      },
+      {
+        "id": "day-in-the-life",
+        "how": "Three real moments across a day or a week where the product shows up.",
+        "beats": [
+          {
+            "id": "first-moment",
+            "share": 0.26
+          },
+          {
+            "id": "second-moment",
+            "share": 0.26
+          },
+          {
+            "id": "third-moment",
+            "share": 0.26
+          },
+          {
+            "id": "close",
+            "share": 0.22
+          }
+        ]
+      },
+      {
+        "id": "asmr-loop",
+        "how": "No words: satisfying product interactions in rhythm that loop seamlessly.",
+        "beats": [
+          {
+            "id": "interaction-1",
+            "share": 0.22
+          },
+          {
+            "id": "interaction-2",
+            "share": 0.22
+          },
+          {
+            "id": "interaction-3",
+            "share": 0.22
+          },
+          {
+            "id": "interaction-4",
+            "share": 0.22
+          },
+          {
+            "id": "seam",
+            "share": 0.12
+          }
+        ],
+        "fits": {
+          "ending": [
+            "seamless-loop"
+          ],
+          "music": [
+            "ui-asmr",
+            "ambient-glass"
+          ],
+          "register": [
+            "cozy",
+            "deadpan"
+          ]
+        }
+      },
+      {
+        "id": "showreel",
+        "how": "Every shot uses a different technique on a different product surface; the fastest cutting the reading budget allows.",
+        "beats": [
+          {
+            "id": "shot-1",
+            "share": 0.14
+          },
+          {
+            "id": "shot-2",
+            "share": 0.14
+          },
+          {
+            "id": "shot-3",
+            "share": 0.14
+          },
+          {
+            "id": "shot-4",
+            "share": 0.14
+          },
+          {
+            "id": "shot-5",
+            "share": 0.14
+          },
+          {
+            "id": "shot-6",
+            "share": 0.14
+          },
+          {
+            "id": "close",
+            "share": 0.16
+          }
+        ],
+        "fits": {
+          "camera": [
+            "hard-cuts",
+            "snap-grid",
+            "whip-pans"
+          ],
+          "register": [
+            "hype",
+            "awe"
+          ]
+        }
+      },
+      {
+        "id": "single-take-zoom",
+        "how": "One detail fills the frame and the camera pulls out (or pushes in) continuously to reveal what it belongs to.",
+        "beats": [
+          {
+            "id": "detail",
+            "share": 0.24
+          },
+          {
+            "id": "pull-1",
+            "share": 0.24
+          },
+          {
+            "id": "pull-2",
+            "share": 0.24
+          },
+          {
+            "id": "whole",
+            "share": 0.28
+          }
+        ],
+        "fits": {
+          "camera": [
+            "push-in",
+            "crane",
+            "one-take"
+          ],
+          "opening": [
+            "object-closeup",
+            "big-number"
+          ]
+        }
+      },
+      {
+        "id": "comment-reply",
+        "how": "A real question from the comments is the first card; the video answers it. Use a real comment, or label the example as illustrative.",
+        "beats": [
+          {
+            "id": "comment",
+            "share": 0.2
+          },
+          {
+            "id": "answer-1",
+            "share": 0.26
+          },
+          {
+            "id": "answer-2",
+            "share": 0.26
+          },
+          {
+            "id": "button",
+            "share": 0.28
+          }
+        ],
+        "fits": {
+          "opening": [
+            "message-bubble"
+          ],
+          "ending": [
+            "open-question",
+            "punchline"
+          ]
+        }
+      }
+    ],
+    "register": [
+      {
+        "id": "hype",
+        "how": "Competitive, loud, triumphant.",
+        "families": [
+          "sub808",
+          "club",
+          "breaks",
+          "retro"
+        ]
+      },
+      {
+        "id": "funny",
+        "how": "A joke with timing; the product is the punchline or the straight man.",
+        "families": [
+          "chip",
+          "mallet",
+          "percussion",
+          "club"
+        ]
+      },
+      {
+        "id": "deadpan",
+        "how": "Dry and understated: small type, long holds, no exclamation.",
+        "families": [
+          "piano",
+          "asmr",
+          "percussion",
+          "dusty"
+        ]
+      },
+      {
+        "id": "tense",
+        "how": "A clock, a risk, a near miss.",
+        "families": [
+          "sub808",
+          "cinematic",
+          "breaks"
+        ]
+      },
+      {
+        "id": "calm-expert",
+        "how": "Quiet confidence: one smart thing, explained simply.",
+        "families": [
+          "dusty",
+          "piano",
+          "glass",
+          "mallet"
+        ]
+      },
+      {
+        "id": "nostalgic",
+        "how": "Warm and a little wistful.",
+        "families": [
+          "dusty",
+          "piano",
+          "retro",
+          "glass"
+        ]
+      },
+      {
+        "id": "nerdy",
+        "how": "Delight in the mechanism and the numbers.",
+        "families": [
+          "chip",
+          "asmr",
+          "retro",
+          "mallet"
+        ]
+      },
+      {
+        "id": "wholesome",
+        "how": "Kind, human, small moments.",
+        "families": [
+          "mallet",
+          "piano",
+          "dusty",
+          "glass"
+        ]
+      },
+      {
+        "id": "awe",
+        "how": "Scale and beauty; let the picture breathe.",
+        "families": [
+          "cinematic",
+          "glass",
+          "piano"
+        ]
+      },
+      {
+        "id": "cozy",
+        "how": "Soft, tactile, satisfying.",
+        "families": [
+          "asmr",
+          "dusty",
+          "mallet",
+          "glass"
+        ]
+      },
+      {
+        "id": "rivalrous",
+        "how": "Us against them, playful trash talk.",
+        "families": [
+          "sub808",
+          "percussion",
+          "breaks",
+          "club"
+        ]
       }
     ],
     "world": [
@@ -190,6 +1004,30 @@
       {
         "id": "blueprint",
         "how": "Technical drawing style: dimension lines, callouts, measured reveals."
+      },
+      {
+        "id": "real-screens",
+        "how": "Real screenshots of the product are the stage: crop, pan, and annotate the actual UI instead of redrawing it."
+      },
+      {
+        "id": "single-object",
+        "how": "One object (a card, a photo, a device) on a plain ground; everything happens to it."
+      },
+      {
+        "id": "paper-collage",
+        "how": "Cut paper, tape, stamps, and torn edges: flat layers with soft shadows."
+      },
+      {
+        "id": "timeline-strip",
+        "how": "A strip of moments scrolling past a fixed playhead."
+      },
+      {
+        "id": "cursor-stage",
+        "how": "A near-empty canvas where a cursor builds the scene."
+      },
+      {
+        "id": "one-container",
+        "how": "A single container that morphs through every state and never cuts."
       }
     ],
     "camera": [
@@ -224,6 +1062,18 @@
       {
         "id": "crane",
         "how": "Vertical moves: rising reveals, top-down drops."
+      },
+      {
+        "id": "no-cut-morph",
+        "how": "No camera and no cuts: one element transforms in place."
+      },
+      {
+        "id": "push-in",
+        "how": "One slow continuous push toward the subject for the whole piece."
+      },
+      {
+        "id": "snap-grid",
+        "how": "The frame jumps between cells of a grid of views, like switching monitors, and holds on each."
       }
     ],
     "music": [
@@ -233,7 +1083,9 @@
           126,
           145
         ],
-        "how": "Half-time trap: syncopated kicks, clap on 3, hat rolls, 808."
+        "how": "Half-time trap: syncopated kicks, clap on 3, hat rolls, 808.",
+        "family": "sub808",
+        "groove": "trap"
       },
       {
         "id": "phonk",
@@ -241,7 +1093,9 @@
           120,
           140
         ],
-        "how": "Cowbell melody, heavy 808, dark minor progression."
+        "how": "Cowbell melody, heavy 808, dark minor progression.",
+        "family": "sub808",
+        "groove": "phonk"
       },
       {
         "id": "house",
@@ -249,7 +1103,9 @@
           120,
           128
         ],
-        "how": "Four on the floor, offbeat open hats, bright chords."
+        "how": "Four on the floor, offbeat open hats, bright chords.",
+        "family": "club",
+        "groove": "house"
       },
       {
         "id": "drill",
@@ -257,7 +1113,9 @@
           138,
           145
         ],
-        "how": "Sliding 808s, skippy hats, tense minor harmony."
+        "how": "Sliding 808s, skippy hats, tense minor harmony.",
+        "family": "sub808",
+        "groove": "drill"
       },
       {
         "id": "lofi",
@@ -265,7 +1123,9 @@
           78,
           96
         ],
-        "how": "Soft keys, vinyl, lazy swing; calm, clever, explanatory."
+        "how": "Soft keys, vinyl, lazy swing; calm, clever, explanatory.",
+        "family": "dusty",
+        "groove": "lofi"
       },
       {
         "id": "boombap",
@@ -273,7 +1133,9 @@
           86,
           96
         ],
-        "how": "Punchy kick and snare, head-nod groove, confident."
+        "how": "Punchy kick and snare, head-nod groove, confident.",
+        "family": "dusty",
+        "groove": "boombap"
       },
       {
         "id": "dnb",
@@ -281,7 +1143,9 @@
           168,
           176
         ],
-        "how": "Breakbeat energy at double time; keep scene changes on bar lines so the picture stays readable."
+        "how": "Breakbeat energy at double time; keep scene changes on bar lines so the picture stays readable.",
+        "family": "breaks",
+        "groove": "dnb"
       },
       {
         "id": "hyperpop",
@@ -289,7 +1153,9 @@
           150,
           170
         ],
-        "how": "Bright, maximal, glitchy; playful and loud."
+        "how": "Bright, maximal, glitchy; playful and loud.",
+        "family": "breaks",
+        "groove": "hyperpop"
       },
       {
         "id": "four-on-floor",
@@ -297,7 +1163,9 @@
           124,
           132
         ],
-        "how": "Driving chant beat: a hit on every beat for rapid-fire lists."
+        "how": "Driving chant beat: a hit on every beat for rapid-fire lists.",
+        "family": "club",
+        "groove": "four"
       },
       {
         "id": "ui-asmr",
@@ -305,7 +1173,110 @@
           100,
           130
         ],
-        "how": "No music: crisp UI clicks, whooshes, and tones carry the rhythm."
+        "how": "No music: crisp UI clicks, whooshes, and tones carry the rhythm.",
+        "family": "asmr"
+      },
+      {
+        "id": "garage",
+        "bpm": [
+          126,
+          134
+        ],
+        "how": "Two-step shuffle: skipping kick, swung hats, organ or pluck bass.",
+        "family": "club",
+        "groove": "garage"
+      },
+      {
+        "id": "disco",
+        "bpm": [
+          112,
+          124
+        ],
+        "how": "Four on the floor with open offbeat hats and a walking bass.",
+        "family": "club",
+        "groove": "disco"
+      },
+      {
+        "id": "synthwave",
+        "bpm": [
+          100,
+          124
+        ],
+        "how": "Driving bass eighths, gated snare, brassy pads.",
+        "family": "retro"
+      },
+      {
+        "id": "chiptune",
+        "bpm": [
+          120,
+          160
+        ],
+        "how": "Square leads, triangle bass, noise drums: playful and nerdy.",
+        "family": "chip"
+      },
+      {
+        "id": "mallets",
+        "bpm": [
+          96,
+          124
+        ],
+        "how": "Marimba or kalimba with hand percussion: warm, human, light.",
+        "family": "mallet"
+      },
+      {
+        "id": "piano-score",
+        "bpm": [
+          72,
+          132
+        ],
+        "how": "Solo piano, no drums; every cut lands on a chord.",
+        "family": "piano"
+      },
+      {
+        "id": "cinematic-swell",
+        "bpm": [
+          84,
+          128
+        ],
+        "how": "Strings or brass in one long crescendo with timpani hits; no drop.",
+        "family": "cinematic"
+      },
+      {
+        "id": "ambient-glass",
+        "bpm": [
+          90,
+          120
+        ],
+        "how": "Glassy pads and bells over a slow pulse; calm and spacious.",
+        "family": "glass"
+      },
+      {
+        "id": "stomp-clap",
+        "bpm": [
+          92,
+          128
+        ],
+        "how": "Stomps, claps, and hand percussion with a bass note; no harmony until the end.",
+        "family": "percussion"
+      },
+      {
+        "id": "breakbeat",
+        "bpm": [
+          120,
+          140
+        ],
+        "how": "Chopped break with ghost snares under a reese or FM bass.",
+        "family": "breaks",
+        "groove": "breaks"
+      },
+      {
+        "id": "supplied-track",
+        "bpm": [
+          60,
+          180
+        ],
+        "how": "A track the user supplied and may post with, measured with beats.mjs; only sound design is synthesized.",
+        "family": null
       }
     ],
     "cta": [
@@ -332,6 +1303,18 @@
       {
         "id": "save-this",
         "how": "\"Save this for Sunday\": utility content worth bookmarking."
+      },
+      {
+        "id": "in-product-button",
+        "how": "The product's own primary button is the call to action: it gets pressed and the UI confirms."
+      },
+      {
+        "id": "caption-only",
+        "how": "No on-screen call to action; the caption and the profile link carry it."
+      },
+      {
+        "id": "search-this",
+        "how": "Tell them the exact words to search for."
       }
     ],
     "palette": [
@@ -356,22 +1339,26 @@
       {
         "id": "0-15",
         "upTo": 15,
-        "how": "One idea: a single stat, one before and after, or one tip. Hook, the idea, the end card."
+        "how": "One idea: a single stat, one before and after, or one tip. Hook, the idea, the end card.",
+        "target": 12
       },
       {
         "id": "16-25",
         "upTo": 25,
-        "how": "Hook, two or three proofs at about 4 s each, payoff, end card. The template is 24 s (12 bars at 120 BPM)."
+        "how": "Hook, two or three proofs at about 4 s each, payoff, end card. The template is 24 s (12 bars at 120 BPM).",
+        "target": 22
       },
       {
         "id": "26-35",
         "upTo": 35,
-        "how": "A story or a list of three with room to breathe: 4 to 5 s per idea. 16 bars at 128 BPM is 30 s."
+        "how": "A story or a list of three with room to breathe: 4 to 5 s per idea. 16 bars at 128 BPM is 30 s.",
+        "target": 30
       },
       {
         "id": "36-44",
         "upTo": 45,
-        "how": "Walkthroughs and tutorials with several steps. The ceiling: every video stays under 45 s."
+        "how": "Walkthroughs and tutorials with several steps. The ceiling: every video stays under 45 s.",
+        "target": 40
       }
     ],
     "ending": [
@@ -390,7 +1377,45 @@
       {
         "id": "punchline",
         "how": "Land a joke or a twist, then a quick logo sting."
+      },
+      {
+        "id": "product-cta",
+        "how": "The last action happens inside the product: the real button is pressed and the screen confirms."
+      },
+      {
+        "id": "callback",
+        "how": "Return to the first frame's image, changed by what happened in between."
+      },
+      {
+        "id": "hard-cut",
+        "how": "Cut to the brand color or to black on the last beat, with a short logo flash or none."
+      },
+      {
+        "id": "open-question",
+        "how": "Hold on a question for the comments instead of a logo lockup."
       }
+    ]
+  },
+  "scaffold": {
+    "about": "What an untouched scaffold looks like. A video that still matches it has not been written yet.",
+    "sceneIds": [
+      "hook",
+      "feature-1",
+      "feature-2",
+      "feature-3",
+      "payoff",
+      "endcard"
+    ],
+    "blocks": [
+      "rise-headline",
+      "feature-beats",
+      "payoff-words",
+      "logo-floor-drop"
+    ],
+    "files": [
+      "src/scenes.mjs",
+      "src/world.mjs",
+      "src/copy.mjs"
     ]
   }
 }

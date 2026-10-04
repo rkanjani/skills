@@ -4,22 +4,55 @@
   "url": "example.com",
   "category": "What it is, in 2 to 4 words",
   "one_liner": "The single sentence promise, under 8 words.",
-  "payoff": ["Optional", "payoff", "words."],
+  "payoff": [
+    "Optional",
+    "payoff",
+    "words."
+  ],
   "audience": "Who watches, what they care about, what they already know.",
   "personas": [
-    { "id": "persona-id", "desc": "A specific kind of viewer and what they want." }
+    {
+      "id": "persona-id",
+      "desc": "A specific kind of viewer and what they want."
+    }
   ],
   "voice": {
     "tone": "e.g. competitive, confident, a little funny",
-    "do": ["Use the audience's own jargon", "Name concrete numbers"],
-    "dont": ["Overclaim results", "Use generic SaaS phrases"],
+    "do": [
+      "Use the audience's own jargon",
+      "Name concrete numbers"
+    ],
+    "dont": [
+      "Overclaim results",
+      "Use generic SaaS phrases"
+    ],
     "banned": []
   },
   "features": [
-    { "id": "feature-id", "name": "Short feature name", "proof": "One concrete line showing what it does.", "icon": "sparkles", "ui": "What the real screen shows (for faithful mocks)." }
+    {
+      "id": "feature-id",
+      "name": "Short feature name",
+      "proof": "One concrete line showing what it does.",
+      "icon": "sparkles",
+      "ui": "What the real screen shows (for faithful mocks)."
+    }
   ],
-  "proof_points": ["Facts you can state without legal review."],
-  "cta": { "url": "example.com", "primary": "Get started", "fineprint": "For iOS and web" },
+  "proof_points": [
+    "Facts you can state without legal review."
+  ],
+  "identity": {
+    "only_here": [],
+    "moments": [],
+    "motifs": [],
+    "objects": [],
+    "anti": []
+  },
+  "surfaces": [],
+  "cta": {
+    "url": "example.com",
+    "primary": "Get started",
+    "fineprint": "For iOS and web"
+  },
   "tokens": {
     "bg": "#0b0c0a",
     "panel": "#131511",
@@ -35,15 +68,68 @@
     "negative": "#f87171"
   },
   "fonts": {
-    "display": { "family": "Barlow Condensed", "weights": [700, 800], "fallback": "'Arial Narrow', sans-serif" },
-    "body": { "family": "IBM Plex Sans", "weights": [400, 500, 600, 700], "fallback": "system-ui, sans-serif" },
+    "display": {
+      "family": "Barlow Condensed",
+      "weights": [
+        700,
+        800
+      ],
+      "fallback": "'Arial Narrow', sans-serif"
+    },
+    "body": {
+      "family": "IBM Plex Sans",
+      "weights": [
+        400,
+        500,
+        600,
+        700
+      ],
+      "fallback": "system-ui, sans-serif"
+    },
     "css": "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=block",
     "files": []
   },
-  "type": { "displayWeight": 800, "displayTracking": "-0.03em", "displayCase": "uppercase", "radius": "30px" },
-  "logo": { "file": "assets/logo.png", "width": 800, "height": 300 },
-  "icon": { "file": "assets/icon.png" },
-  "world": { "preset": "dataGrid", "options": {}, "motif": "What the app's domain looks like as line art." },
-  "disclaimers": ["Example data is illustrative."],
-  "sources": ["Files and URLs this profile was built from."]
+  "type": {
+    "displayWeight": 800,
+    "displayTracking": "-0.03em",
+    "displayCase": "uppercase",
+    "radius": "30px"
+  },
+  "logo": {
+    "file": "assets/logo.png",
+    "width": 800,
+    "height": 300
+  },
+  "icon": {
+    "file": "assets/icon.png"
+  },
+  "world": {
+    "preset": "dataGrid",
+    "options": {},
+    "motif": "What the app's domain looks like as line art."
+  },
+  "axes": {
+    "add": {
+      "world": [],
+      "format": [],
+      "opening": []
+    },
+    "remove": {
+      "register": [],
+      "world": [],
+      "music": []
+    }
+  },
+  "sound": {
+    "motif": null,
+    "families": [],
+    "avoid": [],
+    "domain": ""
+  },
+  "disclaimers": [
+    "Example data is illustrative."
+  ],
+  "sources": [
+    "Files and URLs this profile was built from."
+  ]
 }

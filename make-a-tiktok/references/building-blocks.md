@@ -41,9 +41,17 @@ brand; view it). Then, in order of preference:
    and copy stay in `src/`.
 
 Good block candidates: product UI components (cards, tables, charts, chat, phone frames,
-notifications), text effects (rises, slams, counters), transitions (irises, split wipes,
-shared-element flights), world overlays (scans, route draws, heatmaps), custom world geometry,
-and music beds or sound recipes.
+notifications), stages for real screenshots (crop, pan, callouts, a cursor), text effects (rises,
+slams, counters), transitions (irises, split wipes, shared-element flights, morphing containers),
+world overlays (scans, route draws, heatmaps), whole looks as world blocks (paper, a wall, a
+desk), and sound recipes (a domain sound, an arrangement shape).
+
+Reuse is for mechanics, not for the look. `studio check` fails a video whose visual blocks are
+more than 70 percent the previous video's, and one that uses the scaffold's four blocks together
+(`rise-headline`, `feature-beats`, `payoff-words`, `logo-floor-drop`). When a concept leans on
+the same blocks as last time, restyle them through params, replace some, or build this video's
+own. Many generic blocks began as one app's UI (a scoreboard, a ranked table, a chat); on another
+app, prefer an app block that mirrors that app's real screens.
 
 ## Anatomy of a block
 
@@ -61,7 +69,9 @@ blocks/<id>/
 - World overlays: `createOverlay(ctx, params)` returning `(api, t) => extraFrameFields`. Combine
   several with `composeOverlays(...)` from `lib/world3d.mjs`.
 - Worlds: `geometry(params)` returning `{ lines, fills, grid, bounds, landmarks }`.
-- Sound: `arrange(mix, grid, params)` (Node, used from `soundtrack.mjs`).
+- Sound: `arrange(mix, grid, params)` (Node, used from `soundtrack.mjs`). Take the video's `kit`
+  as a param and play its instruments (`kit.chord`, `kit.bass`, `kit.groove`) rather than fixed
+  ones, as `arrangement-shapes` does; `arrangement-build-drop` is the older fixed-instrument bed.
 
 Plus, for anything visual, a demo so the catalog can show it: `export const DEMO_LEN` (seconds),
 `export function demo(ctx)` (a `create` call with sample params on a 0..DEMO_LEN timeline), and

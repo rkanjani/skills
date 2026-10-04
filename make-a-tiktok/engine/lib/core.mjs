@@ -126,6 +126,48 @@ export function track(t, keys) {
   return keys[keys.length - 1][1];
 }
 
+// How heavy a move feels. Use a spring instead of an easing curve wherever something has mass:
+// a tiny overshoot on UI, none on type.
+export const SPRING = {
+  snappy: { stiffness: 320, damping: 30 }, // buttons, toggles, leading edges
+  standard: { stiffness: 170, damping: 26 }, // cards, containers, camera
+  heavy: { stiffness: 90, damping: 20 }, // big type, 3D objects, logo lockups
+  playful: { stiffness: 220, damping: 12 }, // mascots, stickers: visible overshoot
+};
+
+// A value with several targets: [[time, value], [time, value, springOptions], ...]. Each change
+// adds its own spring from its own start time, so the motion stays continuous through a retarget
+// (a cursor, a container's width) and any frame can still be computed on its own. Values may be
+// numbers or equal-length arrays. Keys must be time-sorted.
+export function springTrack(t, keys, opts = SPRING.standard) {
+  const many = Array.isArray(keys[0][1]);
+  let v = many ? [...keys[0][1]] : keys[0][1];
+  for (let i = 1; i < keys.length; i += 1) {
+    const s = spring(t - keys[i][0], keys[i][2] ?? opts);
+    if (s === 0) continue;
+    if (many) v = v.map((x, j) => x + (keys[i][1][j] - keys[i - 1][1][j]) * s);
+    else v += (keys[i][1] - keys[i - 1][1]) * s;
+  }
+  return v;
+}
+
+// An indicator that stretches as it travels between stops [[time, x], ...]: the leading edge is
+// stiffer than the trailing edge. Returns { left, right } for an element `width` wide at rest.
+export function stretch(t, stops, width = 0) {
+  const lead = springTrack(t, stops, { stiffness: 320, damping: 30 });
+  const trail = springTrack(t, stops, { stiffness: 140, damping: 22 });
+  return { left: Math.min(lead, trail), right: Math.max(lead, trail) + width };
+}
+
+// Opacity for content inside a morphing container: it enters after the morph starts at tIn and
+// leaves before the next morph at tOut, so two states never overlap mid-change.
+export function swapAlpha(t, tIn, tOut, { delay = 0.08, fadeIn = 0.12, lead = 0.1, fadeOut = 0.1 } = {}) {
+  return Math.min(clamp((t - tIn - delay) / fadeIn), clamp((tOut - lead - t) / fadeOut));
+}
+
+// Time wrapped into [0, dur): drive a seamless loop from it so the last frame equals the first.
+export const loopT = (t, dur) => ((t % dur) + dur) % dur;
+
 // Envelope that rises over [a, a + inDur] and falls over [c - outDur, c].
 export function window01(t, a, c, inDur = 0.2, outDur = 0.2, easeIn = E.outCubic, easeOut = E.inCubic) {
   if (t <= a || t >= c) return 0;

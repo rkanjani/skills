@@ -38,13 +38,14 @@ This skill runs in Grok Bot chat with `/` or `@`. Publishing it on GitHub does n
 
 ### `make-a-tiktok`
 
-Run a short-form content engine for any app: every run ships one new motion-graphics TikTok, Reel, or Short that varies from everything posted before.
+Run a short-form content engine for any app: every run ships one new motion-graphics TikTok, Reel, or Short that is unlike everything made before it, for this app or any other.
 
-- Build a brand profile from the app's code or website: tokens, fonts, logo, features, personas, voice.
-- Read every previous script and vary the hook, format, feature, world, camera, music, and ending.
+- Build a brand profile from the app's code or website: tokens, fonts, logo, features, personas, voice, real product screens, the app's own looks and formats, and a sonic logo.
+- Read every previous script and vary the idea, opening, format, register, look, camera, sound, and ending; a checker enforces structure, blocks, look, and sound against the ledger and against videos made for your other apps.
+- Design a sound kit per video: twelve instrument families, a key, a groove, and seven arrangement shapes, with the rendered soundtrack measured against earlier ones. Or cut to a track you supply.
 - Keep every video readable: under 45 seconds, one idea per scene, a checked reading budget.
-- Animate in code, render frames in headless Chrome with motion blur, and score it with a synthesized soundtrack.
-- Export 9:16 and 4:5 at 60 fps and -14 LUFS, with covers and an SFX-only cut for trending sounds.
+- Animate in code, render frames in headless Chrome with motion blur, and critique the frames in scored rounds before the final render.
+- Export 9:16 and 4:5 at 60 fps and -14 LUFS, with covers, a contact sheet, phone-size frames, and an SFX-only cut for trending sounds.
 - Grow a library of reusable building blocks so each video is faster to make than the last.
 - Prepare the caption and post notes; publishing stays with you.
 
