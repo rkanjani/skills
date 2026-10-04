@@ -1,5 +1,5 @@
 // The world layer: glowing line-art geometry on a floor plane, seen through a moving 3D camera.
-// Units are arbitrary world units (the court presets use feet). z is up, the floor is z = 0.
+// Units are arbitrary world units (pick whatever scale suits the world). z is up, the floor is z = 0.
 //
 // A continuous camera move through one world is the strongest way to make a short piece feel
 // like a single designed film instead of a slideshow. Scenes float UI above this layer.

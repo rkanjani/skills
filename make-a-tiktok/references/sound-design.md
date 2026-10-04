@@ -72,8 +72,8 @@ Every visual event gets a sound, placed on the same cue:
 | Confirmation, success | `bell` arpeggio (2 to 3 notes, 40 ms apart) |
 | Counter rolls | a fast run of quiet `tick`s |
 | Rank or level up | rising `blip` notes |
-| Big reveal, logo | `boom` + `crash` + a held chord; `buzzer` for sports |
-| Domain flavor | `bounce` and `swish` (basketball), `crowd` (arenas), `vinyl` (lo-fi) |
+| Big reveal, logo | `boom` + `crash` + a held chord |
+| Texture | `swish` (paper, card slides), `vinyl` (lo-fi bed) |
 
 ## Stems
 

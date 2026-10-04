@@ -291,7 +291,7 @@ export const inst = {
     return env(out, expDecay(0.05, 0.001));
   },
 
-  // Net swish (basketball), paper swipe, or card slide depending on level.
+  // Soft airy swipe: paper, a card slide, a page turn.
   swish(len = 0.42) {
     const n = secs(len);
     const nz = filter(filter(noise(n), 'hp', 1800), 'lp', (t) => 9000 - 5000 * (t / len));
@@ -299,47 +299,6 @@ export const inst = {
       const x = t / len;
       return (x < 0.12 ? x / 0.12 : 1) * (1 - x) ** 1.4 * (0.75 + 0.25 * Math.sin(TAU * 38 * t));
     });
-  },
-
-  // Ball bounce on hardwood: thump, shell ring, slap.
-  bounce() {
-    const n = secs(0.35);
-    const thump = osc(n, (t) => 70 + 90 * Math.exp(-t / 0.012));
-    env(thump, expDecay(0.07, 0.001));
-    const shell = osc(n, (t) => 540 * (1 + 0.04 * Math.exp(-t / 0.02)));
-    env(shell, expDecay(0.035, 0.0005));
-    const slap = filter(noise(secs(0.03)), 'bp', 1800, 1.2);
-    env(slap, expDecay(0.006, 0.0003));
-    mixInto(thump, shell, 0.2);
-    return mixInto(thump, slap, 0.5);
-  },
-
-  squeak(len = 0.2) {
-    const n = secs(len);
-    const out = filter(osc(n, (t) => 2300 + 700 * Math.sin(TAU * 26 * t) + 900 * (t / len), 'saw'), 'bp', 3000, 3);
-    return env(out, (t) => Math.sin(Math.PI * clamp(t / len, 0, 1)) ** 0.8);
-  },
-
-  // Arena horn.
-  buzzer(len = 0.95) {
-    const n = secs(len);
-    const out = new Float32Array(n);
-    for (const [f, g] of [[196, 1], [233.1, 0.8], [293.7, 0.6], [197.2, 0.7]]) mixInto(out, osc(n, f, 'square'), g * 0.25);
-    const shaped = filter(filter(out, 'bp', 900, 0.8), 'lp', 3200);
-    return env(shaped, (t) => (t < 0.015 ? t / 0.015 : 1) * (t > len - 0.08 ? Math.max(0, (len - t) / 0.08) : 1));
-  },
-
-  // Crowd bed: many band-limited voices with independent swells. Keep it low in the mix.
-  crowd(len, shape = () => 1) {
-    const n = secs(len);
-    const out = new Float32Array(n);
-    for (let v = 0; v < 18; v += 1) {
-      const voice = filter(noise(n, true), 'bp', rnd(350, 2600), rnd(1.2, 3));
-      const rate = rnd(1.5, 5);
-      const ph = rnd(0, TAU);
-      for (let i = 0; i < n; i += 1) out[i] += voice[i] * (0.55 + 0.45 * Math.sin(TAU * rate * (i / SR) + ph)) * 0.25;
-    }
-    return env(filter(out, 'lp', 4200), shape);
   },
 
   // Vinyl crackle for lo-fi.
