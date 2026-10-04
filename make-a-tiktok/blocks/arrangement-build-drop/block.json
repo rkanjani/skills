@@ -20,6 +20,6 @@
   },
   "usage": "import { arrange } from './blocks/arrangement-build-drop/index.mjs';\nconst { dropAt } = arrange(mix, grid, { style: 'phonk', progression: PROGRESSIONS.darkPhonk, dropBar: 4, kicks: KICKS });",
   "version": 1,
-  "origin": "draftkit #001",
-  "changelog": ["v1 2026-09-26: generalized from the DraftKit showreel score"]
+  "origin": "built-in",
+  "changelog": ["v1 2026-09-26: initial version"]
 }

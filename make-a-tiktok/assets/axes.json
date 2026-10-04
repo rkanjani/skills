@@ -149,7 +149,7 @@
     "world": [
       {
         "id": "domain-world",
-        "how": "A 3D line-art world from the app's domain (a court, a pitch, a track, a kitchen grid)."
+        "how": "A 3D line-art world from the app's domain (a route map, a blueprint, a kitchen grid, a skyline)."
       },
       {
         "id": "data-floor",

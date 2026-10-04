@@ -30,7 +30,7 @@ videos/NNN-slug/
   src/scenes.mjs      scene factories (split into more files freely)
   src/main.mjs        boot({ duration, world, scenes })
   src/style.css       per-video styles (use brand CSS variables)
-  blocks/             snapshot of the block library (generic + app) taken at scaffold time
+  blocks/             snapshot of the block library (starter, personal, app) taken at scaffold time
   soundtrack.mjs      arrangement using lib/synth.mjs (and sound blocks)
   render.mjs build.mjs analyze-audio.mjs
   out/                renders (gitignored)
@@ -73,7 +73,7 @@ See `references/building-blocks.md` for conventions and harvesting.
 - `lines`: from `shapes.segment/polyline/rect/arc/circle(...)` or `makeLine(points, meta)`.
   Line meta: `mode` ('mid' grows from the middle, 'start' from the first point), `faint`,
   `dash` (dash length), `width` (world units), `color` (hex, overrides the accent).
-- `fills`: `[{ pts, color, alpha }]` polygons on the floor (a court surface, painted areas).
+- `fills`: `[{ pts, color, alpha }]` polygons on the floor (a floor surface, highlighted areas).
   `alpha` may be a function of t.
 - `grid`: `{ x0, x1, y0, y1, step, alpha }` faint floor grid.
 - `camera(t)`: return orbit params `{ tx, ty, dist, pitch, yaw, roll, fov }`. Build it with
@@ -93,7 +93,7 @@ See `references/building-blocks.md` for conventions and harvesting.
 
 ## worlds.mjs presets
 
-`basketballCourt()`, `soccerPitch()`, `runningTrack()`, `dataGrid()`, `targetRings()`. Each returns
+`dataGrid()` and `targetRings()`, both abstract so they suit any app. Each returns
 `{ lines, fills, grid, bounds, landmarks }`; spread it into `createWorld`. `fitDistance(width,
 height)` gives the top-down camera distance that frames a region in 9:16. For other domains,
 build geometry from `shapes` (a candlestick skyline, a recipe card grid, a route map, a
@@ -152,7 +152,7 @@ mix.render('out/soundtrack.wav');            // also out/soundtrack-sfx.wav (no 
 ```
 
 Instruments (`inst.*`): `kick sub808 clap snare hat crash cowbell boom whoosh riser tick bell blip
-swish bounce squeak buzzer crowd vinyl supersaw stab pluck keys`. `PROGRESSIONS`: `epicMinor
+swish vinyl supersaw stab pluck keys`. `PROGRESSIONS`: `epicMinor
 darkPhonk upliftMajor lofiSevenths tenseDrill`. `noteHz(midi)`. Put UI sounds and impacts in the
 `sfx` stem (default) and anything musical in `music`, so the SFX-only export works.
 

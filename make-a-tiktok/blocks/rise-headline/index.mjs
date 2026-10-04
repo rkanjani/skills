@@ -81,5 +81,5 @@ export function create(ctx, params = {}) {
 
 export const DEMO_LEN = 4;
 export function demo(ctx) {
-  return create(ctx, { lines: ['Down', '4-5.'], eyebrow: 'Live · 2 nights left', cues: { start: 0.1, slam: 1.0, out: 3.8 } });
+  return create(ctx, { lines: ['Stop', 'guessing.'], eyebrow: 'Eyebrow line', cues: { start: 0.1, slam: 1.0, out: 3.8 } });
 }

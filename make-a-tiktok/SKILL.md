@@ -144,7 +144,7 @@ Write `post.md` (template in `references/script-format.md`), make sure `meta.jso
 matches what was rendered, then:
 
 1. `studio harvest <id>` promotes every new or improved block this video used into the library
-   (generic ones into the skill for every app, app ones into the studio). Add `--format` when this
+   (generic ones into this person's library at `~/.make-a-tiktok/blocks`, app ones into the studio). Add `--format` when this
    video introduced a story shape worth repeating. Fix anything it rejects and harvest again.
 2. `studio learn "<lesson>" --video <id>` for each thing that cost real time (add
    `--scope engine` for engine or block behavior), so the next run avoids it.
@@ -217,5 +217,5 @@ brand profile), so write decisions down there.
 - `references/sound-design.md`: beat math table, genre recipes, sync map, stems, mix targets.
 - `references/brand-profile.md`: building `brand.json` from a repository or website.
 - `references/script-format.md`: meta.json fields, script.md sections, post.md.
-- `blocks/CATALOG.md` and `LEARNINGS.md` (in `$SKILL` and in each studio): the current library
-  and the accumulated lessons.
+- `<studio>/blocks/CATALOG.md`: the current library (starter, personal, and app blocks).
+- `LEARNINGS.md` (in `$SKILL` and in each studio): the accumulated lessons.

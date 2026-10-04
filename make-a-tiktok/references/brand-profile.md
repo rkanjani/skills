@@ -57,13 +57,13 @@ them. Never invent a logo.
 - `type`: `displayWeight`, `displayTracking`, `displayCase` (`uppercase` or `none`), `radius`.
 - `logo`: `file`, `width`, `height` (pixels), optional `floorWidth` (world units when laid on the
   floor at the end). `icon`: app icon file.
-- `world`: `preset` (`basketballCourt`, `soccerPitch`, `runningTrack`, `dataGrid`, `targetRings`),
+- `world`: `preset` (`dataGrid` or `targetRings`),
   `options`, and `motif` (a sentence describing the domain as line art, for custom worlds).
 
 ## Choosing the world
 
 The world is the page's visual signature, so pick something that says the app's domain at a
-glance: a court or pitch for sports, a grid floor for data and productivity tools, a route map for
+glance: a grid floor for data and productivity tools, a route map for
 travel or delivery, target rings for goals and fitness, a blueprint for developer tools. When no
 preset fits, describe the motif and build it per video from `shapes` in `lib/world3d.mjs`. Light
 brands work too: the template switches the world to multiply blending automatically.

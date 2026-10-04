@@ -18,13 +18,17 @@ overlay, a music bed). Stories, copy, and signature choices still change every v
 
 ## Where blocks live
 
-- Generic blocks: `$SKILL/blocks/<id>/`. Shared by every studio and every app.
+- Starter blocks: `$SKILL/blocks/<id>/`. The few the starter template needs. They ship with the
+  skill and are never written at runtime.
+- Personal library: `~/.make-a-tiktok/blocks/<id>/` (override with `MAKE_A_TIKTOK_HOME`). The
+  generic blocks this person has built, shared by all of their studios. It starts empty and grows
+  with every harvest. A personal block with a starter block's id replaces it.
 - App blocks: `<studio>/blocks/<id>/`. Encode one app's UI patterns and data shapes.
 - Formats: `<studio>/formats/<format>/`. A whole video's `src/` and `soundtrack.mjs` saved as a
   starting skeleton.
-- Every scaffolded video gets a snapshot of both block libraries in its own `blocks/` folder, so a
+- Every scaffolded video gets a snapshot of every available block in its own `blocks/` folder, so a
   finished video keeps rendering the same way even after the library evolves.
-- Catalogs regenerate automatically: `$SKILL/blocks/CATALOG.md` and `<studio>/blocks/CATALOG.md`.
+- The catalog regenerates automatically at `<studio>/blocks/CATALOG.md`.
 
 ## Reuse, extend, or create
 
@@ -100,7 +104,7 @@ Conventions (they are what make blocks safe to reuse):
   "params": { "cues": "{ from, to }", "layout": "{ top, left, size }" },
   "usage": "import * as ring from '../blocks/countdown-ring/index.mjs';\nring.create(ctx, { cues: { from: CUE.a, to: CUE.b } });",
   "version": 1,
-  "origin": "draftkit #004",
+  "origin": "<app> #004",
   "changelog": []
 }
 ```
@@ -110,17 +114,17 @@ Conventions (they are what make blocks safe to reuse):
 ## Scope: generic or app
 
 A block is `generic` when it works for any brand: no brand names, no product copy, no brand colors
-except through tokens. It lands in the skill and every app benefits. A block is `app` when it
-encodes one app's surface (for example a category scoreboard laid out exactly like the app's
-matchup screen). When in doubt, make the block generic and move app details into params.
+except through tokens. It lands in the personal library and every one of this person's apps benefits. A block is `app` when it
+encodes one app's surface (for example a dashboard laid out exactly like one of the app's
+screens). When in doubt, make the block generic and move app details into params.
 
 ## Harvesting
 
 After the final build, run `studio harvest <id>` (add `--dry-run` to preview). It:
 
 - finds the blocks the video imports (including blocks those import);
-- promotes every new or changed block that the video actually used, into the skill (generic) or
-  the studio (app) library;
+- promotes every new or changed block that the video actually used, into the personal library
+  (generic) or the studio (app);
 - validates first: required `block.json` fields, a syntax check, no imports from video code, and
   no brand names in generic blocks (hardcoded colors produce a warning);
 - bumps the version and appends a changelog line for updated blocks;
@@ -142,8 +146,7 @@ unless both videos belong to the same series.
 
 ## Signature blocks
 
-`"signature": true` marks a move viewers remember (the logo landing on the floor, the dot-field
-scan, the split-flap scoreboard). `studio check` warns when the previous video used the same
+`"signature": true` marks a move viewers remember (the logo landing on the floor, for example). `studio check` warns when the previous video used the same
 signature block, based on `blocks_used` (after harvest) or `blocks_planned` (list them in
 `meta.json` while scripting). Reuse signature blocks, just not back to back.
 

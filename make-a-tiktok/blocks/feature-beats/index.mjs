@@ -63,8 +63,8 @@ export const DEMO_LEN = 7;
 export function demo(ctx) {
   return create(ctx, {
     items: [
-      { title: 'Waiver streams', proof: 'Ranks free agents by games left.', icon: 'trendingUp' },
-      { title: 'Trade check', proof: 'Tests a deal against this week.', icon: 'arrowLeftRight' },
+      { title: 'Feature one', proof: 'One line that proves it.', icon: 'trendingUp' },
+      { title: 'Feature two', proof: 'A second proof, just as short.', icon: 'arrowLeftRight' },
     ],
     cues: { at: [0.3, 3.6], end: 6.9 },
   });
