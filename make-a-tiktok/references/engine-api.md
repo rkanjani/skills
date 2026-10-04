@@ -30,7 +30,7 @@ videos/NNN-slug/
   src/scenes.mjs      scene factories (split into more files freely)
   src/main.mjs        boot({ duration, world, scenes })
   src/style.css       per-video styles (use brand CSS variables)
-  blocks/             snapshot of the block library (generic + app) taken at scaffold time
+  blocks/             snapshot of the block library (starter, personal, app) taken at scaffold time
   soundtrack.mjs      arrangement using lib/synth.mjs (and sound blocks)
   render.mjs build.mjs analyze-audio.mjs
   out/                renders (gitignored)

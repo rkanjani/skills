@@ -50,7 +50,7 @@ now seen too often. Typical traps:
 
 - The same story arc every time (problem, product, win) with different nouns.
 - The same end card choreography.
-- The same product surface (always the chat, always the scoreboard).
+- The same product surface (always the same screen).
 - The same emotional register (always triumphant; never funny, never calm, never nerdy).
 - The same first frame composition (always a giant word top-left).
 
