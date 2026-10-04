@@ -9,7 +9,6 @@ next run) reads. `meta.json` is the machine-readable ledger entry the variation 
 - meta.json fields
 - script.md structure
 - post.md
-- Worked example: DraftKit #001
 
 ## meta.json fields
 
@@ -74,19 +73,3 @@ Disclaimer (when data is illustrative): <brand.disclaimers line>
 ```
 
 Posting is always done by the user. Never upload, schedule, or publish on their behalf.
-
-## Worked example: DraftKit #001
-
-The first DraftKit video, built before the skill existed, lives at `examples/draftkit-001/`
-(script and source). Summary of its choices, so later videos can vary from it:
-
-- Hook `stakes-stat`: "DOWN 4-5." over a 9-category scoreboard with the swing categories glowing.
-- Format `problem-ask-answer-payoff`, feature `waiver-streams` (plus a montage of start/sit and
-  trade), persona `grinder`.
-- World `domain-world` (a full NBA court in gold line art), camera `one-take` with whip orbits.
-- Music `trap` at 128 BPM, 21 bars (39.4 s), drop at 20.6 s when the matchup flips to 6-3.
-- Pace: first cut at 15 s (one bar per act) read as a blur; the re-cut gives each act 2 to 4 bars
-  and passes the scene budget. Its `meta.json` `scenes` list is the reference for honest scene copy.
-- Signature moves: record flies into a HUD chip, a waiver dot opens into the pick card with a
-  circular reveal, split-flap tile flips, the logo drops onto center court with a shockwave.
-- Ending `endcard` with CTA `url-endcard`.
