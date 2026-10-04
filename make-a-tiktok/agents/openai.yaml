@@ -1,4 +1,4 @@
 interface:
   display_name: "Make a TikTok"
-  short_description: "Make the next motion-graphics short for an app, unlike the last"
-  default_prompt: "Use $make-a-tiktok to make the next video for this app's TikTok page: built from what only this app can show, with its own look and sound kit, unlike every previous video. Report the files and what changed."
+  short_description: "Make the next varied motion-graphics short for an app"
+  default_prompt: "Use $make-a-tiktok to make the next video for this app's TikTok page, varied from every previous script, and report the files and what changed."

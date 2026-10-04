@@ -2,25 +2,21 @@
 
 The bar is a motion designer's showreel that a stranger understands on the first watch: every
 scene carries one idea, every element enters and leaves with intent, and the whole piece moves
-like one designed film. This file covers pace, the defaults to avoid, layout, type, rhythm,
-springs, camera, transitions, the pitfalls that cost the most time, and the critique rounds.
+like one designed film. This file covers pace, layout, type, rhythm, camera, transitions, the
+pitfalls that cost the most time, and the review loop.
 
 ## Contents
 
 - Pace and comprehension (read first)
-- Banned defaults
 - Frame and safe zones
 - Type and reading time
 - The first frame
 - Rhythm
-- Springs
 - Camera and depth
 - Transitions
-- Morphs, cursors, and loops
 - Brand fidelity
 - Pitfalls (hard-won)
-- Critique rounds
-- QA checklist
+- Review loop and QA checklist
 
 ## Pace and comprehension
 
@@ -54,28 +50,6 @@ is a failure, not a style.
   readable by 0.6 s. Then it holds long enough to read, like every other line.
 - **Test it.** Watch the preview once at full speed with sound off and no pausing. Say out loud
   what each scene told you. Any scene you could not say needs more time or less copy.
-
-## Banned defaults
-
-These are what a motion video looks like when nobody chose. Each one marks the piece as generated
-and makes it rhyme with every other one. They are out unless the script argues for one by name.
-
-- A centered title on a gradient, or a line of type over an empty ground, as a scene.
-- Everything fading in. Opacity alone is not an entrance; give things a direction, a mask, a
-  scale, or a source they come from.
-- Labels and timestamps tucked in the corners, frame borders, and letterbox bars as decoration.
-- Glow on UI chrome, gradients on buttons and cards the real product does not have.
-- Generic particle bursts and confetti that celebrate nothing in particular.
-- Bouncy easing on everything. Springs with a tiny overshoot on UI, none on type.
-- Dead time: a stretch with nothing new on screen. Something should change every 2 to 4 s (a new
-  element, a state change, a camera move), while the line being read holds still.
-- Product UI redrawn from imagination instead of the real screen.
-- This engine's own habits: the scaffold's scene list, the same four blocks, a build and a drop, a
-  logo that lands with a boom, a 90 degree camera turn between features.
-
-One display face and one body face. One accent color unless the brand has more. Every shot in a
-`showreel` format uses a different technique; every other format still earns one move the page
-has not shown.
 
 ## Frame and safe zones
 
@@ -116,23 +90,6 @@ already drawing on. A blank or half-built first frame loses the viewer.
 - Leave the end card on screen for at least 2 s after the last element lands.
 - A beat of near-silence and stillness before the drop makes the drop hit twice as hard.
 
-## Springs
-
-Cheap motion eases from A to B on a fixed curve. Expensive motion has mass: it accelerates,
-overshoots a hair, and settles. `lib/core.mjs` has closed-form springs, so they stay a pure
-function of time.
-
-- `spring(elapsed, SPRING.snappy)` for one move. Presets: `snappy` (buttons, toggles, leading
-  edges), `standard` (cards, containers, camera), `heavy` (big type, 3D objects, logo lockups),
-  `playful` (mascots, stickers: visible overshoot).
-- `springTrack(t, [[time, value], ...])` for a value with several targets (a cursor, a container's
-  width, a counter's position). Each change adds its own spring from its own start time, so the
-  motion stays continuous when the target changes mid-flight, and frame 812 still renders without
-  simulating frames 0 to 811. Never restart a spring to retarget.
-- `stretch(t, stops, width)` for a tab indicator or a progress bar that stretches as it travels:
-  the leading edge is stiffer than the trailing edge.
-- Keep `track` with easing curves for camera paths and anything that must arrive at an exact time.
-
 ## Camera and depth
 
 - The world camera gives static UI depth. Plan one camera move per scene change in
@@ -157,21 +114,6 @@ function of time.
 - Whips need motion in both layers: the world yaws and the UI slides with skew and blur. Keep
   them to 0.4 to 0.6 s and to the biggest transitions.
 - Rotate the signature move between videos (see the variation playbook).
-
-## Morphs, cursors, and loops
-
-For the `one-shape-morph` format and any scene where one element becomes another:
-
-- One container, never a cut: animate its width, height, radius, and fill with `springTrack`, and
-  swap what is inside it behind a short blur.
-- Content enters after the morph starts and leaves before the next one begins.
-  `swapAlpha(t, tIn, tOut)` gives that opacity.
-- A cursor drives every change with a real press (`pressScale`, `tapAt`), and its path is one
-  `springTrack` so it never teleports.
-- Never put `will-change` or a cached layer on anything the camera scales; the text goes blurry.
-- A seamless loop needs the last frame to equal the first, including the cursor's position and
-  velocity. Drive the loop from `loopT(t, duration)`, end the soundtrack without a final chord
-  (`endBar: null`), and check `out/seam.png` and `out/loop-check.mp4` after the build.
 
 ## Brand fidelity
 
@@ -205,72 +147,26 @@ For the `one-shape-morph` format and any scene where one element becomes another
   values (use `icon()` and `textContent`), batch style writes with `css()`, and avoid chained
   `.filter().forEach()`. Run the repository's checks before finishing.
 
-## Critique rounds
+## Review loop and QA checklist
 
-You can read images. Looking at what you rendered, as a harsh motion director and not as its
-proud author, is the habit that separates a finished piece from a first try. Plan on several
-rounds; iteration is the method.
-
-What to render each round:
-
-1. `node render.mjs sheet --step 0.5`: the whole piece at thumbnail scale. Every scene should show
-   the same settled frame in at least two consecutive cells; if a scene never settles, it moves
-   too much to read.
-2. `node render.mjs sheet --from A --to B --step 0.033`: frame by frame through each transition
-   and each fast move. This is where pops, overlaps, and teleports show.
-3. `node render.mjs stills --times ...`: full resolution on every dense moment.
-4. `node render.mjs sheet --step 1 --tile 120 --cols 8`: roughly phone scale. After the build,
-   `out/phone/` has one frame per scene at 360 px wide; if you cannot read a line there, a viewer
-   cannot.
-5. `studio sheet <id>` then `studio gallery`: this video's strip under the recent ones, here and
-   for other apps.
-6. `node render.mjs preview --fps 30 --audio out/soundtrack.wav`: pacing with sound. Say what
-   each scene told you; any scene you cannot say needs more time or less copy.
-
-Score 1 to 10:
-
-| Score | Question |
-| --- | --- |
-| `hook` | Does the first frame stop a thumb, and is the line readable by 0.6 s? |
-| `read` | Can every line be read at phone size in the time it holds? |
-| `motion` | Do things have mass and intent: springs, no pops, no dead frames, no sliding? |
-| `variety` | Does something new happen every 2 to 4 s, without crowding the line being read? |
-| `composition` | One focal point at a time, depth, and nothing fighting the safe zones? |
-| `brand` | Real UI, real colors and fonts, the brand's voice? Would another app's logo fit? If so, low. |
-| `sync` | Does every visual hit have a sound on the same cue, and does the arc match the story? |
-| `distinct` | Next to the gallery rows, is this plainly a different video? |
-
-Then list the three biggest problems with timestamps and hunt specifically for:
-
-- text overlapping during a swap, or two dense layers on screen at once;
-- anything sliding in at constant speed instead of settling;
-- a dead beat with nothing new, or a beat with three new things;
-- blurry scaled text; type under 26 px; a line outside the safe zone;
-- a first frame that is empty, half-built, or the same composition as last time;
-- any banned default; anything in the corners;
-- a stutter at the loop seam;
-- a look that could be the row above it in the gallery.
-
-Record the round with `studio review <id> --scores ... --problems "0:04 ...; 0:12 ...; 0:20 ..."`
-(it appends to `review.md`), fix those three, re-render only the affected seconds, and look again.
-The video is finished after at least two rounds with every score at 8 or more. A score is a claim
-about frames you looked at: do not raise one without a new render that shows the fix.
-
-## QA checklist
+1. `node render.mjs sheet --step 0.5`: the whole piece at thumbnail scale (roughly what a phone
+   shows). Look for empty beats, overlaps, unreadable text, and weak first frames. Every scene
+   should show the same settled frame in at least two consecutive cells; if a scene never
+   settles, it moves too much to read.
+2. `node render.mjs stills --times ...`: full-resolution detail on every dense moment.
+3. `node render.mjs sheet --from A --to B --step 0.033`: frame-by-frame through each transition.
+4. `node render.mjs preview --fps 30 --audio out/soundtrack.wav`: pacing with sound. Watch it once
+   at full speed with sound off and say what each scene told you.
+5. `node build.mjs`, then view `out/cover-*.png` and a sheet of the final MP4.
 
 Before calling it done:
 
-- [ ] Frame 0 shows the hook legibly, and it is not last video's first frame.
-- [ ] Every scene passes the first-watch test, and `studio check` passes.
+- [ ] Frame 0 shows the hook line legibly.
+- [ ] Every scene passes the first-watch test, and `studio check` passes the pace budget.
 - [ ] Key lines hold still for at least 1.2 s; transitions take 0.4 s or more except the accents.
-- [ ] Every line is inside the safe zone and readable in `out/phone/`.
+- [ ] Every line is inside the safe zone.
 - [ ] No transition shows two dense layers at once; no pops when scenes hide.
-- [ ] No banned default survived without a reason in the script.
-- [ ] Product UI is the real screen or a faithful mirror of it; brand colors, fonts, logo, and
-      voice rules are respected; copy matches `meta.json` `scenes`.
+- [ ] Brand colors, fonts, logo, and voice rules are respected; copy matches `meta.json` `scenes`.
 - [ ] Every claim is true or clearly illustrative (see `script.md` claims check).
-- [ ] `node render.mjs verify` reports deterministic frames.
-- [ ] Audio: -14 LUFS, true peak at or under -1 dBTP, balance checked, and the soundtrack measures
-      unlike earlier ones (see sound-design.md).
+- [ ] Audio: -14 LUFS, true peak at or under -1 dBTP, balance checked (see sound-design.md).
 - [ ] `manifest.json` shows 1080x1920 at 60 fps with the expected frame count.
-- [ ] Two review rounds are recorded with every score at 8 or more.
