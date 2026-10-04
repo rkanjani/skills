@@ -67,31 +67,33 @@ Needs Node 18+, ffmpeg, and Google Chrome. The first run installs the renderer's
 
 ## Install
 
-Clone the collection:
+Tell your agent:
+
+> Install the skills from https://github.com/rkanjani/skills.
+
+Or run the installer yourself and pick the skills and agents you want:
 
 ```bash
-git clone https://github.com/rkanjani/skills.git
+npx skills@latest add rkanjani/skills
 ```
 
-Copy a skill into your Codex skills directory (Grok Bot uses the same copy pattern into its skills library):
+For a single skill:
 
 ```bash
-mkdir -p ~/.codex/skills
-cp -R skills/app-store-submit ~/.codex/skills/
-cp -R skills/capture-learnings ~/.codex/skills/
-cp -R skills/grok-bot-team ~/.codex/skills/
-cp -R skills/make-a-tiktok ~/.codex/skills/
+npx skills@latest add rkanjani/skills --skill capture-learnings
 ```
 
-Restart Codex after installing, then invoke it directly:
+Each skill's `README.md` has its own requirements and a manual install path. Start a new session after installing, then invoke a skill directly:
 
 ```text
 Use $app-store-submit to prepare this iOS app for App Store Connect.
 ```
 
 ```text
-Use $grok-bot-team to set up this Grok Bot product team.
+Use $capture-learnings to turn feedback in this chat into scoped improvements.
 ```
+
+`grok-bot-team` runs in Grok Bot chat: copy its folder into the Grok Bot skills library and invoke it with `/` or `@`.
 
 ## Design principles
 

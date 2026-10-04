@@ -15,39 +15,48 @@ None. The skill is instructions only.
 
 ## Install
 
-These steps are written for an agent to run. Install the whole folder, not just `SKILL.md`.
+Tell your agent:
 
-Fetch the collection:
+> Install the `capture-learnings` skill from https://github.com/rkanjani/skills.
+
+It needs to:
+
+1. Run the installer for this one skill. It copies the whole folder, not just `SKILL.md`.
+
+   ```bash
+   npx skills@latest add rkanjani/skills --skill capture-learnings
+   ```
+
+   Add `-g` to install for every project on the machine instead of the current one, and `--agent claude-code` (or `codex`, `cursor`, ...) to pick the agent when it is not detected.
+
+2. Confirm the skill is listed (add `-g` if you installed with `-g`).
+
+   ```bash
+   npx skills@latest list
+   ```
+
+3. Start a new session so the skill is discovered.
+
+<details>
+<summary><strong>Without the installer</strong></summary>
 
 ```bash
 git clone --depth 1 https://github.com/rkanjani/skills.git /tmp/rkanjani-skills
 ```
 
-Copy the skill into the skills directory of the agent that will use it. Claude Code:
-
 ```bash
 mkdir -p ~/.claude/skills && cp -R /tmp/rkanjani-skills/capture-learnings ~/.claude/skills/
 ```
 
-Codex:
+Use `~/.codex/skills` for Codex, or a project's `.claude/skills/` to install for that project only.
 
-```bash
-mkdir -p ~/.codex/skills && cp -R /tmp/rkanjani-skills/capture-learnings ~/.codex/skills/
-```
-
-For a single project rather than the whole machine, copy into that project's `.claude/skills/` instead.
-
-Confirm `SKILL.md` exists in the installed folder, then start a new session so the skill is discovered.
+</details>
 
 ## Update
 
-Refresh the clone, then repeat the copy step; it overwrites the installed files with the latest version.
-
 ```bash
-git -C /tmp/rkanjani-skills pull
+npx skills@latest update capture-learnings
 ```
-
-If the clone is gone, run the install steps from the top.
 
 ## Use
 
