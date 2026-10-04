@@ -7,12 +7,7 @@
 //   node build.mjs --reuse         re-encode from existing frames and audio
 //   node build.mjs --keep-frames   keep out/frames for later re-encodes
 //
-// Also writes what the critique needs: out/contact.png (the whole piece, two frames per second),
-// out/phone/*.png (one frame per scene at the 360 px width a phone shows), and for a seamless-loop
-// ending out/loop-check.mp4 (the video twice) and out/seam.png (first and last six frames).
-//
-// Reads meta.json: slug, covers (seconds), crop45 (y offset of the 4:5 crop, default 185), scenes,
-// and axes.ending.
+// Reads meta.json: slug, covers (seconds), crop45 (y offset of the 4:5 crop, default 185).
 
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -106,43 +101,18 @@ const covers = (meta.covers?.length ? meta.covers : [0.9, (count / 60) * 0.55, c
   return { file, t };
 });
 
-// Review material, made from the final encode so it shows what a viewer gets.
-const outputs = files.map(probe);
-const seconds = count / 60;
-const main = path.join(out, files[0]);
-const encoded = outputs[0].frames || count;
-const quiet = ['-hide_banner', '-loglevel', 'error', '-y'];
-run('ffmpeg', [...quiet, '-i', main, '-vf', `fps=2,scale=180:-2,tile=10x${Math.max(1, Math.ceil((seconds * 2) / 10))}`, '-frames:v', '1', path.join(out, 'contact.png')]);
-const phoneDir = path.join(out, 'phone');
-fs.rmSync(phoneDir, { recursive: true, force: true });
-fs.mkdirSync(phoneDir, { recursive: true });
-const moments = (meta.scenes?.length ? meta.scenes.map((sc) => (Number(sc.at) + Number(sc.out)) / 2) : covers.map((c) => c.t)).filter((t) => t >= 0 && t < seconds).slice(0, 12);
-const phone = moments.map((t, i) => {
-  const file = path.join('phone', `${String(i + 1).padStart(2, '0')}-${t.toFixed(1)}s.png`);
-  run('ffmpeg', [...quiet, '-ss', t.toFixed(3), '-i', main, '-vf', 'scale=360:-2', '-frames:v', '1', path.join(out, file)]);
-  return file;
-});
-const review = { contact: 'contact.png', phone };
-if (meta.axes?.ending === 'seamless-loop') {
-  run('ffmpeg', [...quiet, '-stream_loop', '1', '-i', main, '-c', 'copy', path.join(out, 'loop-check.mp4')]);
-  run('ffmpeg', [...quiet, '-i', main, '-vf', `select='lt(n\\,6)+gte(n\\,${encoded - 6})',scale=160:-2,tile=12x1`, '-fps_mode', 'passthrough', '-frames:v', '1', path.join(out, 'seam.png')]);
-  Object.assign(review, { loop: 'loop-check.mp4', seam: 'seam.png' });
-}
-
 const manifest = {
   name: NAME,
   built_at: new Date().toISOString(),
   frames: count,
   mix_loudness_before: mixIn,
-  outputs,
+  outputs: files.map(probe),
   covers,
-  review,
   build_seconds: Math.round((Date.now() - started) / 1000),
 };
 fs.writeFileSync(path.join(out, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
 for (const f of ['mix-14lufs.wav', 'sfx-14lufs.wav']) fs.rmSync(path.join(out, f), { force: true });
 if (!args.has('--keep-frames')) fs.rmSync(frames, { recursive: true, force: true });
 
-console.log(`Review: out/contact.png, out/phone/ (${phone.length} frames at phone width)${review.seam ? ', out/seam.png (frames 1-6 then the last six: the last must lead into the first), out/loop-check.mp4' : ''}`);
 for (const o of manifest.outputs) console.log(`${o.file}  ${o.width}x${o.height} ${o.fps} ${o.frames}f  ${o.mb} MB  ${o.lufs} LUFS  peak ${o.truePeak} dBFS`);
 console.log(`Done in ${manifest.build_seconds}s -> ${out}`);

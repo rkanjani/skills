@@ -8,7 +8,6 @@
 //   node render.mjs stills  --times 0.4,2.1,7.6    full-res PNGs (detail review)
 //   node render.mjs preview --fps 30 [--audio out/soundtrack.wav]   fast MP4, no motion blur
 //   node render.mjs video   --fps 60 --shutter 4 --workers 4        final PNG frames in out/frames
-//   node render.mjs verify  [--times 1,5,9]        determinism: the same frames twice, in a different order
 //
 // Requires Google Chrome (or set CHROME_PATH), ffmpeg, and the playwright-core package
 // (resolved from this folder upward, or install it: npm i -D playwright-core).
@@ -17,7 +16,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { spawn, spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -40,10 +39,7 @@ const pagePath = `/${path.relative(root, path.join(here, 'index.html')).split(pa
 
 async function loadChromium() {
   // The skill ships playwright-core; also accept one installed in the studio, repo, or cwd.
-  // The studio CLI leaves a hint at <studio>/.cache/skill-home, so any install location works.
-  const hintFile = path.join(root, '.cache', 'skill-home');
-  const hint = fs.existsSync(hintFile) ? fs.readFileSync(hintFile, 'utf8').trim() : null;
-  const skillHomes = [process.env.MAKE_A_TIKTOK_HOME, hint, path.join(os.homedir(), '.claude/skills/make-a-tiktok'), path.join(os.homedir(), '.agents/skills/make-a-tiktok')].filter(Boolean);
+  const skillHomes = [process.env.MAKE_A_TIKTOK_HOME, path.join(os.homedir(), '.claude/skills/make-a-tiktok'), path.join(os.homedir(), '.agents/skills/make-a-tiktok')].filter(Boolean);
   const candidates = [here, root, process.cwd(), ...skillHomes];
   for (const base of candidates) {
     try {
@@ -237,40 +233,6 @@ async function renderSheet(port) {
   console.log(`Sheet (${times.length} frames: ${times[0]}s to ${times[times.length - 1]}s) -> ${out}`);
 }
 
-// Every frame must be a pure function of time: workers capture frames out of order, so a frame that
-// depends on what was drawn before it shows up as a pop in the final. Capture sample frames going
-// forward on one page and backward on a fresh one, and compare them. Rasterizing can differ by one
-// level on a few pixels between runs (above 90 dB PSNR); a real order dependence lands far lower.
-async function verifyDeterminism(port) {
-  const dir = path.join(outDir, '.verify');
-  fs.rmSync(dir, { recursive: true, force: true });
-  fs.mkdirSync(dir, { recursive: true });
-  const first = await openComposition(port);
-  const times = opts.times
-    ? String(opts.times).split(',').map(Number)
-    : Array.from({ length: 6 }, (_, i) => Number((((i + 0.5) * first.duration) / 6).toFixed(3)));
-  await inSequence(times, async (t, i) => fs.writeFileSync(path.join(dir, `a${i}.png`), await capture(first, t)));
-  await first.browser.close();
-  const second = await openComposition(port);
-  await inSequence(times.map((t, i) => [t, i]).reverse(), async ([t, i]) => fs.writeFileSync(path.join(dir, `b${i}.png`), await capture(second, t)));
-  await second.browser.close();
-  const floor = Number(opts.psnr ?? 60);
-  const drift = [];
-  times.forEach((t, i) => {
-    const r = spawnSync('ffmpeg', ['-hide_banner', '-i', path.join(dir, `a${i}.png`), '-i', path.join(dir, `b${i}.png`), '-lavfi', 'psnr', '-f', 'null', '-'], { encoding: 'utf8' });
-    const m = String(r.stderr).match(/average:(inf|[\d.]+)/);
-    const db = m && m[1] !== 'inf' ? Number(m[1]) : Infinity;
-    if (!m || db < floor) drift.push(`${t}s (${m ? `${db.toFixed(1)} dB` : 'unreadable'})`);
-  });
-  if (drift.length) {
-    console.log(`NOT DETERMINISTIC at ${drift.join(', ')}: these frames depend on capture order. Compare ${dir}/a*.png with b*.png, and look for state carried between frames, CSS transitions or animations, Math.random, or wall-clock time.`);
-    process.exitCode = 1;
-  } else {
-    fs.rmSync(dir, { recursive: true, force: true });
-    console.log(`Deterministic: ${times.length} frames matched when captured in a different order (${times.join(', ')}s).`);
-  }
-}
-
 const server = await serve();
 const { port } = server.address();
 fs.mkdirSync(outDir, { recursive: true });
@@ -278,7 +240,6 @@ try {
   if (mode === 'video') await renderVideo(port);
   else if (mode === 'stills') await renderStills(port);
   else if (mode === 'preview') await renderPreview(port);
-  else if (mode === 'verify') await verifyDeterminism(port);
   else await renderSheet(port);
 } finally {
   server.close();

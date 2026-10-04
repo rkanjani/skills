@@ -14,9 +14,8 @@ frame must be a pure function of `t` so the renderer can capture frames in any o
 - `lib/kit.mjs`: motion components
 - `lib/fx.mjs`: particles and flashes
 - `lib/boot.mjs`: runtime and scene contract
-- `lib/synth.mjs`: instruments and the mix
-- `lib/soundkit.mjs` and `lib/grooves.mjs`: sound kits
-- CLIs: render, build, analyze-audio, beats
+- `lib/synth.mjs`: sound
+- CLIs: render, build, analyze-audio
 
 ## Project layout
 
@@ -25,17 +24,15 @@ videos/NNN-slug/
   index.html          loads lib/kit.css, src/style.css, src/main.mjs
   meta.json           ledger entry (axes, copy, status, outputs, performance)
   script.md           the creative script
-  src/cues.mjs        beat grid + named cue times + SOUND + KICKS (shared with sound)
+  src/cues.mjs        beat grid + named cue times + KICKS (shared with sound)
   src/copy.mjs        every on-screen string
   src/world.mjs       world preset/geometry + camera tracks
   src/scenes.mjs      scene factories (split into more files freely)
   src/main.mjs        boot({ duration, world, scenes })
   src/style.css       per-video styles (use brand CSS variables)
   blocks/             snapshot of the block library (generic + app) taken at scaffold time
-  soundtrack.mjs      the kit, the arrangement block, and the sound design
-  render.mjs build.mjs analyze-audio.mjs beats.mjs
-  review.md           critique rounds (written by `studio review`)
-  sheet.jpg           a 12-frame strip of the finished video (written by `studio log`)
+  soundtrack.mjs      arrangement using lib/synth.mjs (and sound blocks)
+  render.mjs build.mjs analyze-audio.mjs
   out/                renders (gitignored)
 ```
 
@@ -59,11 +56,6 @@ See `references/building-blocks.md` for conventions and harvesting.
   the time of beat 4.5. Pick bars and BPM so `bars * 240 / bpm` equals the length exactly.
 - `track(t, [[t0, v0], [t1, v1, ease], ...])`: keyframes; values may be arrays. Keys time-sorted.
 - `spring(elapsed, { stiffness, damping })`: 0 to 1 with overshoot. Start it slightly before a beat.
-  `SPRING.snappy | standard | heavy | playful` are the presets.
-- `springTrack(t, [[t0, v0], [t1, v1], ...], opts)`: a value with several targets, as a sum of
-  springs, so retargets stay continuous. `stretch(t, stops, width)` returns `{ left, right }` for
-  an indicator that stretches as it travels. `swapAlpha(t, tIn, tOut)` fades content inside a
-  morphing container. `loopT(t, duration)` wraps time for a seamless loop.
 - Easing: `E.outExpo`, `E.outBack(x, s)`, `E.inCubic`, ... plus house curves `snap` (decisive
   settle), `whip` (camera whips), `glide` (travel), `punch`.
 - `norm(t, a, b)` clamps progress; `pulse(t, at, decay)` decays after an event; `window01(...)`.
@@ -152,50 +144,17 @@ Base classes in `kit.css`: `.scene .layer .abs .row .mask .display .eyebrow .num
 
 ```js
 const mix = createMix({ duration: grid.duration, seed: 7 });
+mix.drums(grid, bar, 'trap' | 'phonk' | 'house' | 'drill' | 'lofi' | 'boombap' | 'dnb' | 'hyperpop' | 'four');
 mix.kick(time, opts);                        // records the kick for sidechain ducking
 mix.place(monoBuffer, time, { gain, pan, send, bus: 'dry' | 'duck', stem: 'music' | 'sfx' });
-mix.placeStereo([left, right], time, { gain, send, bus: 'duck' });
-mix.dip(from, to, depth);                    // lower the music stem (under a voiceover line)
+mix.placeStereo(inst.supersaw(chord, len, { cutoff }), time, { gain, send, bus: 'duck' });
 mix.render('out/soundtrack.wav');            // also out/soundtrack-sfx.wav (no music stem)
 ```
 
-Raw instruments (`inst.*`): `kick sub808 clap snare hat crash cowbell boom whoosh riser tick bell
-blip swish bounce squeak buzzer crowd vinyl supersaw stab pluck keys`. `noteHz(midi)`.
-`loadAudio(file, { from, seconds })` decodes any audio file into `[L, R]` for a supplied track or
-a voiceover line. `mix.drums(grid, bar, style)` and `PROGRESSIONS` remain for older videos; new
-ones use a kit. Put UI sounds and impacts in the `sfx` stem (default) and anything musical in
-`music`, so the SFX-only export works.
-
-## soundkit.mjs and grooves.mjs
-
-```js
-const kit = designKit(meta.sound);           // or designKit({ seed, family, shape, key, ... })
-kit.spec                                     // the resolved design (JSON-safe)
-kit.chords, kit.roots, kit.tonic, kit.scale(degree, baseMidi)
-kit.chord(midis, len, { open })              // [L, R]; open 0..1 (or a function of t) closes a low-pass
-kit.bass(midi, len, { soft })                // folded into MIDI 36 to 47
-kit.lead(midi, len)
-kit.drum.snare(), kit.drum.hat(open), kit.drum.perc(i)
-kit.kick(mix, time, gain)                    // the kit's kick or stomp, with sidechain
-kit.groove(mix, grid, bar, { level, kicks: false, thin })
-kit.sfx.impact(mix, time, { size, gain })
-kit.sfx.whoosh(mix, landTime, { len, gain, pan, dir: 'in' | 'out' })
-kit.sfx.tick(mix, time, { i, gain, pan })
-kit.sfx.confirm(mix, time, { gain, notes })
-kit.sfx.riser(mix, start, len, { gain })
-kit.playMotif(mix, time, { step, gain, octave })   // the app's sonic logo
-```
-
-Families: `sub808 dusty club mallet chip cinematic glass retro breaks piano percussion asmr`.
-`voice.*` holds the raw new voices (`piano mallet whistle square pizz roundBass fmBass reese
-pluckBass triBass rim shaker snap woodblock conga tom stomp thud slam timpani bloom stamp air
-tonalSweep tape pop tock key drop`). `describeKit(spec)` prints a kit; `soundDistance(a, b)`
-counts the choices two kits do not share; `hashSeed(text)` makes a seed.
-
-`lib/grooves.mjs` is pure data, importable from `src/cues.mjs`: `GROOVES` (kick, snare, clap,
-hat, open, perc, ghost steps per bar, with swing), `kickTimes(grid, groove, { from, to })`, and
-`shapeKicks(grid, { groove, shape, turn, endBar })` for a `KICKS` list that matches the
-arrangement shape.
+Instruments (`inst.*`): `kick sub808 clap snare hat crash cowbell boom whoosh riser tick bell blip
+swish bounce squeak buzzer crowd vinyl supersaw stab pluck keys`. `PROGRESSIONS`: `epicMinor
+darkPhonk upliftMajor lofiSevenths tenseDrill`. `noteHz(midi)`. Put UI sounds and impacts in the
+`sfx` stem (default) and anything musical in `music`, so the SFX-only export works.
 
 ## CLIs (run inside the video folder)
 
@@ -203,15 +162,11 @@ arrangement shape.
 node render.mjs sheet --step 0.25 [--from 3 --to 6] [--times 0.5,2,7.6] [--tile 216 --cols 10]
 node render.mjs stills --times 0.6,8.8,14.9
 node render.mjs preview --fps 30 --audio out/soundtrack.wav
-node render.mjs verify                       # frames must not depend on capture order
 node soundtrack.mjs out/soundtrack.wav && node analyze-audio.mjs out/soundtrack.wav "0-24"
-node analyze-audio.mjs out/soundtrack.wav --compare ../001-slug/out/soundtrack.wav
-node beats.mjs ../../audio/track.mp3 > beats.json   # tempo, beats, downbeats, hits of a supplied track
 node build.mjs            # soundtrack, 60 fps frames with 4x motion blur, encodes, covers, manifest
 ```
 
 `build.mjs` writes `out/NNN-slug-9x16.mp4`, `-9x16-30fps.mp4`, `-4x5.mp4` (crop at `meta.crop45`),
-`-9x16-sfx-only.mp4`, `cover-*.png` (at `meta.covers` seconds), `contact.png` (two frames per
-second), `phone/*.png` (one frame per scene at 360 px wide), for a `seamless-loop` ending
-`seam.png` and `loop-check.mp4`, and `manifest.json`, then deletes the frames. Expect roughly 3 to 4 minutes of rendering plus encodes for 24 seconds on a modern
+`-9x16-sfx-only.mp4`, `cover-*.png` (at `meta.covers` seconds), and `manifest.json`, then deletes
+the frames. Expect roughly 3 to 4 minutes of rendering plus encodes for 24 seconds on a modern
 laptop; time scales with length.

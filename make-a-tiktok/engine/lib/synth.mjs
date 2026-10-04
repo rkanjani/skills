@@ -8,7 +8,6 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
 
 export const SR = 48000;
 const TAU = Math.PI * 2;
@@ -415,24 +414,6 @@ export const inst = {
   },
 };
 
-// Decode any audio file ffmpeg can read into [L, R] at the mix rate: a track the user supplied
-// (measure it first with beats.mjs) or a voiceover line. `from` and `seconds` cut an excerpt.
-export function loadAudio(file, { from = 0, seconds = null } = {}) {
-  const args = ['-v', 'error', ...(from ? ['-ss', String(from)] : []), ...(seconds ? ['-t', String(seconds)] : []), '-i', file, '-f', 'f32le', '-ac', '2', '-ar', String(SR), '-'];
-  const r = spawnSync('ffmpeg', args, { maxBuffer: 2 ** 31 - 1 });
-  if (r.status !== 0) throw new Error(`ffmpeg could not decode ${file}: ${String(r.stderr).trim()}`);
-  const bytes = r.stdout;
-  const pcm = new Float32Array(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength - (bytes.byteLength % 8)));
-  const n = pcm.length / 2;
-  const L = new Float32Array(n);
-  const R = new Float32Array(n);
-  for (let i = 0; i < n; i += 1) {
-    L[i] = pcm[i * 2];
-    R[i] = pcm[i * 2 + 1];
-  }
-  return [L, R];
-}
-
 // Chord progressions as MIDI voicings (around C4). Transpose with .map(m => m + k).
 export const PROGRESSIONS = {
   epicMinor: [[53, 56, 60, 65], [49, 53, 56, 61], [51, 55, 58, 63], [53, 57, 60, 65]], // Fm Db Eb F
@@ -454,12 +435,6 @@ export function createMix({ duration, seed: startSeed = 1337 }) {
   });
   const stems = { music: makeBus(), sfx: makeBus() };
   const kicks = [];
-  const dips = [];
-
-  // Lower the music stem between two times (under a voiceover line, or to clear room for a moment).
-  function dip(from, to, depth = 0.5, fade = 0.12) {
-    dips.push({ from, to, depth: clamp(depth, 0, 1), fade });
-  }
 
   // Mono buffer into a stem. bus 'duck' (pads, bass) is sidechained under every kick.
   function place(buf, time, { gain = 1, pan = 0, send = 0, bus = 'dry', stem = bus === 'duck' ? 'music' : 'sfx' } = {}) {
@@ -626,21 +601,13 @@ export function createMix({ duration, seed: startSeed = 1337 }) {
       return [oL, oR];
     };
     const music = sum(stems.music);
-    for (const d of dips) {
-      for (let n = Math.max(0, Math.round((d.from - d.fade) * SR)); n < Math.min(N, Math.round((d.to + d.fade) * SR)); n += 1) {
-        const t = n / SR;
-        const g = 1 - d.depth * clamp(Math.min((t - (d.from - d.fade)) / d.fade, (d.to + d.fade - t) / d.fade), 0, 1);
-        music[0][n] *= g;
-        music[1][n] *= g;
-      }
-    }
     const sfx = sum(stems.sfx);
     const full = master([music[0].map((v, i) => v + sfx[0][i]), music[1].map((v, i) => v + sfx[1][i])]);
     writeWav(outPath, full);
     writeWav(outPath.replace(/\.wav$/, '-sfx.wav'), master(sfx));
   }
 
-  return { N, place, placeStereo, kick, drums, dip, render, kicks };
+  return { N, place, placeStereo, kick, drums, render, kicks };
 }
 
 // 32-bit float stereo WAV, peak-normalized to -1 dBFS. Loudness is finished at encode time.
