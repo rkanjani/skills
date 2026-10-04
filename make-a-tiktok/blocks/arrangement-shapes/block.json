@@ -1,0 +1,23 @@
+{
+  "id": "arrangement-shapes",
+  "name": "Kit arrangement in seven shapes",
+  "kind": "sound",
+  "scope": "generic",
+  "signature": false,
+  "summary": "Music bed for soundtrack.mjs played by a sound kit (lib/soundkit.mjs), so the instruments, key, chords, and groove change with every video. Seven arcs: build-drop, cold-open (full groove from beat one, one breakdown bar), stop-time (a stab per bar, then the groove), pulse (no drums, arpeggio doubles at the turn), swell (one crescendo, no drop), stomp (percussion and bass only), ui-only (no bed). Ends on the kit's tonic chord.",
+  "params": {
+    "kit": "designKit(meta.sound) from lib/soundkit.mjs (required)",
+    "shape": "build-drop | cold-open | stop-time | pulse | swell | stomp | ui-only (default: the kit's shape)",
+    "turn": "bar index where the story turns (drop, groove arrives, arpeggio doubles)",
+    "endBar": "bar index of the final chord (null to skip)",
+    "kicks": "KICKS times from src/cues.mjs (shapeKicks in lib/grooves.mjs suggests them)",
+    "gap": "seconds of near-silence before the turn (build-drop only)",
+    "level": "overall gain of the bed",
+    "melody": "false to leave out the top line after the turn",
+    "pulseGain": "gain of the soft pulse that drumless shapes play on KICKS (0 for none)"
+  },
+  "usage": "import { designKit } from './lib/soundkit.mjs';\nimport { arrange } from './blocks/arrangement-shapes/index.mjs';\nconst kit = designKit(meta.sound);\nconst { turnAt } = arrange(mix, grid, { kit, turn: 6, endBar: 10, kicks: KICKS });",
+  "version": 1,
+  "origin": "skill",
+  "changelog": ["v1 2026-10-03: added so beds stop sharing one arc and one instrument set"]
+}
