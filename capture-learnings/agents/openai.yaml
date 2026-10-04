@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capture Learnings"
+  short_description: "Turn chat feedback into scoped improvements"
+  default_prompt: "Use $capture-learnings to turn feedback in this chat into safe, scoped improvements to skills and project guidance."

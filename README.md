@@ -2,7 +2,7 @@
 
 Practical agent skills that end up driving how I work.
 
-Each skill is meant to be installed by an agent. Make your life easier and just point your agent to the repo.
+Each skill is meant to be installed by an agent. Make your life easier and just point your agent to the repo. Every skill folder has its own `README.md` with install steps an agent can follow.
 
 ## Available skills
 
@@ -19,6 +19,18 @@ Prepare an iOS app for App Store Connect without losing track of release details
 - Verify the final App Store Connect state.
 
 [Explore `app-store-submit`](./app-store-submit/SKILL.md)
+
+### `capture-learnings`
+
+Turn feedback from a chat into durable guidance instead of a growing list of patches.
+
+- Extract the correction, the failure, and the desired behavior without persisting the transcript.
+- Synthesize related feedback into one principle rather than one rule per correction.
+- Pick the narrowest target: a skill, project context, or local rules.
+- Integrate into existing guidance: strengthen, replace, or delete rather than append.
+- Verify with tests and skill validation, or record no change when the evidence is thin.
+
+[Explore `capture-learnings`](./capture-learnings/SKILL.md)
 
 ### `grok-bot-team`
 
@@ -48,7 +60,7 @@ Run a short-form content engine for any app: every run ships one new motion-grap
 - Grow a library of reusable building blocks so each video is faster to make than the last.
 - Prepare the caption and post notes; publishing stays with you.
 
-Needs Node 18+, ffmpeg, and Google Chrome. Run `npm install` inside the installed skill folder once.
+Needs Node 18+, ffmpeg, and Google Chrome. The first run installs the renderer's dependency itself.
 
 [Explore `make-a-tiktok`](./make-a-tiktok/SKILL.md)
 
@@ -65,6 +77,7 @@ Copy a skill into your Codex skills directory (Grok Bot uses the same copy patte
 ```bash
 mkdir -p ~/.codex/skills
 cp -R skills/app-store-submit ~/.codex/skills/
+cp -R skills/capture-learnings ~/.codex/skills/
 cp -R skills/grok-bot-team ~/.codex/skills/
 cp -R skills/make-a-tiktok ~/.codex/skills/
 ```
