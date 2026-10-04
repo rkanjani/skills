@@ -216,10 +216,6 @@ brand profile), so write decisions down there.
   the render/build CLIs.
 - `references/sound-design.md`: beat math table, genre recipes, sync map, stems, mix targets.
 - `references/brand-profile.md`: building `brand.json` from a repository or website.
-- `references/script-format.md`: meta.json fields, script.md sections, post.md, and the DraftKit
-  #001 summary.
+- `references/script-format.md`: meta.json fields, script.md sections, post.md.
 - `blocks/CATALOG.md` and `LEARNINGS.md` (in `$SKILL` and in each studio): the current library
   and the accumulated lessons.
-- `examples/draftkit-001/`: the complete source and script of the first DraftKit video, for
-  studying how a finished piece is built. Its parts now live on as blocks; learn its techniques,
-  do not copy its story or look.
