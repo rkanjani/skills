@@ -93,7 +93,7 @@ See `references/building-blocks.md` for conventions and harvesting.
 
 ## worlds.mjs presets
 
-`basketballCourt()`, `soccerPitch()`, `runningTrack()`, `dataGrid()`, `targetRings()`. Each returns
+`dataGrid()`, `targetRings()`, `runningTrack()`, `soccerPitch()`, `basketballCourt()`. Each returns
 `{ lines, fills, grid, bounds, landmarks }`; spread it into `createWorld`. `fitDistance(width,
 height)` gives the top-down camera distance that frames a region in 9:16. For other domains,
 build geometry from `shapes` (a candlestick skyline, a recipe card grid, a route map, a

@@ -60,30 +60,30 @@ The checker catches repeated axes and text. It cannot catch a repeated feeling; 
 
 A concept is one sentence that names a specific person, a specific moment, and a specific proof:
 
-> For a busy manager at lineup lock (persona + moment), show the lineup auto-sorting with START
-> and SIT pills as a countdown hits zero (feature proof + format), in the court world with hard
-> cuts on every tick (world + camera), ending on a seamless loop back to the clock (ending).
+> For a freelancer on invoice day (persona + moment), show the open invoices sorting themselves
+> with PAID and LATE pills as a countdown hits zero (feature proof + format), in the grid world with
+> hard cuts on every tick (world + camera), ending on a seamless loop back to the clock (ending).
 
 Recipe: persona + moment + feature proof + format shape + world + camera + sound + ending. Then
 write the hook line for the first frame. Good hook lines are concrete, short (under 7 words on
 screen), and would make the persona stop scrolling. Test: could this line appear in any other
 app's video? If yes, make it more specific.
 
-How each hook type sounds (fantasy sports examples; translate to the app):
+How each hook type sounds (examples from unrelated apps; write yours in the app's own language):
 
-- stakes-stat: "DOWN 4-5." / "0.3 steals from a win."
-- pov: "POV: lineups lock in 90 seconds."
-- question: "Would you drop him for a 4-game guy?"
-- bold-claim: "Your rankings are losing you steals."
-- myth-bust: "Stop streaming by projected points."
-- before-after: "Tuesday: 9th. Sunday: 4th."
-- countdown: "Lock in 10. 9. 8."
-- list-promise: "3 streams for a 4-game week."
-- challenge: "I let the AI run my team for a week."
-- confession: "I lost a final by one assist."
+- stakes-stat: "$412 over budget." / "2 days from the deadline."
+- pov: "POV: the invite goes out in 90 seconds."
+- question: "Would you book the 6 a.m. flight?"
+- bold-claim: "Your to-do list is lying to you."
+- myth-bust: "Stop tracking every calorie."
+- before-after: "Monday: 47 tabs. Friday: 3."
+- countdown: "Doors in 10. 9. 8."
+- list-promise: "3 fixes for a slow morning."
+- challenge: "I let the AI plan my week."
+- confession: "I missed rent by one invoice."
 - versus: "Spreadsheet vs 12 seconds."
-- secret: "The waiver trick nobody in your league uses."
-- reaction: "League chat after my trade:"
+- secret: "The shortcut nobody on your team uses."
+- reaction: "Group chat after I shared this:"
 - quiz: "Pick one. The AI already did."
 
 ## The variation ladder
@@ -101,7 +101,7 @@ rung 5 regularly.
 
 The move people remember should not repeat on consecutive videos. Rotate through, and invent:
 
-- Logo drops onto the world floor with a shockwave (used by the DraftKit showreel).
+- Logo drops onto the world floor with a shockwave.
 - Seamless loop: the last frame becomes the first.
 - Shared-element flight: a number or card flies into a HUD or into the next scene.
 - Circular reveal from a point in the world.
@@ -118,7 +118,7 @@ Record the signature move in `script.md` so the next run can see it.
 
 ## Series
 
-A series is a named recurring format ("Waiver Wednesday", "Trade Check", "One Stat"). It builds
+A series is a named recurring format ("Monday Reset", "60-Second Fix", "One Stat"). It builds
 habit and makes the page scannable. Declare series in `studio.json.series` with the format and
 ending they keep. Inside a series, the format may repeat; hook, feature, copy, and at least two
 other axes still have to change. Pass `--series <id>` to `suggest`, and set `series` in meta.json.
@@ -141,7 +141,7 @@ Never treat a model score or a hunch as measured performance.
 
 When suggestions feel stale, generate fresh angles from:
 
-- The calendar: season start, draft day, trade deadline, playoffs, off-season, holidays.
+- The calendar: launches, seasonal peaks, deadlines, holidays, the start of a week or a year.
 - A single number from the product (a margin, a rank, a streak) and the story behind it.
 - A mistake the audience makes and the one-tap fix.
 - The product thinking, made visible: what the AI checks, in order.
@@ -153,7 +153,7 @@ When suggestions feel stale, generate fresh angles from:
 - A feature most users never find.
 - A before/after week, told in two frames.
 
-Add good leftovers to the backlog: `studio.mjs backlog add "Trade deadline panic, 3 checks" --fix feature=trade-analyzer`.
+Add good leftovers to the backlog: `studio.mjs backlog add "Deadline panic, 3 checks" --fix feature=<feature-id>`.
 
 ## Honesty rules
 

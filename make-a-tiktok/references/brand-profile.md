@@ -57,7 +57,7 @@ them. Never invent a logo.
 - `type`: `displayWeight`, `displayTracking`, `displayCase` (`uppercase` or `none`), `radius`.
 - `logo`: `file`, `width`, `height` (pixels), optional `floorWidth` (world units when laid on the
   floor at the end). `icon`: app icon file.
-- `world`: `preset` (`basketballCourt`, `soccerPitch`, `runningTrack`, `dataGrid`, `targetRings`),
+- `world`: `preset` (`dataGrid`, `targetRings`, `runningTrack`, `soccerPitch`, `basketballCourt`),
   `options`, and `motif` (a sentence describing the domain as line art, for custom worlds).
 
 ## Choosing the world

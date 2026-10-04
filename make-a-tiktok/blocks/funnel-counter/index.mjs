@@ -1,5 +1,5 @@
 // Funnel counter: a big number that counts up to the pool size, then drops through a mask to each
-// smaller value with a two-line label hugging it ("214 / free agents" to "1 / best stream").
+// smaller value with a two-line label hugging it ("214 / options" to "1 / best pick").
 import { E, norm, clamp, lerp, pulse, el, css, tf, vis, ensureStyle, PACE } from '../../lib/core.mjs';
 import { slotNumber } from '../../lib/kit.mjs';
 
@@ -70,9 +70,9 @@ export const DEMO_LEN = 4.4;
 export function demo(ctx) {
   return create(ctx, {
     steps: [
-      { at: 0.2, value: 214, label: ['Free', 'agents'] },
-      { at: 1.2, value: 38, label: ['3+ games', 'left'] },
-      { at: 2.2, value: 3, label: ['Category', 'fits'] },
+      { at: 0.2, value: 214, label: ['All', 'options'] },
+      { at: 1.2, value: 38, label: ['First', 'filter'] },
+      { at: 2.2, value: 3, label: ['Second', 'filter'] },
       { at: 3.2, value: 1, label: ['Best', 'pick'], tone: 'positive' },
     ],
     layout: { top: 800 },

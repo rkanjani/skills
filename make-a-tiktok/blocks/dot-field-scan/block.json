@@ -20,9 +20,9 @@
   },
   "usage": "import * as scan from '../blocks/dot-field-scan/index.mjs';\n// in src/world.mjs: overlay: composeOverlays(scan.createOverlay(ctx, { passes, finalists, cues: { in: CUE.scan, out: CUE.answer } }), shockwave)\n// scenes read frame.pick",
   "version": 2,
-  "origin": "draftkit #001",
+  "origin": "built-in",
   "changelog": [
-    "v1 2026-09-26: extracted from the DraftKit showreel waiver scan",
+    "v1 2026-09-26: initial version",
     "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
   ]
 }

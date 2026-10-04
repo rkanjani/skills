@@ -144,8 +144,8 @@ export function create(ctx, params = {}) {
 export const DEMO_LEN = 4.5;
 export function demo(ctx) {
   return create(ctx, {
-    card: { eyebrow: 'Best stream', badge: 'Fit 92', avatar: 'TJ', name: 'Tre Jones', meta: 'PG · 3 games left', gains: ['+2.8 AST', '+1.1 STL'], primary: 'Add Tre Jones', secondary: 'Compare' },
-    ai: { text: 'Three games left is your cleanest path to assists and steals.', tags: [{ text: 'Waiver wire' }, { text: 'AST / STL', tone: 'good' }] },
+    card: { eyebrow: 'Best match', badge: 'Fit 92', avatar: 'AB', name: 'Option name', meta: 'Detail · detail', gains: ['+2.8 one', '+1.1 two'], primary: 'Choose this', secondary: 'Compare' },
+    ai: { text: 'One short sentence that says why this option wins.', tags: [{ text: 'Source' }, { text: 'Benefit', tone: 'good' }] },
     origin: { x: 540, y: 600, r: 14 },
     cues: { reveal: 0.2, answer: 0.8, tags: 2.3, press: 3.3 },
   });

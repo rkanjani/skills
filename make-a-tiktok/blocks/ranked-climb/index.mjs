@@ -1,6 +1,6 @@
-// Leaderboard climb: a title ("Win your / week.") over a ranked table. Your row jumps up slot by
+// Leaderboard climb: a title ("Climb the / list.") over a ranked table. Your row jumps up slot by
 // slot on beats while the rows it passes slide down; the last word of the title can roll to a new
-// word (for example "week." to "league.") when you reach the top, and a trophy appears.
+// word (for example "list." to "top.") when you reach the top, and a trophy appears.
 import { E, spring, norm, clamp, lerp, pulse, el, css, tf, vis, setText, icon, ensureStyle, PACE } from '../../lib/core.mjs';
 
 const STYLE = `
@@ -25,7 +25,7 @@ export function create(ctx, params = {}) {
   ensureStyle('ranked-climb', STYLE);
   const {
     title = null,
-    header = { left: 'Standings', right: '' },
+    header = { left: 'Ranking', right: '' },
     rows = [],
     me = { name: 'You', badge: 'YOU', recs: [] },
     jumps = [],
@@ -144,10 +144,10 @@ export function create(ctx, params = {}) {
 export const DEMO_LEN = 4.2;
 export function demo(ctx) {
   return create(ctx, {
-    title: { lines: ['Win your', 'week.'], swap: 'league.' },
-    header: { left: 'League standings', right: 'Week 18' },
-    rows: [{ name: 'North Stars', rec: '12-5' }, { name: 'Fast Breaks', rec: '11-6' }, { name: 'Bricklayers', rec: '10-7' }, { name: 'Night Shift', rec: '9-8' }],
-    me: { name: 'Your team', badge: 'YOU', recs: ['9-8', '10-7', '12-5', '13-4'] },
+    title: { lines: ['Climb the', 'list.'], swap: 'top.' },
+    header: { left: 'Leaderboard', right: 'This week' },
+    rows: [{ name: 'Entry one', rec: '920' }, { name: 'Entry two', rec: '880' }, { name: 'Entry three', rec: '840' }, { name: 'Entry four', rec: '800' }],
+    me: { name: 'You', badge: 'YOU', recs: ['790', '850', '900', '950'] },
     jumps: [{ at: 0.9, from: 4, to: 2 }, { at: 1.8, from: 2, to: 1 }, { at: 2.7, from: 1, to: 0 }],
     layout: { cardTop: 700 },
     cues: { in: 0.1 },

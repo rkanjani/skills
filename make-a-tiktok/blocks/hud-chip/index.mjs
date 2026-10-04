@@ -41,5 +41,5 @@ export function create(ctx, params = {}) {
 
 export const DEMO_LEN = 2.5;
 export function demo(ctx) {
-  return create(ctx, { value: '4-5', meta: 'Week 18 · 2 nights left', cues: { in: 0.3, out: 2.45 }, layout: { top: 800 } });
+  return create(ctx, { value: '2-4', meta: 'Label · detail', cues: { in: 0.3, out: 2.45 }, layout: { top: 800 } });
 }

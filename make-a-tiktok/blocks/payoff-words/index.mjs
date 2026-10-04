@@ -39,5 +39,5 @@ export function create(ctx, params = {}) {
 
 export const DEMO_LEN = 4;
 export function demo(ctx) {
-  return create(ctx, { words: ['AI', 'that', 'knows', 'your', 'league.'], accent: [4], cues: { at: 0.2, step: 0.45, out: 3.9 } });
+  return create(ctx, { words: ['One', 'word', 'on', 'every', 'beat.'], accent: [4], cues: { at: 0.2, step: 0.45, out: 3.9 } });
 }

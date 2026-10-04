@@ -97,9 +97,9 @@ export function demo(ctx) {
   };
   return create(ctx, {
     items: [
-      { word: 'Stream.', at: 0.2, card: line('Best add for tonight') },
-      { word: 'Sit.', at: 1.2, card: line('No game, bench him') },
-      { word: 'Trade.', at: 2.2, card: line('Keep the 3s') },
+      { word: 'Plan.', at: 0.2, card: line('A short proof line') },
+      { word: 'Track.', at: 1.2, card: line('Another short line') },
+      { word: 'Share.', at: 2.2, card: line('One more line') },
       { word: 'Just ask.', at: 3.2 },
     ],
     end: 4.15,

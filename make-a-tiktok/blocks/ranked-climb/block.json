@@ -16,11 +16,11 @@
     "cues": "{ in, swap (defaults to the last jump), out }",
     "pace": "{ enter, exit, stagger, accent } overrides for the PACE timings (seconds)"
   },
-  "usage": "import * as climb from '../blocks/ranked-climb/index.mjs';\nconst table = climb.create(ctx, { title: { lines: ['Win your', 'week.'], swap: 'league.' }, rows, me, jumps, cues: { in: CUE.climb, out: CUE.logo - 0.2 } });",
+  "usage": "import * as climb from '../blocks/ranked-climb/index.mjs';\nconst table = climb.create(ctx, { title: { lines: ['Climb the', 'list.'], swap: 'top.' }, rows, me, jumps, cues: { in: CUE.climb, out: CUE.logo - 0.2 } });",
   "version": 2,
-  "origin": "draftkit #001",
+  "origin": "built-in",
   "changelog": [
-    "v1 2026-09-26: extracted from the DraftKit showreel standings climb",
+    "v1 2026-09-26: initial version",
     "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
   ]
 }

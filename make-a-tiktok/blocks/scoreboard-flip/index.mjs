@@ -1,4 +1,4 @@
-// Scoreboard: an eyebrow, a big word over a rolling record ("DOWN / 4-5"), and a grid of metric
+// Scoreboard: an eyebrow, a big word over a rolling record ("DOWN / 2-4"), and a grid of metric
 // tiles with win/loss badges. Two modes:
 //   enter: letters rise, the record slams, tiles flip up, swing tiles glow, then everything clears
 //          (the record can fly into a HUD element).
@@ -324,21 +324,21 @@ export function create(ctx, params = {}) {
 }
 
 const DEMO_TILES = [
-  { label: 'PTS', mine: '1,046', opp: '1,012', win: true, share: 0.508 },
-  { label: 'AST', mine: '404', opp: '409', win: false, share: 0.497, delta: '−5', flip: { mine: '418', opp: '409', delta: '+9', share: 0.505 } },
-  { label: 'REB', mine: '402', opp: '388', win: true, share: 0.509 },
-  { label: '3PM', mine: '72', opp: '79', win: false, share: 0.477 },
-  { label: 'STL', mine: '56', opp: '58', win: false, share: 0.491, delta: '−2', flip: { mine: '61', opp: '58', delta: '+3', share: 0.513 } },
-  { label: 'BLK', mine: '41', opp: '47', win: false, share: 0.466 },
+  { label: 'ALPHA', mine: '1,046', opp: '1,012', win: true, share: 0.508 },
+  { label: 'BETA', mine: '404', opp: '409', win: false, share: 0.497, delta: '−5', flip: { mine: '418', opp: '409', delta: '+9', share: 0.505 } },
+  { label: 'GAMMA', mine: '402', opp: '388', win: true, share: 0.509 },
+  { label: 'DELTA', mine: '72', opp: '79', win: false, share: 0.477 },
+  { label: 'SIGMA', mine: '56', opp: '58', win: false, share: 0.491, delta: '−2', flip: { mine: '61', opp: '58', delta: '+3', share: 0.513 } },
+  { label: 'OMEGA', mine: '41', opp: '47', win: false, share: 0.466 },
 ];
 
 export const DEMO_LEN = 4.2;
 export function demo(ctx) {
   return create(ctx, {
     mode: 'flip',
-    eyebrow: { live: 'Live', text: 'Week 18', flipped: 'Matchup flipped' },
+    eyebrow: { live: 'Live', text: 'This week', flipped: 'Result flipped' },
     word: { before: 'Down', after: 'Up' },
-    record: [[4, 5], [5, 4], [6, 3]],
+    record: [[2, 4], [3, 3], [4, 2]],
     tiles: DEMO_TILES,
     cues: { in: 0.1, flips: [0.6, 1.3], swap: 2.1, exit: 3.5, end: 4.0 },
   });

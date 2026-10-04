@@ -70,7 +70,7 @@ must also fit there.
   Nothing below 26 px. Phone screens show the video at about a third of its size.
 - Keep lines short: a hook of 2 to 6 words, titles of 1 to 4 words, proof lines under 8 words.
   Two short lines read faster than one long one. See "Pace and comprehension" for hold times.
-- Numbers are the fastest thing to read. Prefer "+9 AST" to "you gained nine assists".
+- Numbers are the fastest thing to read. Prefer "+9%" to "it went up by nine percent".
 - Use tabular numerals for anything that changes (`.num`).
 
 ## The first frame

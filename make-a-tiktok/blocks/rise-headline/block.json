@@ -15,7 +15,7 @@
     "cues": "{ start (can be negative; -0.4 puts frame 0 mid-rise), slam (last line), out (fully gone by) }",
     "pace": "{ enter, exit, stagger, accent } overrides for the PACE timings (seconds)"
   },
-  "usage": "import * as rise from '../blocks/rise-headline/index.mjs';\nconst hook = rise.create(ctx, { lines: ['Down', '4-5.'], eyebrow: 'Live', cues: { start: -0.4, slam: CUE.slam, out: CUE.hookOut } });\n// in update: hook.update(t)",
+  "usage": "import * as rise from '../blocks/rise-headline/index.mjs';\nconst hook = rise.create(ctx, { lines: ['Stop', 'guessing.'], eyebrow: 'Live', cues: { start: -0.4, slam: CUE.slam, out: CUE.hookOut } });\n// in update: hook.update(t)",
   "version": 2,
   "origin": "template",
   "changelog": [

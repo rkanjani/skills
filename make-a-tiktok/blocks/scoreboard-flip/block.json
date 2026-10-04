@@ -4,7 +4,7 @@
   "kind": "component",
   "scope": "generic",
   "signature": true,
-  "summary": "Eyebrow, a big word over a rolling record (\"DOWN / 4-5\"), and a 3-column grid of metric tiles with W/L badges. mode 'enter' rises, slams, flips tiles up, glows swing tiles, then clears (the record can fly into a HUD). mode 'flip' smashes in, flips chosen tiles to a new state while the record rolls and callouts pop, then swaps the word (\"DOWN\" to \"UP\").",
+  "summary": "Eyebrow, a big word over a rolling record (\"DOWN / 2-4\"), and a 3-column grid of metric tiles with W/L badges. mode 'enter' rises, slams, flips tiles up, glows swing tiles, then clears (the record can fly into a HUD). mode 'flip' smashes in, flips chosen tiles to a new state while the record rolls and callouts pop, then swaps the word (\"DOWN\" to \"UP\").",
   "params": {
     "mode": "'enter' | 'flip'",
     "eyebrow": "{ live (text or null to hide the dot), text, flipped }",
@@ -19,9 +19,9 @@
   },
   "usage": "import * as board from '../blocks/scoreboard-flip/index.mjs';\nconst hook = board.create(ctx, { mode: 'enter', eyebrow, word, record, tiles, flyTo: hud.value, cues: { slam: CUE.slam, tilesIn: CUE.tiles, swing: CUE.swing, out: CUE.hookOut } });\nconst drop = board.create(ctx, { mode: 'flip', eyebrow, word, record, tiles, cues: { in: CUE.drop, flips: [CUE.flip1, CUE.flip2], swap: CUE.swap, exit: CUE.exit, end: CUE.next } });",
   "version": 2,
-  "origin": "draftkit #001",
+  "origin": "built-in",
   "changelog": [
-    "v1 2026-09-26: extracted from the DraftKit showreel scoreboard (hook and matchup flip)",
+    "v1 2026-09-26: initial version",
     "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
   ]
 }

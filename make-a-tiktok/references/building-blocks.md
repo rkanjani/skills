@@ -100,7 +100,7 @@ Conventions (they are what make blocks safe to reuse):
   "params": { "cues": "{ from, to }", "layout": "{ top, left, size }" },
   "usage": "import * as ring from '../blocks/countdown-ring/index.mjs';\nring.create(ctx, { cues: { from: CUE.a, to: CUE.b } });",
   "version": 1,
-  "origin": "draftkit #004",
+  "origin": "<app> #004",
   "changelog": []
 }
 ```
@@ -111,8 +111,8 @@ Conventions (they are what make blocks safe to reuse):
 
 A block is `generic` when it works for any brand: no brand names, no product copy, no brand colors
 except through tokens. It lands in the skill and every app benefits. A block is `app` when it
-encodes one app's surface (for example a category scoreboard laid out exactly like the app's
-matchup screen). When in doubt, make the block generic and move app details into params.
+encodes one app's surface (for example a dashboard laid out exactly like one of the app's
+screens). When in doubt, make the block generic and move app details into params.
 
 ## Harvesting
 

@@ -18,9 +18,9 @@
   },
   "usage": "import * as endcard from '../blocks/logo-floor-drop/index.mjs';\nconst end = endcard.create(ctx, { cues: { logo: CUE.logo, tagline: CUE.tagline, cta: CUE.cta } });\n// needs frame.cam; have the world overlay return { floorSpan } or pass worldWidth",
   "version": 2,
-  "origin": "draftkit #001",
+  "origin": "built-in",
   "changelog": [
-    "v1 2026-09-26: extracted from the DraftKit showreel end card and the starter template",
+    "v1 2026-09-26: initial version",
     "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
   ]
 }

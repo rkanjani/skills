@@ -32,5 +32,5 @@ export function create(ctx, params = {}) {
 
 export const DEMO_LEN = 3;
 export function demo(ctx) {
-  return create(ctx, { title: 'Group chat', body: 'how are you in first??', cues: { in: 0.3, out: 2.9 }, layout: { top: 700 } });
+  return create(ctx, { title: 'New message', body: 'wait, how did you do that??', cues: { in: 0.3, out: 2.9 }, layout: { top: 700 } });
 }

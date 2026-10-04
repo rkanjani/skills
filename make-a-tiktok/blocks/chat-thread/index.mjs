@@ -37,7 +37,7 @@ export function create(ctx, params = {}) {
     headerIcon = 'sparkles',
     empty = { title: 'What should we work on?', text: '', suggestions: [] },
     question = 'Ask me anything.',
-    placeholder = 'Ask about your team…',
+    placeholder = 'Ask anything…',
     followup = 'Ask a follow up',
     thinking = 'Thinking',
     layout = {},
@@ -129,10 +129,10 @@ export function create(ctx, params = {}) {
 export const DEMO_LEN = 4;
 export function demo(ctx) {
   return create(ctx, {
-    subtitle: 'Your team',
-    empty: { title: 'What should we work on?', text: 'Ask about your roster or a trade.', suggestions: ['Who should I start?', 'Grade this trade'] },
-    question: 'Who should I stream tonight?',
-    thinking: 'Reading your league',
+    subtitle: 'Your workspace',
+    empty: { title: 'What should we work on?', text: 'Ask a question to get started.', suggestions: ['First suggestion', 'Second suggestion'] },
+    question: 'What should I do next?',
+    thinking: 'Reading your data',
     cues: { in: 0.2, typeStart: 0.6, typeEnd: 2.2, send: 2.5, thinking: 2.9 },
   });
 }

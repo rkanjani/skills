@@ -15,9 +15,9 @@
   },
   "usage": "import * as answer from '../blocks/answer-card/index.mjs';\nconst pick = answer.create(ctx, { card: copy.pick, ai: copy.answer, cues: { reveal: CUE.answer, answer: CUE.answerText, tags: CUE.tags, press: CUE.add, out: CUE.drop } });",
   "version": 2,
-  "origin": "draftkit #001",
+  "origin": "built-in",
   "changelog": [
-    "v1 2026-09-26: extracted from the DraftKit showreel answer scene",
+    "v1 2026-09-26: initial version",
     "v2 2026-09-26: readable pacing. Transitions use PACE (entrances about 0.5 s, exits about 0.4 s, staggers about 0.14 s) with a `pace` override, cues.out means fully gone, and default cues and the demo leave time to read."
   ]
 }
