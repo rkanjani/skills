@@ -20,6 +20,19 @@ Prepare an iOS app for App Store Connect without losing track of release details
 
 [Explore `app-store-submit`](./app-store-submit/SKILL.md)
 
+### `bootstrap-ai-repo`
+
+Get an existing repository ready for AI-assisted development, so an agent that has never seen it can make the common change and prove it works.
+
+- Inventory the stack, commands, CI, agent instructions, and where changes concentrate.
+- Mine past Claude Code and Codex sessions in the repo for what people asked for and corrected.
+- Build one check command and add characterization tests where changes concentrate, without changing behavior.
+- Clean up what git shouldn't hold and turn a manual release into a command.
+- Write `AGENTS.md` as the single source of truth, with a `CLAUDE.md` that imports it, and run the check in CI.
+- Prove it with a cold read by a fresh agent.
+
+[Explore `bootstrap-ai-repo`](./bootstrap-ai-repo/SKILL.md)
+
 ### `capture-learnings`
 
 Turn feedback from a chat into durable guidance instead of a growing list of patches.
