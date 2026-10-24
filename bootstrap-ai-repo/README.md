@@ -18,39 +18,48 @@ Git and Python 3.9 or later for the scripts in `scripts/`. `zstd` is optional an
 
 ## Install
 
-These steps are written for an agent to run. Install the whole folder, not just `SKILL.md`.
+Tell your agent:
 
-Fetch the collection:
+> Install the `bootstrap-ai-repo` skill from https://github.com/rkanjani/skills.
+
+It needs to:
+
+1. Run the installer for this one skill. It installs the whole folder, not just `SKILL.md`, and needs Node 22.20 or later.
+
+   ```bash
+   npx skills@latest add https://github.com/rkanjani/skills --skill bootstrap-ai-repo
+   ```
+
+   Add `-g` to install for every project on the machine instead of the current one, and `--agent claude-code` (or `codex`, `cursor`, ...) to pick the agent when it is not detected.
+
+2. Confirm the skill is listed (add `-g` if you installed with `-g`).
+
+   ```bash
+   npx skills@latest list
+   ```
+
+3. Start a new session so the skill is discovered.
+
+<details>
+<summary><strong>Without the installer</strong></summary>
 
 ```bash
 git clone --depth 1 https://github.com/rkanjani/skills.git /tmp/rkanjani-skills
 ```
 
-Copy the skill into the skills directory of the agent that will use it. Claude Code:
-
 ```bash
 mkdir -p ~/.claude/skills && cp -R /tmp/rkanjani-skills/bootstrap-ai-repo ~/.claude/skills/
 ```
 
-Codex:
+For Codex, copy into `~/.agents/skills` instead. To install for one project only, use its `.claude/skills/` or `.agents/skills/`. To update, run `git -C /tmp/rkanjani-skills pull` and copy again.
 
-```bash
-mkdir -p ~/.codex/skills && cp -R /tmp/rkanjani-skills/bootstrap-ai-repo ~/.codex/skills/
-```
-
-For a single project rather than the whole machine, copy into that project's `.claude/skills/` instead.
-
-Confirm `SKILL.md` exists in the installed folder, then start a new session so the skill is discovered.
+</details>
 
 ## Update
 
-Refresh the clone, then repeat the copy step; it overwrites the installed files with the latest version.
-
 ```bash
-git -C /tmp/rkanjani-skills pull
+npx skills@latest update bootstrap-ai-repo
 ```
-
-If the clone is gone, run the install steps from the top.
 
 ## Use
 

@@ -14,7 +14,7 @@ Use the active chat context or a user-supplied transcript as the source. Do not 
 3. **Choose the narrowest target.** Update a skill for reusable workflow guidance; update project context for stable project facts; update local rules only when the user explicitly asks and the rule applies to that scope. Never modify system/developer instructions, weaken safeguards, or create global policy from one local preference.
 4. **Integrate, do not append.** Read the target before editing. Strengthen, replace, or remove existing guidance so the result is shorter and more coherent than a list of feedback-derived patches. Use imperative guidance in skills, avoid transcript excerpts, and add or update tests when behavior is implemented in code.
 5. **Verify.** Run the relevant tests and skill validation. Verify claims against live external state when a workflow depends on registration, discovery, or UI state. If the evidence is insufficient, record no change and explain the missing decision instead of inventing a rule.
-6. **Hand off.** State the synthesized principle, changed files, validation performed, and any remaining uncertainty—without replaying the feedback transcript.
+6. **Hand off.** State the synthesized principle, changed files, validation performed, and any remaining uncertainty, without replaying the feedback transcript.
 
 ## Change rules
 
