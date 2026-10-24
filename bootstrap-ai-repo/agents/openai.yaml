@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bootstrap AI Repo"
+  short_description: "Make a repo ready for agents to change and verify"
+  default_prompt: "Use $bootstrap-ai-repo to get this repository ready for AI development: one check command, tests where changes concentrate, repo hygiene, CI, and an AGENTS.md proven by a cold read."
