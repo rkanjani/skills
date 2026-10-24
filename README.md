@@ -26,6 +26,7 @@ Get an existing repository ready for AI-assisted development, so an agent that h
 
 - Inventory the stack, commands, CI, agent instructions, and where changes concentrate.
 - Mine past Claude Code and Codex sessions in the repo for what people asked for and corrected.
+- Map the repo and its story: the product, every top-level path, a dated timeline of development so far, decisions, and what was removed.
 - Build one check command and add characterization tests where changes concentrate, without changing behavior.
 - Clean up what git shouldn't hold and turn a manual release into a command.
 - Write `AGENTS.md` as the single source of truth, with a `CLAUDE.md` that imports it, and run the check in CI.

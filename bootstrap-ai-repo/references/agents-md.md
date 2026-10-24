@@ -4,15 +4,15 @@
 
 Use the ones the repo needs, in this order.
 
-1. **What it is.** Two to four sentences: the product, who uses it, the main journey, and any rule that outranks the rest (a parity rule, a privacy promise). Say whether there is a build step or a backend.
+1. **What it is.** Two to four sentences: the product, who uses it, the main journey, and any rule that outranks the rest (a parity rule, a privacy promise). Say whether there is a build step or a backend. End with a pointer to the map that says when to read it ("Read `docs/PROJECT.md` for the full repo map, the product facts, and how the project got here").
 2. **How it works.** Only when the main flow crosses files or processes: a numbered path through them, naming the real functions, messages, and queues.
-3. **Where things live.** `path`: what it holds and when you'd touch it. Group related files; skip the obvious ones.
+3. **Where things live.** `path`: what it holds and when you'd touch it. Group related files; skip the obvious ones. The map holds the exhaustive version, so this list covers only what a change usually touches.
 4. **Contracts to preserve.** Stored data shapes, API and message formats, invariants and limits, and what older data or clients must keep working.
 5. **Commands.** Install, the check command (marked as the one to run before calling work done), tests alone, format, run locally, package. Exact and copy-pasteable.
 6. **Making the common change.** The change the history shows most often, as steps that start with the test.
 7. **Gotchas.** Each one is a fact plus its consequence, sourced from the evidence: what surprised past sessions, config that looks wrong but is intentional, values the owner controls.
 8. **Releasing.** The steps, and which step stays with a person.
-9. **Keeping this file true.** One line: when a change renames something this file names, update the file in the same change.
+9. **Keeping this file true.** One line: when a change renames something this file or the map names, update them in the same change, and add a line to the map's timeline for a milestone.
 
 ## Budget
 
