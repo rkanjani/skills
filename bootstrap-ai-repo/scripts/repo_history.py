@@ -20,6 +20,7 @@ from pathlib import Path
 VENDORED = re.compile(
     r"(^|/)(node_modules|bower_components|vendor|third_party|Pods|Carthage|\.venv|venv|dist|build|target|__pycache__)(/|$)"
 )
+PACKAGE = re.compile(r"^((?:.*/)?(?:node_modules|bower_components|vendor|third_party|Pods|Carthage)/)([^/]+)/")
 JUNK = re.compile(r"(^|/)(\.DS_Store|Thumbs\.db|desktop\.ini)$")
 VERSION_FILES = {
     "package.json": r'"version"\s*:\s*"([^"]+)"',
@@ -135,12 +136,17 @@ def main() -> int:
     section("Version changes", versions[-40:])
 
     appeared, removed, current_top = {}, defaultdict(set), {p.split("/")[0] for p in tracked}
+    packages_removed = {}
     for commit in commits:
         for status, path in commit["files"]:
             head = path.split("/")[0]
             if status == "A" and head not in appeared:
                 appeared[head] = commit
-            if status == "D" and not VENDORED.search(path) and not JUNK.search(path):
+            if status != "D" or JUNK.search(path):
+                continue
+            if package := PACKAGE.match(path):
+                packages_removed[package.groups()] = commit
+            elif not VENDORED.search(path):
                 removed[head if "/" in path else path].add(path)
     section(
         "When each current top-level path first appeared",
@@ -157,7 +163,20 @@ def main() -> int:
         )
         label = head if head not in current_top or "/" not in missing[0] else f"{head}/ (some files)"
         gone.append(f"- {label}: {len(missing)} file(s), last removed {last_delete['date']} {last_delete['sha']} {last_delete['subject']}")
-    section("Removed and not restored (vendored paths skipped)", gone[:40])
+    section("Removed and not restored", gone[:40])
+
+    vendored, whole_roots = [], set()
+    for (root, name), commit in sorted(packages_removed.items()):
+        if any(p.startswith(root + name + "/") for p in tracked):
+            continue
+        if not any(p.startswith(root) for p in tracked):
+            whole_roots.add(root)
+            continue
+        vendored.append(f"- {root}{name}: last removed {commit['date']} {commit['sha']} {commit['subject']}")
+    for root in sorted(whole_roots):
+        last = max((c for (r, _), c in packages_removed.items() if r == root), key=lambda c: c["date"])
+        vendored.insert(0, f"- {root} (the whole folder): last removed {last['date']} {last['sha']} {last['subject']}")
+    section("Vendored packages removed", vendored[:40])
 
     sized = sorted(
         commits,

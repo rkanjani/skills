@@ -7,7 +7,7 @@ Write it to `docs/PROJECT.md`, or extend the repo's existing equivalent (`docs/s
 ## Sections
 
 1. **The product.** What it does and for whom, in the repo's own words where it has them (store listing, README, package description). Where it ships and under what name (store listing, URL, package name, platforms), the current version, and whether it is active, in maintenance, or dormant. How it makes money, if it does (paid, ads, affiliate links, donations), and what data it collects and where that data goes, including analytics that were removed.
-2. **Repo map.** Every tracked top-level path, each labelled first-party, vendored, generated, build output, fixture, config, or docs, with one line on what it is. Then the entry points (what runs first for each surface) and how the pieces connect at runtime: a small text or Mermaid diagram of the processes, scripts, services, and the messages or calls between them, plus every external service the code talks to.
+2. **Repo map.** Every tracked top-level path, each labelled first-party, vendored, generated, build output, fixture, config, or docs, with one line on what it is, plus the gitignored folders a working checkout grows (dependencies, build output). Then the entry points (what runs first for each surface) and how the pieces connect at runtime: a small text or Mermaid diagram of the processes, scripts, services, and the messages or calls between them, plus every external service the code talks to.
 3. **How it got here.** A dated timeline of eras and milestones: the first version, rewrites, platform migrations, features added and removed, releases and version jumps, long pauses and what restarted the work. One line each, with the commit, tag, or pull request that marks it.
 4. **Decisions.** Choices that still shape the code (framework, storage, architecture, distribution) and the reason for each when it is known.
 5. **Removed and abandoned.** Files, dependencies, and features that used to exist, when they went, and why when known, so nobody brings one back without meaning to or goes looking for it.
@@ -15,7 +15,7 @@ Write it to `docs/PROJECT.md`, or extend the repo's existing equivalent (`docs/s
 
 ## Sources
 
-- `scripts/repo_history.py <repo>`: span and pace, quiet stretches, tags, merged pull requests, version changes, when each top-level path appeared, what was removed, the largest commits, TODO markers, and open issues and pull requests.
+- `scripts/repo_history.py <repo>`: span and pace, quiet stretches, tags, merged pull requests, version changes, when each top-level path appeared, what was removed (first-party files and vendored packages), the largest commits, TODO markers, and open issues and pull requests.
 - `scripts/repo_inventory.py <repo>`: the current layout and where changes concentrate.
 - Pull request descriptions and review threads for the merges the history lists (`gh pr view <n>`), when they exist.
 - The session evidence (see [evidence.md](evidence.md)) for decisions and intent that never reached a commit message.
