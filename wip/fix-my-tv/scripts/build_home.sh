@@ -1,13 +1,13 @@
 #!/bin/sh
 # Build the home screen APK from ../home with the Android SDK's own tools. No Gradle, no downloads.
 # Needs: Android SDK build-tools and a platform (android-30 or later), and JDK 17 or later.
-# Usage: build_home.sh [OUT_DIR]     (default OUT_DIR: ~/.config/revamp-android-tv/build)
+# Usage: build_home.sh [OUT_DIR]     (default OUT_DIR: ~/.config/fix-my-tv/build)
 # Prints the path of the signed APK on the last line.
 set -eu
 
 here=$(cd "$(dirname "$0")/.." && pwd -P)
 src="$here/home"
-state="${REVAMP_TV_HOME:-$HOME/.config/revamp-android-tv}"
+state="${FIX_MY_TV_HOME:-$HOME/.config/fix-my-tv}"
 out="${1:-$state/build}"
 
 sdk=""
@@ -34,7 +34,7 @@ fi
 export JAVA_HOME PATH="$JAVA_HOME/bin:$PATH"
 
 echo "SDK $sdk, build-tools $bt, $platform, JDK $JAVA_HOME" >&2
-work=$(mktemp -d "${TMPDIR:-/tmp}/revamp-home.XXXXXX")
+work=$(mktemp -d "${TMPDIR:-/tmp}/fix-my-tv-home.XXXXXX")
 trap 'rm -rf "${work:?}"' EXIT
 mkdir -p "$work/gen" "$work/classes" "$work/dex" "$out"
 

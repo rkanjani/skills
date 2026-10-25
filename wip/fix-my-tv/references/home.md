@@ -16,13 +16,13 @@
 - An Android SDK with build-tools and a platform (android-30 or later). Without one: `brew install --cask android-commandlinetools`, then `sdkmanager "build-tools;36.0.0" "platforms;android-36"` (Linux: Android's command-line tools zip).
 - JDK 17 or later: `brew install openjdk@17`, or an Android Studio install, whose bundled JDK the script finds.
 
-It signs with a key it creates once at `~/.config/revamp-android-tv/home-signing.jks` (password beside it, owner-only), so later builds install over earlier ones. Never commit or print either file.
+It signs with a key it creates once at `~/.config/fix-my-tv/home-signing.jks` (password beside it, owner-only), so later builds install over earlier ones. Never commit or print either file.
 
 ## Swapping it in
 
 The order matters, because a TV with no working home screen shows a blank screen:
 
-1. `tv.py home install APK`, then `tv.py ui open app.revamp.home/.HomeActivity` and `tv.py shot` to see it render with the user's apps.
+1. `tv.py home install APK`, then `tv.py ui open app.fixmytv.home/.HomeActivity` and `tv.py shot` to see it render with the user's apps.
 2. `tv.py home set` makes it the default (`set-home-activity`, plus the home role on Android 10 and later). Stock homes on Android TV and Google TV declare a higher priority, so the Home button usually keeps opening them; `set` says so.
 3. `tv.py home verify` presses Home, and when the stock home still wins, opens the new home directly to prove it runs. Only then:
 4. `tv.py home stock --disable` turns off the other home screens, presses Home, and turns them back on if the new home doesn't appear. On Google TV it also turns off the setup app (`home-guard` in `packages.tsv`) once setup is complete, because some builds reopen setup when their home is gone.
@@ -34,5 +34,5 @@ What the user gives up when the stock home is off: the stock recommendation rows
 
 - **Blank screen or setup wizard after reboot**: `tv.py restore` re-enables everything that was turned off. Or by hand: `adb shell pm enable com.google.android.apps.tv.launcherx` (or the TV's home package) and `adb shell pm enable com.google.android.tungsten.setupwraith`.
 - **Home button still opens the stock home**: the TV's home is still enabled; run step 4, or the vendor home is a different package, which `tv.py home stock` lists.
-- **App crashes or looks wrong**: `adb logcat -d | grep -A20 app.revamp.home`; fix `home/src`, rebuild, `home install` again (it installs over and keeps the user's order).
+- **App crashes or looks wrong**: `adb logcat -d | grep -A20 app.fixmytv.home`; fix `home/src`, rebuild, `home install` again (it installs over and keeps the user's order).
 - **To go back to stock only**: `tv.py restore --remove-home`.

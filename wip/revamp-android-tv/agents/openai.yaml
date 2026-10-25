@@ -1,4 +1,0 @@
-interface:
-  display_name: "Revamp Android TV"
-  short_description: "Debloat, de-track and speed up an Android TV, with a new home screen"
-  default_prompt: "Use $revamp-android-tv to find my Android TV, remove the apps and trackers I don't want, speed it up, and give it a fast, Apple TV style home screen."

@@ -1,4 +1,4 @@
-package app.revamp.home;
+package app.fixmytv.home;
 
 import android.content.Context;
 import android.graphics.Outline;

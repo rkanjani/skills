@@ -54,7 +54,7 @@ com.google.android.tv.remote.service	core	phone remote and the Google TV app rem
 com.google.android.tts	core	text to speech
 com.android.media*	core	media system
 com.android.server.*	core	system server parts
-app.revamp.home	core	the new home screen
+app.fixmytv.home	core	the new home screen
 
 com.google.android.apps.tv.launcherx	home	Google TV home screen
 com.google.android.tvlauncher	home	Android TV home screen

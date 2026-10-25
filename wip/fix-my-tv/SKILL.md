@@ -1,16 +1,16 @@
 ---
-name: revamp-android-tv
-description: Revamp an Android TV or Google TV from a laptop over ADB. Finds the TV on the network, removes bloatware and preinstalled apps the owner doesn't want, turns off ad tracking and data collection, speeds it up, and replaces the home screen with a fast, beautiful Apple TV style launcher. Use when someone wants their Android TV or Google TV debloated, de-tracked, faster, or given a cleaner home screen, or wants a previous revamp undone.
+name: fix-my-tv
+description: Fix an Android TV or Google TV from a laptop over ADB. Finds the TV on the network, removes bloatware and preinstalled apps the owner doesn't want, turns off ad tracking and data collection, speeds it up, and replaces the home screen with a fast, beautiful Apple TV style launcher. Use when someone wants their Android TV or Google TV debloated, de-tracked, faster, or given a cleaner home screen, or wants those changes undone.
 ---
 
-# Revamp an Android TV (work in progress)
+# Fix my TV (work in progress)
 
 The outcome is a TV that boots to a clean, fast home screen, runs only what its owner uses, and sends as little data as it can, with every change reversible from the laptop.
 
 Two rules hold throughout:
 
 - **One plan, approved once.** Nothing on the TV changes until the owner has seen and approved the whole plan. After that, carry it out without asking again; ask only about something the plan didn't cover.
-- **Every change is in the change log.** Make changes only through `scripts/tv.py`, which records each one in `~/.config/revamp-android-tv/devices/<serial>/changes.jsonl` so `tv.py restore` can undo it. Menu toggles changed with `tv.py ui` are the exception; list them in the hand-off.
+- **Every change is in the change log.** Make changes only through `scripts/tv.py`, which records each one in `~/.config/fix-my-tv/devices/<serial>/changes.jsonl` so `tv.py restore` can undo it. Menu toggles changed with `tv.py ui` are the exception; list them in the hand-off.
 
 All scripts are in `scripts/`; run them with `python3` from the skill folder.
 
@@ -31,7 +31,7 @@ All scripts are in `scripts/`; run them with `python3` from the skill folder.
 
    Move what they pick into `remove` (system apps), `uninstall` (apps they installed; permanent), or `disable`, and delete the `ask` key. Done when the owner has approved the final plan.
 
-5. **Swap the home screen.** Build with `scripts/build_home.sh` (needs an Android SDK and JDK; see home.md), then `tv.py home install <apk>`, open it with `tv.py ui open app.revamp.home/.HomeActivity`, and look at a `tv.py shot`: tiles show the owner's apps with their art, the shelf glows, focus moves with `tv.py ui key RIGHT DOWN`. Then `tv.py home set`, `tv.py home verify`, `tv.py home stock --disable` (it checks the Home button and turns the stock home back on if it misses), and `tv.py home verify --reboot`. Done when the reboot check lands on `app.revamp.home`. If it doesn't, follow "If something goes wrong" in home.md before anything else.
+5. **Swap the home screen.** Build with `scripts/build_home.sh` (needs an Android SDK and JDK; see home.md), then `tv.py home install <apk>`, open it with `tv.py ui open app.fixmytv.home/.HomeActivity`, and look at a `tv.py shot`: tiles show the owner's apps with their art, the shelf glows, focus moves with `tv.py ui key RIGHT DOWN`. Then `tv.py home set`, `tv.py home verify`, `tv.py home stock --disable` (it checks the Home button and turns the stock home back on if it misses), and `tv.py home verify --reboot`. Done when the reboot check lands on `app.fixmytv.home`. If it doesn't, follow "If something goes wrong" in home.md before anything else.
 
 6. **Apply the plan.** `tv.py apply plan.json --dry-run`, then `tv.py apply plan.json`. Done when every line reads `ok` or `skip`. A `FAIL` or `REFUSED` is reported to the owner, never forced.
 

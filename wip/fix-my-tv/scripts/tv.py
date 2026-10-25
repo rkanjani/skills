@@ -19,7 +19,7 @@
   tv.py restore [--remove-home] [--dry-run]   undo every logged change, newest first
 
 Pass -s SERIAL when more than one device is connected. State lives in
-$REVAMP_TV_HOME or ~/.config/revamp-android-tv/devices/<serial>/.
+$FIX_MY_TV_HOME or ~/.config/fix-my-tv/devices/<serial>/.
 """
 import argparse
 import fnmatch
@@ -34,8 +34,8 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PACKAGES_TSV = os.path.join(HERE, "..", "references", "packages.tsv")
-STATE = os.environ.get("REVAMP_TV_HOME") or os.path.expanduser("~/.config/revamp-android-tv")
-HOME_PKG = "app.revamp.home"
+STATE = os.environ.get("FIX_MY_TV_HOME") or os.path.expanduser("~/.config/fix-my-tv")
+HOME_PKG = "app.fixmytv.home"
 HOME_COMPONENT = HOME_PKG + "/.HomeActivity"
 KEYS = {"UP": 19, "DOWN": 20, "LEFT": 21, "RIGHT": 22, "CENTER": 23, "OK": 23, "ENTER": 66,
         "BACK": 4, "HOME": 3, "MENU": 82, "PLAY": 85, "SETTINGS": 176}
@@ -496,8 +496,8 @@ def cmd_optimize(tv, args):
 
 
 def ui_nodes(tv):
-    tv.sh("uiautomator dump /sdcard/revamp-ui.xml")
-    xml = tv.run("exec-out", "cat /sdcard/revamp-ui.xml").stdout
+    tv.sh("uiautomator dump /sdcard/fix-my-tv-ui.xml")
+    xml = tv.run("exec-out", "cat /sdcard/fix-my-tv-ui.xml").stdout
     if "<hierarchy" not in xml:
         die("UI dump failed: " + xml[:200])
     # A tiny tokenizer instead of an XML library: some Python builds ship without a working expat.
