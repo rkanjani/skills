@@ -1,0 +1,131 @@
+# Package classification for tv.py. Columns: package or wildcard pattern, group, note (tab separated).
+# An exact name wins; among wildcards a core pattern wins, then the longest.
+# Groups:
+#   core        never touched; the TV needs it
+#   home        a stock home screen; turned off only by `tv.py home stock --disable` after the new home is verified
+#   home-guard  setup apps that can reopen setup once the stock home is off; turned off with it, only after setup is complete
+#   ads         ads, tracking, telemetry; in the default plan
+#   bloat       preinstalled apps and services most people never use; ask
+#   optional    features some people rely on; ask
+#   vendor      brand or chip services; review with the user, leave alone when unsure
+# Anything unlisted is "system" (left alone) or "user" (installed by the owner).
+
+android	core	Android framework
+com.android.systemui	core	system UI
+com.android.settings	core	settings, also the fallback home
+com.android.tv.settings	core	TV settings, also the fallback home
+com.android.shell	core	ADB shell
+com.android.providers.*	core	system data providers
+com.android.packageinstaller	core	installs apps
+com.google.android.packageinstaller	core	installs apps
+com.android.permissioncontroller	core	permissions
+com.google.android.permissioncontroller	core	permissions
+com.android.vending	core	Play Store
+com.google.android.gms	core	Google Play services
+com.google.android.gsf	core	Google services framework
+com.google.android.webview	core	WebView, used by many apps
+com.android.webview	core	WebView
+com.google.android.ext.services	core	system services module
+com.android.ext.services	core	system services module
+com.google.android.modulemetadata	core	system module metadata
+com.android.bluetooth	core	Bluetooth, used by most remotes
+com.android.inputdevices	core	input devices
+com.android.externalstorage	core	storage
+com.android.location.fused	core	location provider
+com.android.keychain	core	certificates
+com.android.certinstaller	core	certificates
+com.android.se	core	secure element
+com.android.networkstack*	core	networking
+com.google.android.networkstack*	core	networking
+com.android.wifi*	core	Wi-Fi
+com.google.android.wifi*	core	Wi-Fi
+com.android.tethering*	core	networking
+com.google.android.tethering*	core	networking
+com.android.tv	core	Live TV and inputs
+com.google.android.tv	core	Live Channels and inputs
+com.android.tv.*	core	TV system pieces
+*tvinput*	core	TV input (HDMI, tuner)
+*hdmi*	core	HDMI and input switching
+*cec*	core	HDMI-CEC remote and power control
+*tuner*	core	tuner
+*inputmethod*	core	on-screen keyboard
+com.google.android.leanback.ime	core	on-screen keyboard for TV
+com.google.android.tv.remote.service	core	phone remote and the Google TV app remote
+com.google.android.tts	core	text to speech
+com.android.media*	core	media system
+com.android.server.*	core	system server parts
+app.fixmytv.home	core	the new home screen
+
+com.google.android.apps.tv.launcherx	home	Google TV home screen
+com.google.android.tvlauncher	home	Android TV home screen
+com.google.android.leanbacklauncher	home	older Android TV home screen
+com.google.android.tungsten.setupwraith	home-guard	Google TV setup; reopens setup on some builds when its home is off
+
+com.google.android.feedback	ads	sends crash and feedback reports to Google
+com.google.android.partnersetup	ads	partner setup and attribution
+com.google.android.adservices.api	ads	Privacy Sandbox ad topics and measurement
+com.android.adservices.api	ads	Privacy Sandbox ad topics and measurement
+com.google.android.ondevicepersonalization.services	ads	on-device ad personalization
+com.google.android.ext.adservices.api	ads	Privacy Sandbox ad services (older builds)
+com.google.android.federatedcompute	ads	federated learning for ad and usage models
+com.google.mainline.telemetry	ads	module telemetry; some TVs refuse its removal
+tv.samba.*	ads	Samba TV viewing data collection (ACR)
+tv.alphonso.*	ads	Alphonso viewing data collection (ACR)
+com.nielsen.*	ads	Nielsen audience measurement
+com.facebook.appmanager	ads	Facebook background installer
+com.facebook.services	ads	Facebook background services
+com.facebook.system	ads	Facebook background installer
+com.miui.analytics	ads	Xiaomi analytics
+com.miui.msa.global	ads	Xiaomi ad service
+
+com.google.android.youtube.tv	bloat	YouTube
+com.google.android.youtube.tvmusic	bloat	YouTube Music
+com.google.android.youtube.tvkids	bloat	YouTube Kids
+com.google.android.youtube.tvunplugged	bloat	YouTube TV
+com.google.android.videos	bloat	Google TV (movies and shows store)
+com.google.android.play.games	bloat	Google Play Games
+com.netflix.ninja	bloat	Netflix
+com.netflix.partner.activation	bloat	Netflix preload helper
+com.amazon.amazonvideo.livingroom	bloat	Prime Video
+com.disney.disneyplus	bloat	Disney+
+com.hulu.livingroomplus	bloat	Hulu
+com.wbd.stream	bloat	Max
+com.apple.atve.androidtv.appletv	bloat	Apple TV app
+com.spotify.tv.android	bloat	Spotify
+com.plexapp.android	bloat	Plex
+tv.pluto.android	bloat	Pluto TV (ad-supported)
+com.tubitv	bloat	Tubi (ad-supported)
+com.haystack.android	bloat	Haystack News (ad-supported)
+com.google.android.tv.bugreportsender	bloat	bug report uploader
+com.android.printspooler	bloat	printing, unused on a TV
+com.android.bookmarkprovider	bloat	browser bookmarks
+com.android.providers.partnerbookmarks	bloat	partner bookmarks
+com.android.dreams.basic	bloat	"Colors" screensaver
+com.android.dreams.phototable	bloat	photo screensaver
+
+com.google.android.apps.mediashell	optional	Chromecast built-in: keep it to cast from a phone
+com.google.android.katniss	optional	Google app: voice search and Assistant
+com.google.android.apps.tv.dreamx	optional	Ambient mode screensaver (photos, weather, suggestions)
+com.google.android.backdrop	optional	Backdrop screensaver
+com.google.android.tvrecommendations	optional	recommendation rows for the stock home; unused once it's replaced
+com.google.android.leanbacklauncher.recommendations	optional	recommendation rows for the stock home
+com.google.android.marvin.talkback	optional	TalkBack screen reader
+com.google.android.apps.tv.kidsmode*	optional	Google TV kids profiles
+
+com.sony.*	vendor	Sony services
+com.sony.dtv.*	vendor	Sony TV services
+com.tcl.*	vendor	TCL services
+com.hisense.*	vendor	Hisense services
+com.philips.*	vendor	Philips services
+org.droidtv.*	vendor	Philips TV services
+com.tpv.*	vendor	TP Vision (Philips) services
+com.xiaomi.*	vendor	Xiaomi services
+com.mitv.*	vendor	Xiaomi TV services
+com.skyworth.*	vendor	Skyworth services
+com.toshiba.*	vendor	Toshiba services
+com.sharp.*	vendor	Sharp services
+com.nvidia.*	vendor	NVIDIA Shield services
+com.mediatek.*	vendor	MediaTek chip services; most are needed
+com.realtek.*	vendor	Realtek chip services; most are needed
+com.amlogic.*	vendor	Amlogic chip services; most are needed
+com.droidlogic.*	vendor	Amlogic chip services; most are needed
