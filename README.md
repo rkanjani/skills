@@ -46,6 +46,19 @@ Turn feedback from a chat into durable guidance instead of a growing list of pat
 
 [Explore `capture-learnings`](./capture-learnings/SKILL.md)
 
+### `export-chats`
+
+Export every Claude Code and Codex conversation about a project into one zip.
+
+- Match sessions in both agents by working directory, git remote, or project name, worktrees included.
+- Dry-run the match before writing anything.
+- Write a readable Markdown transcript per session plus an `index.csv`.
+- Keep the raw session files, subagent logs, tool outputs and images alongside.
+
+Needs Python 3 and `zstd`.
+
+[Explore `export-chats`](./export-chats/SKILL.md)
+
 ### `grok-bot-team`
 
 Set up a Grok Bot product team without duplicating roles that already match the model.
