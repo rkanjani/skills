@@ -14,10 +14,10 @@ Bootstrap a project conversation: bundle the project's chat history from both ag
 2. **Dry-run the match.** Run:
 
    ```bash
-   python3 -I <skill>/scripts/export_chats.py --match <term> [--match <term> ...] --dry-run
+   python3 -I <skill>/scripts/export_chats.py --match <term> [--match <term> ...] [--exclude <term> ...] --dry-run
    ```
 
-   A session matches when a term appears in its working directory, git remote, Claude project folder name, or a Codex thread's first message, ignoring case and punctuation. Read the listed folders and threads. Done when every listed item is this project and nothing obvious is missing; narrow a term that pulls in other projects and add one when a known session is absent.
+   A session matches when a term appears in its working directory, git remote, Claude project folder name, or a Codex thread's first message, ignoring case and punctuation. Read the listed folders and threads. Done when every listed item is this project and nothing obvious is missing; drop an unrelated hit with `--exclude <term>` (matched against its folder or working directory), narrow a term that pulls in many, and add one when a known session is absent.
 
 3. **Export.** Run the same command with `--out <path>.zip` instead of `--dry-run`. Write to a durable place the user can reach, such as `~/Documents/<project>-chats-<date>.zip`, never inside the repo. Large histories take a minute or more and can reach hundreds of MB, so run it in the background when it may pass two minutes. Done when the script prints the zip path and a nonzero session count.
 

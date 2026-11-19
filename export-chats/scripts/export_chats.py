@@ -2,11 +2,12 @@
 """Export every Claude Code and Codex session about a project into one zip.
 
 Usage:
-  export_chats.py --match <term> [--match <term> ...] --out <file.zip> [--dry-run]
+  export_chats.py --match <term> [--match <term> ...] [--exclude <term> ...] --out <file.zip> [--dry-run]
 
 A session matches when a term appears (case-insensitive, punctuation ignored) in
 its working directory, its git remote, its Claude project folder name, or the
-first user message of a Codex thread.
+first user message of a Codex thread. --exclude drops a session whose Claude project folder
+name or working directory contains the term.
 """
 
 import argparse
@@ -30,7 +31,8 @@ CODEX = HOME / ".codex"
 INJECTED_TAGS = (
     "system-reminder|heartbeat|recommended_plugins|in-app-browser-context|skill|"
     "task-notification|codex_internal_context|side-sessions-event|external_codex_apps_open_page|"
-    "ci-monitor-event|scheduled-task|environment_context|user_instructions|permissions"
+    "ci-monitor-event|scheduled-task|environment_context|user_instructions|permissions|"
+    "turn_aborted|external_browser_tabs"
 )
 INJECTED_PREFIXES = ("<command-", "<local-command", "# AGENTS.md", "Caveat:")
 
@@ -59,7 +61,18 @@ def text_of(content):
     return "\n".join(parts)
 
 
+def render_answers(m):
+    """Turn a Codex question-reply block into readable Q and A lines."""
+    try:
+        items = json.loads(m.group(1))
+        return "\n\n".join(f"> {i.get('question', '')}\n\n{i.get('answer', '')}" for i in items)
+    except (ValueError, AttributeError):
+        return m.group(1)
+
+
 def clean_user(t):
+    t = re.sub(r"<send_user_message_question_reply>\s*(.*?)\s*</send_user_message_question_reply>",
+               render_answers, t, flags=re.S)
     t = re.sub(rf"<({INJECTED_TAGS})\b[^>]*>.*?</\1[^>]*>", "", t, flags=re.S).strip()
     return "" if (not t or t.startswith(INJECTED_PREFIXES)) else t
 
@@ -247,6 +260,8 @@ Raw files can hold secrets that appeared in tool output (env values, tokens). Ke
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--match", action="append", required=True, help="project term; repeatable")
+    ap.add_argument("--exclude", action="append", default=[],
+                    help="drop sessions whose folder or cwd contains this term; repeatable")
     ap.add_argument("--out", help="zip file to write (required unless --dry-run)")
     ap.add_argument("--dry-run", action="store_true", help="count matches without writing")
     args = ap.parse_args()
@@ -254,8 +269,9 @@ def main():
     terms = [norm(t) for t in args.match if norm(t)]
     if not terms:
         sys.exit("--match needs at least one letter or digit")
-    projects = claude_sessions(terms)
-    threads = list(codex_threads(terms))
+    excludes = [norm(t) for t in args.exclude if norm(t)]
+    projects = [p for p in claude_sessions(terms) if not matches(excludes, p.name)]
+    threads = [t for t in codex_threads(terms) if not matches(excludes, t[2])]
     print(f"claude-code project folders: {len(projects)}")
     print(f"codex threads: {len(threads)}")
     if args.dry_run:
