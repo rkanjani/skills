@@ -1,11 +1,11 @@
 ---
 name: export-chats
-description: Export every Claude Code and Codex chat about a project into one zip of readable transcripts plus raw session files. Use when the user asks for a dump, export, archive, backup or zip of their chats, conversations or sessions about a project, app or repo.
+description: Bootstrap a new conversation about a project with its full history by exporting every Claude Code and Codex chat about it into one zip of readable transcripts plus raw session files. Use when the user wants to bootstrap or seed a new chat, Claude project or agent with a project's past conversations, or asks for a dump, export or zip of their chats about a project, app or repo.
 ---
 
 # Export chats
 
-Bundle a project's chat history from both agents on this machine into one zip: a readable Markdown transcript per session, the raw session JSONL, an `index.csv`, and a README. `scripts/export_chats.py` does the deterministic work.
+Bootstrap a project conversation: bundle the project's chat history from both agents on this machine into one zip that a new conversation, Claude project, or agent can load as context, so it starts knowing what was built, decided, and corrected instead of from zero. The zip holds a readable Markdown transcript per session (the part to load), the raw session JSONL, an `index.csv`, and a README. `scripts/export_chats.py` does the deterministic work.
 
 ## Steps
 
@@ -23,7 +23,7 @@ Bundle a project's chat history from both agents on this machine into one zip: a
 
 4. **Spot-check.** Open one Claude Code and one Codex transcript from the zip (`unzip -p <zip> '*/codex/transcripts/*' | head -60`). Done when each shows real user messages and agent replies, not injected context. When a new kind of injected block shows through, add its tag to `INJECTED_TAGS` in the script and export again.
 
-5. **Hand off.** Give the zip path, its size, and the session counts per agent, and send the file when a file-sending tool is available. Say that raw files can hold secrets from tool output, so the zip stays private.
+5. **Hand off for bootstrapping.** Give the zip path, its size, and the session counts per agent, and send the file when a file-sending tool is available. Tell the user how to seed the new conversation: upload the `transcripts/` folders and `index.csv` (not `raw/`, which is mostly tool output) as project knowledge or attachments, and open with a prompt like "Read these past conversations about <project> and summarize what was built, the decisions made, and my corrections before we continue." Say that raw files can hold secrets from tool output, so the zip stays private.
 
 ## What the zip holds
 

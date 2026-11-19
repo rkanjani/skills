@@ -230,6 +230,10 @@ def export_codex(threads, out, index, missing):
 
 README = """# Chat export: {label} ({date})
 
+Use this to bootstrap a new conversation about the project: upload the two `transcripts/`
+folders and `index.csv` to a fresh chat, Claude project, or agent so it starts with the
+project's history. Leave `raw/` out.
+
 - `index.csv`: every session, oldest first, with title, folder and transcript path.
 - `claude-code/transcripts/`, `codex/transcripts/`: readable Markdown of your messages and the
   agent's replies. Tool calls and injected context are left out.

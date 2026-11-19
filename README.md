@@ -48,12 +48,13 @@ Turn feedback from a chat into durable guidance instead of a growing list of pat
 
 ### `export-chats`
 
-Export every Claude Code and Codex conversation about a project into one zip.
+Bootstrap a new project conversation from everything already discussed: export every Claude Code and Codex conversation about the project into one zip, then load its transcripts into a fresh chat, Claude project, or agent.
 
 - Match sessions in both agents by working directory, git remote, or project name, worktrees included.
 - Dry-run the match before writing anything.
 - Write a readable Markdown transcript per session plus an `index.csv`.
 - Keep the raw session files, subagent logs, tool outputs and images alongside.
+- Hand off with how to seed the new conversation.
 
 Needs Python 3 and `zstd`.
 

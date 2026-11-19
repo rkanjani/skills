@@ -1,4 +1,4 @@
 interface:
   display_name: "Export Chats"
-  short_description: "Zip every Claude Code and Codex chat about a project"
-  default_prompt: "Use $export-chats to zip every Claude Code and Codex conversation about this project, with readable transcripts and the raw session files."
+  short_description: "Bootstrap a project conversation from past chats"
+  default_prompt: "Use $export-chats to bootstrap a new conversation about this project by zipping my past Claude Code and Codex chats about it."
