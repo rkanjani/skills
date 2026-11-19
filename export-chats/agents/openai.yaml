@@ -1,0 +1,4 @@
+interface:
+  display_name: "Export Chats"
+  short_description: "Bootstrap a project conversation from past chats"
+  default_prompt: "Use $export-chats to bootstrap a new conversation about this project by zipping my past Claude Code and Codex chats about it."
